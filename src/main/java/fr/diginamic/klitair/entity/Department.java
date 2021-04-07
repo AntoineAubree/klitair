@@ -47,6 +47,7 @@ public class Department {
 	@NotNull
 	private Region region;
 
+	/** towns */
 	@OneToMany(mappedBy = "department")
 	private Set<Town> towns = new HashSet<Town>();
 

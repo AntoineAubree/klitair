@@ -3,6 +3,9 @@
  */
 package fr.diginamic.klitair.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,35 +24,58 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Town {
-	
+
 	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	/** code */
 	@Column(length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
 	private String code;
-	
+
 	/** name */
 	@Column(length = 200, nullable = false)
 	@Size(min = 1, max = 200)
 	@NotNull
 	private String name;
-	
-	@Column(length = 5, nullable = false)
+
+	/** postCode */
+	@Column(name = "post_code", length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
 	private String postCode;
-	
+
+	/** population */
 	@Min(0)
 	private int population;
-	
+
+	/** department */
 	@ManyToOne
-	@JoinColumn( name= "id_departement")
+	@JoinColumn(name = "id_departement")
 	private Department department;
+
+	/** weathers */
+	@OneToMany(mappedBy = "town")
+	private Set<Weather> weathers = new HashSet<Weather>();
+
+	/** air quality */
+	@OneToMany(mappedBy = "town")
+	private Set<Weather> airQuality = new HashSet<Weather>();
+
+	/** favourites */
+	@OneToMany(mappedBy = "town")
+	private Set<Favourite> favourites = new HashSet<Favourite>();
+
+	/** address */
+	@OneToMany(mappedBy = "town")
+	private Set<Address> address = new HashSet<Address>();
+
+	/** town forecast alert */
+	@OneToMany(mappedBy = "town")
+	private Set<TownForecastAlert> forecasts = new HashSet<TownForecastAlert>();
 
 	/**
 	 * Constructor WITHOUT params
@@ -59,12 +86,13 @@ public class Town {
 
 	/**
 	 * Constructor WITH params
+	 * 
 	 * @param code
 	 * @param name
 	 * @param postCode
 	 * @param population
 	 */
-	public Town( @Size(min = 5, max = 5) @NotNull String code, @Size(min = 1, max = 200) @NotNull String name,
+	public Town(@Size(min = 5, max = 5) @NotNull String code, @Size(min = 1, max = 200) @NotNull String name,
 			@Size(min = 5, max = 5) @NotNull String postCode, @Min(0) int population) {
 		super();
 		this.code = code;
@@ -176,6 +204,75 @@ public class Town {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	
-	
+
+	/**
+	 * @return the weathers
+	 */
+	public Set<Weather> getWeathers() {
+		return weathers;
+	}
+
+	/**
+	 * @param weathers the weathers to set
+	 */
+	public void setWeathers(Set<Weather> weathers) {
+		this.weathers = weathers;
+	}
+
+	/**
+	 * @return the airQuality
+	 */
+	public Set<Weather> getAirQuality() {
+		return airQuality;
+	}
+
+	/**
+	 * @param airQuality the airQuality to set
+	 */
+	public void setAirQuality(Set<Weather> airQuality) {
+		this.airQuality = airQuality;
+	}
+
+	/**
+	 * @return the favourites
+	 */
+	public Set<Favourite> getFavourites() {
+		return favourites;
+	}
+
+	/**
+	 * @param favourites the favourites to set
+	 */
+	public void setFavourites(Set<Favourite> favourites) {
+		this.favourites = favourites;
+	}
+
+	/**
+	 * @return the forecasts
+	 */
+	public Set<TownForecastAlert> getForecasts() {
+		return forecasts;
+	}
+
+	/**
+	 * @param forecasts the forecasts to set
+	 */
+	public void setForecasts(Set<TownForecastAlert> forecasts) {
+		this.forecasts = forecasts;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Set<Address> getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Set<Address> address) {
+		this.address = address;
+	}
+
 }
