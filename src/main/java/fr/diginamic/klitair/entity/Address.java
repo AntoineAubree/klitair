@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
  *
  */
 @Embeddable
-public class Adress {
+public class Address {
 	
 	private String nbStreet;
 	private String street;
