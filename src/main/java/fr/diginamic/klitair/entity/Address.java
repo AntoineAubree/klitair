@@ -14,31 +14,36 @@ import javax.validation.constraints.Size;
  */
 @Embeddable
 public class Address {
-	
+
 	/** nbStreet */
 	@Column(name = "nb_street", length = 10, nullable = false)
 	@Size(min = 1, max = 10)
 	@NotNull
 	private String nbStreet;
-	
+
 	/** street */
 	@Column(length = 80, nullable = false)
 	@Size(min = 1, max = 80)
 	@NotNull
 	private String street;
-	
-	/** town */
-	private Town town;
-	
+
+	/** user */
+	private User user;
+
 	public Address() {
 	}
 
+	/**
+	 * @param nbStreet
+	 * @param street
+	 * @param user
+	 */
 	public Address(@Size(min = 1, max = 10) @NotNull String nbStreet, @Size(min = 1, max = 80) @NotNull String street,
-			Town town) {
+			User user) {
 		super();
 		this.nbStreet = nbStreet;
 		this.street = street;
-		this.town = town;
+		this.user = user;
 	}
 
 	@Override
@@ -81,17 +86,17 @@ public class Address {
 	}
 
 	/**
-	 * @return the town
+	 * @return the user
 	 */
-	public Town getTown() {
-		return town;
+	public User getUser() {
+		return user;
 	}
 
 	/**
-	 * @param town the town to set
+	 * @param user the user to set
 	 */
-	public void setTown(Town town) {
-		this.town = town;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	

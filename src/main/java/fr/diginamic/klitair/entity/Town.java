@@ -69,9 +69,9 @@ public class Town {
 	@OneToMany(mappedBy = "town")
 	private Set<Favourite> favourites = new HashSet<Favourite>();
 
-	/** address */
+	/** users */
 	@OneToMany(mappedBy = "town")
-	private Set<Address> address = new HashSet<Address>();
+	private Set<User> users = new HashSet<User>();
 
 	/** town forecast alert */
 	@OneToMany(mappedBy = "town")
@@ -262,17 +262,19 @@ public class Town {
 	}
 
 	/**
-	 * @return the address
+	 * @return the users
 	 */
-	public Set<Address> getAddress() {
-		return address;
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param users the users to set
 	 */
-	public void setAddress(Set<Address> address) {
-		this.address = address;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
+
+	
 
 }

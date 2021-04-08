@@ -89,15 +89,15 @@ public class User {
 	private Set<TownForecastAlert> townForecastAlerts = new HashSet<TownForecastAlert>();
 
 	/** sections */
-	@OneToMany(mappedBy = "sections")
+	@OneToMany(mappedBy = "user")
 	private Set<Section> sections = new HashSet<Section>();
 
 	/** discussion thread */
-	@OneToMany(mappedBy = "section")
+	@OneToMany(mappedBy = "user")
 	private Set<DiscussionThread> discussionThread = new HashSet<DiscussionThread>();
 
 	/** messages */
-	@OneToMany(mappedBy = "discussionThread")
+	@OneToMany(mappedBy = "user")
 	private Set<Message> messages = new HashSet<Message>();
 
 	public User() {
