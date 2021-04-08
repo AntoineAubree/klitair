@@ -66,10 +66,6 @@ public class User {
 	/** banned */
 	private boolean banned;
 
-	/** favourites */
-	@OneToMany(mappedBy = "user")
-	private Set<Favourite> favourites = new HashSet<Favourite>();
-
 	/** town */
 	@ManyToOne
 	@JoinColumn(name = "id_town")
@@ -79,25 +75,29 @@ public class User {
 	@Embedded
 	@NotNull
 	private Address address;
+	
+	/** favourites */
+	@OneToMany(targetEntity=Favourite.class, mappedBy = "user")
+	private Set<Favourite> favourites = new HashSet<Favourite>();
 
 	/** received alerts */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(targetEntity=ReceivedAlert.class, mappedBy = "user")
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
 	/** town forecast alerts */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(targetEntity=TownForecastAlert.class,  mappedBy = "user")
 	private Set<TownForecastAlert> townForecastAlerts = new HashSet<TownForecastAlert>();
 
 	/** sections */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(targetEntity=Section.class, mappedBy = "user")
 	private Set<Section> sections = new HashSet<Section>();
 
 	/** discussion thread */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(targetEntity=DiscussionThread.class, mappedBy = "user")
 	private Set<DiscussionThread> discussionThread = new HashSet<DiscussionThread>();
 
 	/** messages */
-	@OneToMany(mappedBy = "user")
+	@OneToMany(targetEntity=Message.class, mappedBy = "user")
 	private Set<Message> messages = new HashSet<Message>();
 
 	public User() {

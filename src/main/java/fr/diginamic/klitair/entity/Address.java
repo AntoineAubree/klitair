@@ -27,9 +27,6 @@ public class Address {
 	@NotNull
 	private String street;
 
-	/** user */
-	private User user;
-
 	public Address() {
 	}
 
@@ -38,12 +35,10 @@ public class Address {
 	 * @param street
 	 * @param user
 	 */
-	public Address(@Size(min = 1, max = 10) @NotNull String nbStreet, @Size(min = 1, max = 80) @NotNull String street,
-			User user) {
+	public Address(@Size(min = 1, max = 10) @NotNull String nbStreet, @Size(min = 1, max = 80) @NotNull String street) {
 		super();
 		this.nbStreet = nbStreet;
 		this.street = street;
-		this.user = user;
 	}
 
 	@Override
@@ -83,20 +78,6 @@ public class Address {
 	 */
 	public void setStreet(String street) {
 		this.street = street;
-	}
-
-	/**
-	 * @return the user
-	 */
-	public User getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	
