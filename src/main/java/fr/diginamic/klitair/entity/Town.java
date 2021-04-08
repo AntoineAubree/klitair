@@ -3,7 +3,9 @@
  */
 package fr.diginamic.klitair.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,9 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author StephanieMC
@@ -34,22 +39,27 @@ public class Town {
 	@Column(length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
+	@JsonProperty("code")
 	private String code;
 
 	/** name */
 	@Column(length = 200, nullable = false)
 	@Size(min = 1, max = 200)
 	@NotNull
+	@JsonProperty("nom")
 	private String name;
 
 	/** postCode */
+	@Transient
 	@Column(name = "post_code", length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
-	private String postCode;
+	@JsonProperty("codesPostaux")
+	private List<String> postCode = new ArrayList<>();
 
 	/** population */
 	@Min(0)
+	@JsonProperty("population")
 	private int population;
 
 	/** department */
@@ -93,7 +103,7 @@ public class Town {
 	 * @param population
 	 */
 	public Town(@Size(min = 5, max = 5) @NotNull String code, @Size(min = 1, max = 200) @NotNull String name,
-			@Size(min = 5, max = 5) @NotNull String postCode, @Min(0) int population) {
+			@Size(min = 5, max = 5) @NotNull List<String> postCode, @Min(0) int population) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -166,14 +176,14 @@ public class Town {
 	/**
 	 * @return the postCode
 	 */
-	public String getPostCode() {
+	public List<String> getPostCode() {
 		return postCode;
 	}
 
 	/**
 	 * @param postCode the postCode to set
 	 */
-	public void setPostCode(String postCode) {
+	public void setPostCode(List<String> postCode) {
 		this.postCode = postCode;
 	}
 
@@ -274,7 +284,5 @@ public class Town {
 	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
-
-	
 
 }

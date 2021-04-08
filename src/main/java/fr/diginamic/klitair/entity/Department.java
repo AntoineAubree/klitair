@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author StephanieMC
  *
@@ -33,18 +35,21 @@ public class Department {
 	@Column(length = 3, nullable = false)
 	@Size(min = 2, max = 3)
 	@NotNull
+	@JsonProperty("code")
 	private String code;
 
 	/** name */
 	@Column(length = 150, nullable = false)
 	@Size(min = 1, max = 150)
 	@NotNull
+	@JsonProperty("nom")
 	private String name;
 
 	/** region */
 	@ManyToOne
 	@JoinColumn(name = "id_region")
 	@NotNull
+	@JsonProperty("region")
 	private Region region;
 
 	/** towns */
