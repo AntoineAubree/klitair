@@ -3,6 +3,7 @@
  */
 package fr.diginamic.klitair.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class ReceivedAlert {
 	private Long id;
 
 	/** read */
+	@Column ( name = "is_read")
 	private boolean read;
 
 	/** user */
