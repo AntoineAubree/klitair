@@ -76,7 +76,7 @@ public class User {
 	/** town */
 	@ManyToOne
 	@JoinColumn(name = "id_town")
-	@NotNull
+//	@NotNull
 	private Town town;
 
 	@Embedded

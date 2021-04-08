@@ -3,6 +3,8 @@
  */
 package fr.diginamic.klitair.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.diginamic.klitair.entity.User;
@@ -13,6 +15,11 @@ import fr.diginamic.klitair.entity.User;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findByPseudoAndPassword(String pseudo, String password);
+	Optional<User> findByPseudoAndPassword(String pseudo, String password);
+
+	Optional<User> findByPseudo(String pseudo);
+
+	Optional<User> findByEmail(String pseudo);
+
 
 }
