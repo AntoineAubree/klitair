@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.diginamic.klitair.dto.UserFindOneDto;
 import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.services.UserService;
 
@@ -34,9 +35,9 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public User findByPseudo(@RequestBody User user) {
+	public User findByPseudo(@RequestBody UserFindOneDto userDto) {
 		//TODO manage optionnals
-		return userService.findByPseudo(user);
+		return userService.findByPseudo(userDto);
 			
 	}
 

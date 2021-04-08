@@ -58,6 +58,13 @@ public class User {
 	@NotNull
 	private String email;
 
+	/** password */
+	@Column(length = 36, nullable = false)
+	@Size(min = 8, max = 36)
+	@NotNull
+	// TODO check if password is ok
+	private String password;
+
 	/** role */
 	@Enumerated(EnumType.STRING)
 	@NotNull
@@ -75,29 +82,29 @@ public class User {
 	@Embedded
 	@NotNull
 	private Address address;
-	
+
 	/** favourites */
-	@OneToMany(targetEntity=Favourite.class, mappedBy = "user")
+	@OneToMany(targetEntity = Favourite.class, mappedBy = "user")
 	private Set<Favourite> favourites = new HashSet<Favourite>();
 
 	/** received alerts */
-	@OneToMany(targetEntity=ReceivedAlert.class, mappedBy = "user")
+	@OneToMany(targetEntity = ReceivedAlert.class, mappedBy = "user")
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
 	/** town forecast alerts */
-	@OneToMany(targetEntity=TownForecastAlert.class,  mappedBy = "user")
+	@OneToMany(targetEntity = TownForecastAlert.class, mappedBy = "user")
 	private Set<TownForecastAlert> townForecastAlerts = new HashSet<TownForecastAlert>();
 
 	/** sections */
-	@OneToMany(targetEntity=Section.class, mappedBy = "user")
+	@OneToMany(targetEntity = Section.class, mappedBy = "user")
 	private Set<Section> sections = new HashSet<Section>();
 
 	/** discussion thread */
-	@OneToMany(targetEntity=DiscussionThread.class, mappedBy = "user")
+	@OneToMany(targetEntity = DiscussionThread.class, mappedBy = "user")
 	private Set<DiscussionThread> discussionThread = new HashSet<DiscussionThread>();
 
 	/** messages */
-	@OneToMany(targetEntity=Message.class, mappedBy = "user")
+	@OneToMany(targetEntity = Message.class, mappedBy = "user")
 	private Set<Message> messages = new HashSet<Message>();
 
 	public User() {
@@ -348,6 +355,20 @@ public class User {
 	 */
 	public void setMessages(Set<Message> messages) {
 		this.messages = messages;
+	}
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
