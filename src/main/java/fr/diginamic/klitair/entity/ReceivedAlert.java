@@ -25,7 +25,7 @@ public class ReceivedAlert {
 	private Long id;
 
 	/** read */
-	@Column ( name = "is_read")
+	@Column(name = "is_read")
 	private boolean read;
 
 	/** user */
