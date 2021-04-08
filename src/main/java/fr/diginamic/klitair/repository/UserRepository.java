@@ -13,4 +13,6 @@ import fr.diginamic.klitair.entity.User;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	User findByPseudo(User user);
+
 }
