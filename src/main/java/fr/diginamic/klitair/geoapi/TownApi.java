@@ -1,7 +1,4 @@
-/**
- * 
- */
-package fr.diginamic.klitair.api;
+package fr.diginamic.klitair.geoapi;
 
 import java.net.URI;
 import java.util.List;
@@ -13,24 +10,24 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.diginamic.klitair.entity.Department;
+import fr.diginamic.klitair.entity.Town;
 
 /**
  * @author anton
  *
  */
-public class DepartmentApi {
+public class TownApi {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
 	/**
-	 * Print 10 first department returned by the api response
+	 * Print 10 first town returned by the api response
 	 * 
 	 * @throws Exception
 	 */
-	public void getDepartmentApi() throws Exception {
+	public void getTownApi() throws Exception {
 
-		String baseUrl = "https://geo.api.gouv.fr/departements?limit=10";
+		String baseUrl = "https://geo.api.gouv.fr/communes?limit=10";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
@@ -42,7 +39,7 @@ public class DepartmentApi {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		List<Department> bean = mapper.readValue(jsonString, new TypeReference<List<Department>>() {
+		List<Town> bean = mapper.readValue(jsonString, new TypeReference<List<Town>>() {
 		});
 
 		bean.forEach(el -> System.out.println(el));
