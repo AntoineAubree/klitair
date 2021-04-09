@@ -49,6 +49,9 @@ public class Section {
 	@OneToMany(mappedBy = "section")
 	private Set<DiscussionThread> discussionThread = new HashSet<DiscussionThread>();
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public Section() {
 	}
 

@@ -55,6 +55,9 @@ public class DiscussionThread {
 	@OneToMany(mappedBy = "discussionThread")
 	private Set<Message> messages = new HashSet<Message>();
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public DiscussionThread() {
 	}
 

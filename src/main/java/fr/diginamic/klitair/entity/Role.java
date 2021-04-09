@@ -1,4 +1,5 @@
 package fr.diginamic.klitair.entity;
+
 /**
  * 
  * @author StephanieMC
@@ -6,8 +7,7 @@ package fr.diginamic.klitair.entity;
  */
 
 public enum Role {
-	
-	
-	USER,ADMIN
+
+	USER, ADMIN
 
 }

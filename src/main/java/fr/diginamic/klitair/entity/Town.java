@@ -81,7 +81,6 @@ public class Town {
 	 * Constructor WITHOUT params
 	 */
 	public Town() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

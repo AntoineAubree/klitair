@@ -50,6 +50,9 @@ public class Message {
 	@NotNull
 	private DiscussionThread discussionThread;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public Message() {
 	}
 

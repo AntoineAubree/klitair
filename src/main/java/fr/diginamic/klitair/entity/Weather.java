@@ -46,6 +46,9 @@ public class Weather {
 	@NotNull
 	private Town town;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public Weather() {
 	}
 

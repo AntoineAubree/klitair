@@ -35,6 +35,9 @@ public class Favourite {
 	@NotNull
 	private User user;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public Favourite() {
 	}
 

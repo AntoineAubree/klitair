@@ -44,6 +44,9 @@ public class TownForecastAlert {
 	@NotNull
 	private ForecastAlert forecastAlert;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public TownForecastAlert() {
 	}
 

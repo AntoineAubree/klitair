@@ -107,6 +107,9 @@ public class User {
 	@OneToMany(targetEntity = Message.class, mappedBy = "user")
 	private Set<Message> messages = new HashSet<Message>();
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public User() {
 
 	}

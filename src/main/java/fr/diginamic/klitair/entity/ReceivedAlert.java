@@ -40,6 +40,9 @@ public class ReceivedAlert {
 	@NotNull
 	private ForecastAlert forecastAlert;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public ReceivedAlert() {
 	}
 

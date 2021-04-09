@@ -64,6 +64,9 @@ public class AirQuality {
 	@NotNull
 	private Town town;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public AirQuality() {
 	}
 

@@ -70,6 +70,9 @@ public class ForecastAlert {
 	@OneToMany(mappedBy = "forecastAlert")
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public ForecastAlert() {
 	}
 
