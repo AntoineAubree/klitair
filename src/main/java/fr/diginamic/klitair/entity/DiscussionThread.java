@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,11 +39,11 @@ public class DiscussionThread {
 	/** user */
 	@ManyToOne
 	@JoinColumn(name = "id_user")
-	@NotNull
+//	@NotNull
 	private User user;
 
 	/** section */
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_section")
 	@NotNull
 	private Section section;

@@ -3,6 +3,8 @@
  */
 package fr.diginamic.klitair.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.klitair.dto.UserFindOneDto;
-import fr.diginamic.klitair.entity.User;
+import fr.diginamic.klitair.entity.DiscussionThread;
 import fr.diginamic.klitair.exceptions.BadRequestException;
-import fr.diginamic.klitair.services.UserService;
+import fr.diginamic.klitair.services.DiscussionThreadSrevice;
 
 /**
  * @author StephanieMC
@@ -28,50 +29,41 @@ import fr.diginamic.klitair.services.UserService;
  */
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/discussion_thread")
+public class DiscussionThreadController {
 
 	@Autowired
-	UserService userService;
+	DiscussionThreadSrevice discussionThreadService;
 
 	@PostMapping
-	public User create(@Valid @RequestBody User user, BindingResult br) {
+	public DiscussionThread create(@Valid @RequestBody DiscussionThread discussionThread, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return userService.create(user);
-		// TODO ask Richard or Salim for the transactionnals
+		return discussionThreadService.create(discussionThread);
 	}
 	
-	@PostMapping(path = "pseudo")
-	public boolean checkPseudo(@RequestParam(name = "pseudo") String pseudo) {
-		return userService.checkPseudo(pseudo);
+	@PostMapping(path = "title")
+	public boolean checkTitle(@RequestParam(name = "title") String title) {
+		return discussionThreadService.checkTitle(title);
 	}
 
-	@PostMapping(path = "email")
-	public boolean checkEmail(@RequestParam(name = "email") String email) {
-		return userService.checkEmail(email);
-	}
-
-	@GetMapping
-	public User findByPseudo(@Valid @RequestBody UserFindOneDto userDto, BindingResult br) {
-		if (!br.getAllErrors().isEmpty()) {
-			throw new BadRequestException();
-		}
-		return userService.findByPseudo(userDto);
+	@GetMapping("{id}")
+	public List<DiscussionThread> findBySection(@PathVariable Long id) {
+		return discussionThreadService.findByIdSection(id);
 	}
 	
 	@PutMapping
-	public User update(@Valid @RequestBody User user, BindingResult br) {
+	public DiscussionThread update(@Valid @RequestBody DiscussionThread discussionThread, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return userService.update(user);
+		return discussionThreadService.update(discussionThread);
 	}
 	
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
-		userService.deleteById(id);
+		discussionThreadService.deleteById(id);
 	}
 
 }
