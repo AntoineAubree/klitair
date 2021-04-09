@@ -11,6 +11,7 @@ import fr.diginamic.klitair.entity.AirQuality;
 import fr.diginamic.klitair.geoapi.DepartmentApi;
 import fr.diginamic.klitair.geoapi.RegionApi;
 import fr.diginamic.klitair.geoapi.TownApi;
+import fr.diginamic.klitair.meteoapi.TestMeteoApi;
 
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {
@@ -38,6 +39,10 @@ public class KlitairApplication implements CommandLineRunner {
 		TestAirPlApi testApiAir = new TestAirPlApi();
 		List<AirQuality> airTest = testApiAir.getTestAirPlApi();
 		airTest.forEach(el -> System.out.println(el));
+
+		System.out.println("\nMeteo API\n");
+		TestMeteoApi testMeteoApi = new TestMeteoApi();
+		testMeteoApi.getTestMeteoApi();
 
 		System.out.println("Terminé");
 
