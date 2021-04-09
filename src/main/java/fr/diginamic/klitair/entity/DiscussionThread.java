@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author StephanieMC
@@ -40,15 +41,17 @@ public class DiscussionThread {
 	@ManyToOne
 	@JoinColumn(name = "id_user")
 //	@NotNull
+	//TODO add not null
 	private User user;
 
 	/** section */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne()
 	@JoinColumn(name = "id_section")
 	@NotNull
 	private Section section;
 
 	/** messages */
+	@JsonIgnore
 	@OneToMany(mappedBy = "discussionThread")
 	private Set<Message> messages = new HashSet<Message>();
 

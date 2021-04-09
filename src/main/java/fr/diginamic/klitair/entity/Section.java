@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author StephanieMC
  *
@@ -38,10 +40,12 @@ public class Section {
 	/** user */
 	@ManyToOne
 	@JoinColumn(name = "id_user")
-//	@NotNull
+	//	@NotNull
+	// TODO add notNull
 	private User user;
 
 	/** discussion thread */
+	@JsonIgnore
 	@OneToMany(mappedBy = "section")
 	private Set<DiscussionThread> discussionThread = new HashSet<DiscussionThread>();
 

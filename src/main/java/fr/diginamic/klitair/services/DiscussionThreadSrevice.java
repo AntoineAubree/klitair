@@ -31,7 +31,7 @@ public class DiscussionThreadSrevice {
 	}
 
 	public List<DiscussionThread> findByIdSection(Long id) {
-		return discussionThreadRepository.findByIdSection(id);
+		return discussionThreadRepository.findBySection_Id(id);
 	}
 
 	public DiscussionThread update(@Valid DiscussionThread discussionThread) {
