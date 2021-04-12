@@ -2,42 +2,30 @@ package fr.diginamic.klitair.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
+ * Representation of resume pollutant from the JSON reponse
  * 
- * @author StephanieMC
+ * @author anton
  *
  */
-
 public class DailyPolluantIndicator {
 	
 	///////////////////** polluants */////////////////////
 	/** o3 */
-	@Min(1)
-	@Max(6)
 	private int o3;
 
 	/** pm10 */
-	@Min(1)
-	@Max(6)
 	private int pm10;
 
 	/** no2 */
-	@Min(1)
-	@Max(6)
 	private int no2;
 
 	/** so2 */
-	@Min(1)
-	@Max(6)
 	private int so2;
 
 	/** pm25 */
-	@Min(1)
-	@Max(6)
 	private int pm25;
 
 	/** date */
@@ -50,17 +38,7 @@ public class DailyPolluantIndicator {
 		
 	}
 
-	/**
-	 * contructor WITH params
-	 * @param o3
-	 * @param pm10
-	 * @param no2
-	 * @param so2
-	 * @param pm25
-	 * @param date
-	 */
-	public DailyPolluantIndicator(@Min(1) @Max(6) int o3, @Min(1) @Max(6) int pm10, @Min(1) @Max(6) int no2,
-			@Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25, @NotNull LocalDate date) {
+	public DailyPolluantIndicator(int o3, int pm10, int no2, int so2, int pm25, @NotNull LocalDate date) {
 		super();
 		this.o3 = o3;
 		this.pm10 = pm10;
@@ -172,6 +150,8 @@ public class DailyPolluantIndicator {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+
+
 	
 	
 }

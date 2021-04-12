@@ -15,34 +15,35 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author StephanieMC
  *
  */
 @Entity
 public class Region {
-	
-	
-	/**id*/
+
+	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	
-	/**code*/
+	/** code */
 	@Column(length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
+	@JsonProperty("code")
 	private String code;
 
-	/**name*/
+	/** name */
 	@Column(length = 150, nullable = false)
 	@Size(min = 1, max = 150)
 	@NotNull
-	private String name; 
-	
-	
-	/**departments*/
+	@JsonProperty("nom")
+	private String name;
+
+	/** departments */
 	@OneToMany(mappedBy = "region")
 	private Set<Department> departments = new HashSet<Department>();
 

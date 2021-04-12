@@ -20,6 +20,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author StephanieMC
  *
@@ -36,6 +38,7 @@ public class Town {
 	@Column(length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
+	@JsonProperty("code")
 	private String code;
 
 	/** post codes */
@@ -47,10 +50,12 @@ public class Town {
 	@Column(length = 200, nullable = false)
 	@Size(min = 1, max = 200)
 	@NotNull
+	@JsonProperty("nom")
 	private String name;
 
 	/** population */
 	@Min(0)
+	@JsonProperty("population")
 	private int population;
 
 	/** department */
@@ -80,10 +85,11 @@ public class Town {
 	public Town() {
 	}
 
-	public Town(@Size(min = 5, max = 5) @NotNull String code, @Size(min = 1, max = 200) @NotNull String name,
-			@Min(0) int population) {
+	public Town(@Size(min = 5, max = 5) @NotNull String code, Set<PostCode> postCodes,
+			@Size(min = 1, max = 200) @NotNull String name, @Min(0) int population) {
 		super();
 		this.code = code;
+		this.postCodes = postCodes;
 		this.name = name;
 		this.population = population;
 	}
@@ -150,6 +156,7 @@ public class Town {
 	}
 
 	/**
+	 * 
 	 * @return the population
 	 */
 	public int getPopulation() {
@@ -178,6 +185,8 @@ public class Town {
 	}
 
 	/**
+	 * <<<<<<< HEAD
+	 * 
 	 * @return the indicatorHistory
 	 */
 	public Set<IndicatorHistory> getIndicatorHistory() {
@@ -192,6 +201,8 @@ public class Town {
 	}
 
 	/**
+	 * ======= >>>>>>> feature/add_API_fetch
+	 * 
 	 * @return the favourites
 	 */
 	public Set<Favourite> getFavourites() {
