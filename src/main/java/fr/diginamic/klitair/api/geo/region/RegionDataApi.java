@@ -3,6 +3,8 @@ package fr.diginamic.klitair.api.geo.region;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * Representation of JSON response
+ * 
  * @author anton
  *
  */

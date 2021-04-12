@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
 import fr.diginamic.klitair.api.airquality.AirQualityData;
-import fr.diginamic.klitair.api.geo.departement.DepartmentApi;
+import fr.diginamic.klitair.api.geo.departement.DepartmentApiRequest;
 import fr.diginamic.klitair.api.geo.region.RegionApiRequest;
 import fr.diginamic.klitair.api.geo.town.TownApi;
 
@@ -27,8 +27,8 @@ public class KlitairApplication implements CommandLineRunner {
 		townApi.getTownApi();
 
 		System.out.println("\nDepartement API\n");
-		DepartmentApi departmentApi = new DepartmentApi();
-		departmentApi.getDepartmentApi();
+		DepartmentApiRequest departmentApi = new DepartmentApiRequest();
+		departmentApi.getDepartmentData();
 
 		System.out.println("\nRegion API\n");
 		RegionApiRequest regionApi = new RegionApiRequest();

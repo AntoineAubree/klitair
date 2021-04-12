@@ -13,13 +13,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.diginamic.klitair.entity.Department;
-
 /**
  * @author anton
  *
  */
-public class DepartmentApi {
+public class DepartmentApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
@@ -28,7 +26,7 @@ public class DepartmentApi {
 	 * 
 	 * @throws Exception
 	 */
-	public void getDepartmentApi() throws Exception {
+	public void getDepartmentData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/departements?limit=10";
 		URI uri = new URI(baseUrl);
@@ -42,7 +40,7 @@ public class DepartmentApi {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		List<Department> bean = mapper.readValue(jsonString, new TypeReference<List<Department>>() {
+		List<DepartmentDataApi> bean = mapper.readValue(jsonString, new TypeReference<List<DepartmentDataApi>>() {
 		});
 
 		bean.forEach(el -> System.out.println(el));
