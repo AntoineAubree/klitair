@@ -10,8 +10,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import fr.diginamic.klitair.entity.IndicatorHistory;
-
 /**
  * @author StephanieMC
  *
@@ -33,19 +31,17 @@ public class IndicatorHistoryDto {
 	/** Town's population */
 	@Min(0)
 	private int population;
-	
+
 ///////////////////////////// INDICATORS //////////////////////////////////////
 
-	
-	 private List <IndicatorHistory> IndicatorHistory;
-	 
-	 
+	private List<DailyIndicatorHistory> dailyIndicatorHistory;
+
 /////////////////////////// DATE ////////////////////////////////////////////
-	
+
 	private LocalDateTime researchDate;
-	
+
 	public IndicatorHistoryDto() {
-		
+
 	}
 
 	/**
@@ -57,12 +53,12 @@ public class IndicatorHistoryDto {
 	 */
 	public IndicatorHistoryDto(@Size(min = 1, max = 200) @NotNull String townName,
 			@Size(min = 5, max = 5) @NotNull String townPostCode, @Min(0) int population,
-			List<fr.diginamic.klitair.entity.IndicatorHistory> indicatorHistory, LocalDateTime researchDate) {
+			List<DailyIndicatorHistory> dailyIndicatorHistory, LocalDateTime researchDate) {
 		super();
 		this.townName = townName;
 		TownPostCode = townPostCode;
 		this.population = population;
-		IndicatorHistory = indicatorHistory;
+		this.dailyIndicatorHistory = dailyIndicatorHistory;
 		this.researchDate = researchDate;
 	}
 
@@ -75,8 +71,8 @@ public class IndicatorHistoryDto {
 		builder.append(TownPostCode);
 		builder.append(", population=");
 		builder.append(population);
-		builder.append(", IndicatorHistory=");
-		builder.append(IndicatorHistory);
+		builder.append(", dailyIndicatorHistory=");
+		builder.append(dailyIndicatorHistory);
 		builder.append(", researchDate=");
 		builder.append(researchDate);
 		builder.append("]");
@@ -126,17 +122,17 @@ public class IndicatorHistoryDto {
 	}
 
 	/**
-	 * @return the indicatorHistory
+	 * @return the dailyIndicatorHistory
 	 */
-	public List<IndicatorHistory> getIndicatorHistory() {
-		return IndicatorHistory;
+	public List<DailyIndicatorHistory> getDailyIndicatorHistory() {
+		return dailyIndicatorHistory;
 	}
 
 	/**
-	 * @param indicatorHistory the indicatorHistory to set
+	 * @param dailyIndicatorHistory the dailyIndicatorHistory to set
 	 */
-	public void setIndicatorHistory(List<IndicatorHistory> indicatorHistory) {
-		IndicatorHistory = indicatorHistory;
+	public void setDailyIndicatorHistory(List<DailyIndicatorHistory> dailyIndicatorHistory) {
+		this.dailyIndicatorHistory = dailyIndicatorHistory;
 	}
 
 	/**
@@ -152,7 +148,5 @@ public class IndicatorHistoryDto {
 	public void setResearchDate(LocalDateTime researchDate) {
 		this.researchDate = researchDate;
 	}
-
-	
 
 }
