@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -34,8 +36,11 @@ public class ForecastAlert {
 	@NotNull
 	private LocalDateTime date;
 
-	/** temperature */
-	private float temperature;
+	/** temperature min */
+	private float temperatureMin;
+
+	/** temperature max */
+	private float temperatureMax;
 
 	/** o3 */
 	@Min(1)
@@ -62,22 +67,32 @@ public class ForecastAlert {
 	@Max(6)
 	private int pm25;
 
-	/** town forecast alerts */
-	@OneToMany(mappedBy = "forecastAlert")
-	private Set<TownForecastAlert> townForecastAlerts = new HashSet<TownForecastAlert>();
-
 	/** received alerts */
 	@OneToMany(mappedBy = "forecastAlert")
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
+	/** user */
+	@ManyToOne
+	@JoinColumn(name = "id_user")
+	@NotNull
+	private User user;
+
+	/** towns */
+	@ManyToOne
+	@JoinColumn(name = "id_town")
+	@NotNull
+	private Town town;
+
 	public ForecastAlert() {
 	}
 
-	public ForecastAlert(@NotNull LocalDateTime date, float temperature, @Min(1) @Max(6) int o3,
-			@Min(1) @Max(6) int pm10, @Min(1) @Max(6) int no2, @Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25) {
+	public ForecastAlert(@NotNull LocalDateTime date, float temperatureMin, float temperatureMax,
+			@Min(1) @Max(6) int o3, @Min(1) @Max(6) int pm10, @Min(1) @Max(6) int no2, @Min(1) @Max(6) int so2,
+			@Min(1) @Max(6) int pm25) {
 		super();
 		this.date = date;
-		this.temperature = temperature;
+		this.temperatureMin = temperatureMin;
+		this.temperatureMax = temperatureMax;
 		this.o3 = o3;
 		this.pm10 = pm10;
 		this.no2 = no2;
@@ -92,8 +107,10 @@ public class ForecastAlert {
 		builder.append(id);
 		builder.append(", date=");
 		builder.append(date);
-		builder.append(", temperature=");
-		builder.append(temperature);
+		builder.append(", temperatureMin=");
+		builder.append(temperatureMin);
+		builder.append(", temperatureMax=");
+		builder.append(temperatureMax);
 		builder.append(", o3=");
 		builder.append(o3);
 		builder.append(", pm10=");
@@ -134,20 +151,6 @@ public class ForecastAlert {
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
-	}
-
-	/**
-	 * @return the temperature
-	 */
-	public float getTemperature() {
-		return temperature;
-	}
-
-	/**
-	 * @param temperature the temperature to set
-	 */
-	public void setTemperature(float temperature) {
-		this.temperature = temperature;
 	}
 
 	/**
@@ -221,20 +224,6 @@ public class ForecastAlert {
 	}
 
 	/**
-	 * @return the townForecastAlerts
-	 */
-	public Set<TownForecastAlert> getTownForecastAlerts() {
-		return townForecastAlerts;
-	}
-
-	/**
-	 * @param townForecastAlerts the townForecastAlerts to set
-	 */
-	public void setTownForecastAlerts(Set<TownForecastAlert> townForecastAlerts) {
-		this.townForecastAlerts = townForecastAlerts;
-	}
-
-	/**
 	 * @return the receivedAlerts
 	 */
 	public Set<ReceivedAlert> getReceivedAlerts() {
@@ -246,6 +235,62 @@ public class ForecastAlert {
 	 */
 	public void setReceivedAlerts(Set<ReceivedAlert> receivedAlerts) {
 		this.receivedAlerts = receivedAlerts;
+	}
+
+	/**
+	 * @return the temperatureMin
+	 */
+	public float getTemperatureMin() {
+		return temperatureMin;
+	}
+
+	/**
+	 * @param temperatureMin the temperatureMin to set
+	 */
+	public void setTemperatureMin(float temperatureMin) {
+		this.temperatureMin = temperatureMin;
+	}
+
+	/**
+	 * @return the temperatureMax
+	 */
+	public float getTemperatureMax() {
+		return temperatureMax;
+	}
+
+	/**
+	 * @param temperatureMax the temperatureMax to set
+	 */
+	public void setTemperatureMax(float temperatureMax) {
+		this.temperatureMax = temperatureMax;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the town
+	 */
+	public Town getTown() {
+		return town;
+	}
+
+	/**
+	 * @param town the town to set
+	 */
+	public void setTown(Town town) {
+		this.town = town;
 	}
 
 }

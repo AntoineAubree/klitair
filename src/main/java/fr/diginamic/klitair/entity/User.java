@@ -85,8 +85,8 @@ public class User {
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
 	/** town forecast alerts */
-	@OneToMany(targetEntity=TownForecastAlert.class,  mappedBy = "user")
-	private Set<TownForecastAlert> townForecastAlerts = new HashSet<TownForecastAlert>();
+	@OneToMany(targetEntity=ForecastAlert.class,  mappedBy = "user")
+	private Set<ForecastAlert> forecastAlerts = new HashSet<ForecastAlert>();
 
 	/** sections */
 	@OneToMany(targetEntity=Section.class, mappedBy = "user")
@@ -297,15 +297,15 @@ public class User {
 	/**
 	 * @return the townForecastAlerts
 	 */
-	public Set<TownForecastAlert> getTownForecastAlerts() {
-		return townForecastAlerts;
+	public Set<ForecastAlert> getForecastAlerts() {
+		return forecastAlerts;
 	}
 
 	/**
 	 * @param townForecastAlerts the townForecastAlerts to set
 	 */
-	public void setTownForecastAlerts(Set<TownForecastAlert> townForecastAlerts) {
-		this.townForecastAlerts = townForecastAlerts;
+	public void setForecastAlerts(Set<ForecastAlert> forecastAlerts) {
+		this.forecastAlerts = forecastAlerts;
 	}
 
 	/**
