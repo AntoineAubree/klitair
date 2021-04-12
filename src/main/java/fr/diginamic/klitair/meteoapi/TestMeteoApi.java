@@ -30,8 +30,7 @@ public class TestMeteoApi {
 
 		DataApiMeteo dataApiMeteo = mapper.readValue(jsonString, DataApiMeteo.class);
 
-		dataApiMeteo.getWeather().forEach(el -> System.out.println(el));
-		;
+		dataApiMeteo.getWeather().forEach(el -> System.out.println("Météo du jour : " + el));
 
 	}
 
