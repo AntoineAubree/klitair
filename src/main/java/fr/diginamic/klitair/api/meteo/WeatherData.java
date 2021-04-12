@@ -5,15 +5,6 @@ package fr.diginamic.klitair.api.meteo;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -21,24 +12,20 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-import fr.diginamic.klitair.entity.Town;
-import fr.diginamic.klitair.entity.WeatherConditions;
-
 /**
- * @author StephanieMC
+ * Representation of Weather Data from JSON response
+ * 
+ * @author anton
  *
  */
-@Entity
+
 public class WeatherData {
 
-	/** id */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	/** codeInsee */
+	@JsonProperty("code")
+	private String codeInsee;
 
 	/** date */
-	@Column(nullable = false)
-	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -50,55 +37,36 @@ public class WeatherData {
 	private float temperature;
 
 	/** weatherConditions */
-	@ManyToOne
-	@JoinColumn(name = "id_weather_conditions")
-	@NotNull
-	private WeatherConditions weatherConditions;
-
-	/** town */
-	@ManyToOne
-	@JoinColumn(name = "id_town")
-	@NotNull
-	private Town town;
-
-	public WeatherData() {
-	}
-
-	public WeatherData(@NotNull LocalDateTime date, float temperature) {
-		super();
-		this.date = date;
-		this.temperature = temperature;
-	}
+	@JsonProperty("weather")
+	private int weatherConditions;
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Weather [id=");
-		builder.append(id);
+		builder.append("WeatherData [codeInsee=");
+		builder.append(codeInsee);
 		builder.append(", date=");
 		builder.append(date);
 		builder.append(", temperature=");
 		builder.append(temperature);
 		builder.append(", weatherConditions=");
 		builder.append(weatherConditions);
-		builder.append(", town=");
-		builder.append(town);
 		builder.append("]");
 		return builder.toString();
 	}
 
 	/**
-	 * @return the id
+	 * @return the codeInsee
 	 */
-	public Long getId() {
-		return id;
+	public String getCodeInsee() {
+		return codeInsee;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param codeInsee the codeInsee to set
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setCodeInsee(String codeInsee) {
+		this.codeInsee = codeInsee;
 	}
 
 	/**
@@ -132,29 +100,15 @@ public class WeatherData {
 	/**
 	 * @return the weatherConditions
 	 */
-	public WeatherConditions getWeatherConditions() {
+	public int getWeatherConditions() {
 		return weatherConditions;
 	}
 
 	/**
 	 * @param weatherConditions the weatherConditions to set
 	 */
-	public void setWeatherConditions(WeatherConditions weatherConditions) {
+	public void setWeatherConditions(int weatherConditions) {
 		this.weatherConditions = weatherConditions;
-	}
-
-	/**
-	 * @return the town
-	 */
-	public Town getTown() {
-		return town;
-	}
-
-	/**
-	 * @param town the town to set
-	 */
-	public void setTown(Town town) {
-		this.town = town;
 	}
 
 }

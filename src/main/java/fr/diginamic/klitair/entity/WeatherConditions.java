@@ -3,19 +3,13 @@
  */
 package fr.diginamic.klitair.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import fr.diginamic.klitair.api.meteo.WeatherData;
 
 /**
  * @author StephanieMC
@@ -34,10 +28,6 @@ public class WeatherConditions {
 	@Size(min = 1, max = 150)
 	@NotNull
 	private String state;
-
-	/** weathers */
-	@OneToMany(mappedBy = "weatherConditions")
-	private Set<WeatherData> weathers = new HashSet<WeatherData>();
 
 	/*
 	 * Constructor WITHOUT params
@@ -60,8 +50,6 @@ public class WeatherConditions {
 		builder.append(id);
 		builder.append(", state=");
 		builder.append(state);
-		builder.append(", weathers=");
-		builder.append(weathers);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -92,20 +80,6 @@ public class WeatherConditions {
 	 */
 	public void setState(String state) {
 		this.state = state;
-	}
-
-	/**
-	 * @return the weathers
-	 */
-	public Set<WeatherData> getWeathers() {
-		return weathers;
-	}
-
-	/**
-	 * @param weathers the weathers to set
-	 */
-	public void setWeathers(Set<WeatherData> weathers) {
-		this.weathers = weathers;
 	}
 
 }

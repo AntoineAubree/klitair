@@ -21,9 +21,11 @@ public class RegionApiRequest {
 	/**
 	 * Print 10 first region returned by the api response
 	 * 
+	 * @return
+	 * 
 	 * @throws Exception
 	 */
-	public void getRegionData() throws Exception {
+	public List<RegionDataApi> getRegionData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/regions?limit=10";
 		URI uri = new URI(baseUrl);
@@ -40,7 +42,9 @@ public class RegionApiRequest {
 		List<RegionDataApi> bean = mapper.readValue(jsonString, new TypeReference<List<RegionDataApi>>() {
 		});
 
-		bean.forEach(el -> System.out.println(el));
+		// bean.forEach(el -> System.out.println(el));
+
+		return bean;
 	}
 
 }

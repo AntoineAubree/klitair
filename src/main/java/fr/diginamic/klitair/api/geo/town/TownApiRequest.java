@@ -21,9 +21,11 @@ public class TownApiRequest {
 	/**
 	 * Print 10 first town returned by the api response
 	 * 
+	 * @return
+	 * 
 	 * @throws Exception
 	 */
-	public void getTownData() throws Exception {
+	public List<TownDataApi> getTownData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/communes?limit=10";
 		URI uri = new URI(baseUrl);
@@ -40,7 +42,9 @@ public class TownApiRequest {
 		List<TownDataApi> bean = mapper.readValue(jsonString, new TypeReference<List<TownDataApi>>() {
 		});
 
-		bean.forEach(el -> System.out.println(el));
+		// bean.forEach(el -> System.out.println(el));
+
+		return bean;
 	}
 
 }

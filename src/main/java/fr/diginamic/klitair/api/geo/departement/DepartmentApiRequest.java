@@ -24,9 +24,11 @@ public class DepartmentApiRequest {
 	/**
 	 * Print 10 first department returned by the api response
 	 * 
+	 * @return
+	 * 
 	 * @throws Exception
 	 */
-	public void getDepartmentData() throws Exception {
+	public List<DepartmentDataApi> getDepartmentData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/departements?limit=10";
 		URI uri = new URI(baseUrl);
@@ -43,7 +45,9 @@ public class DepartmentApiRequest {
 		List<DepartmentDataApi> bean = mapper.readValue(jsonString, new TypeReference<List<DepartmentDataApi>>() {
 		});
 
-		bean.forEach(el -> System.out.println(el));
+		// bean.forEach(el -> System.out.println(el));
+
+		return bean;
 	}
 
 }
