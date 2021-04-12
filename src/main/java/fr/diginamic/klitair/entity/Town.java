@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
@@ -36,17 +38,16 @@ public class Town {
 	@NotNull
 	private String code;
 
+	/** post codes */
+	@ManyToMany
+	@JoinTable(name = "town_post_code", joinColumns = @JoinColumn(name = "id_town", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_post_code", referencedColumnName = "id"))
+	private Set<PostCode> postCodes = new HashSet<>();
+
 	/** name */
 	@Column(length = 200, nullable = false)
 	@Size(min = 1, max = 200)
 	@NotNull
 	private String name;
-
-	/** postCode */
-	@Column(name = "post_code", length = 5, nullable = false)
-	@Size(min = 5, max = 5)
-	@NotNull
-	private String postCode;
 
 	/** population */
 	@Min(0)
@@ -59,11 +60,7 @@ public class Town {
 
 	/** weathers */
 	@OneToMany(mappedBy = "town")
-	private Set<Weather> weathers = new HashSet<Weather>();
-
-	/** air quality */
-	@OneToMany(mappedBy = "town")
-	private Set<Weather> airQuality = new HashSet<Weather>();
+	private Set<IndicatorHistory> indicatorHistory = new HashSet<IndicatorHistory>();
 
 	/** favourites */
 	@OneToMany(mappedBy = "town")
@@ -75,7 +72,7 @@ public class Town {
 
 	/** town forecast alert */
 	@OneToMany(mappedBy = "town")
-	private Set<TownForecastAlert> forecasts = new HashSet<TownForecastAlert>();
+	private Set<ForecastAlert> forecastAlerts = new HashSet<ForecastAlert>();
 
 	/**
 	 * Constructor WITHOUT params
@@ -83,22 +80,12 @@ public class Town {
 	public Town() {
 	}
 
-	/**
-	 * Constructor WITH params
-	 * 
-	 * @param code
-	 * @param name
-	 * @param postCode
-	 * @param population
-	 */
 	public Town(@Size(min = 5, max = 5) @NotNull String code, @Size(min = 1, max = 200) @NotNull String name,
-			@Size(min = 5, max = 5) @NotNull String postCode, @Min(0) int population) {
+			@Min(0) int population) {
 		super();
 		this.code = code;
 		this.name = name;
-		this.postCode = postCode;
 		this.population = population;
-
 	}
 
 	@Override
@@ -108,10 +95,10 @@ public class Town {
 		builder.append(id);
 		builder.append(", code=");
 		builder.append(code);
+		builder.append(", postCodes=");
+		builder.append(postCodes);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", postCode=");
-		builder.append(postCode);
 		builder.append(", population=");
 		builder.append(population);
 		builder.append(", department=");
@@ -163,20 +150,6 @@ public class Town {
 	}
 
 	/**
-	 * @return the postCode
-	 */
-	public String getPostCode() {
-		return postCode;
-	}
-
-	/**
-	 * @param postCode the postCode to set
-	 */
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-
-	/**
 	 * @return the population
 	 */
 	public int getPopulation() {
@@ -205,31 +178,17 @@ public class Town {
 	}
 
 	/**
-	 * @return the weathers
+	 * @return the indicatorHistory
 	 */
-	public Set<Weather> getWeathers() {
-		return weathers;
+	public Set<IndicatorHistory> getIndicatorHistory() {
+		return indicatorHistory;
 	}
 
 	/**
-	 * @param weathers the weathers to set
+	 * @param indicatorHistory the indicatorHistory to set
 	 */
-	public void setWeathers(Set<Weather> weathers) {
-		this.weathers = weathers;
-	}
-
-	/**
-	 * @return the airQuality
-	 */
-	public Set<Weather> getAirQuality() {
-		return airQuality;
-	}
-
-	/**
-	 * @param airQuality the airQuality to set
-	 */
-	public void setAirQuality(Set<Weather> airQuality) {
-		this.airQuality = airQuality;
+	public void setIndicatorHistory(Set<IndicatorHistory> indicatorHistory) {
+		this.indicatorHistory = indicatorHistory;
 	}
 
 	/**
@@ -249,15 +208,15 @@ public class Town {
 	/**
 	 * @return the forecasts
 	 */
-	public Set<TownForecastAlert> getForecasts() {
-		return forecasts;
+	public Set<ForecastAlert> getForecastAlerts() {
+		return forecastAlerts;
 	}
 
 	/**
 	 * @param forecasts the forecasts to set
 	 */
-	public void setForecasts(Set<TownForecastAlert> forecasts) {
-		this.forecasts = forecasts;
+	public void setForecastAlerts(Set<ForecastAlert> forecastAlerts) {
+		this.forecastAlerts = forecastAlerts;
 	}
 
 	/**
@@ -274,6 +233,18 @@ public class Town {
 		this.users = users;
 	}
 
-	
+	/**
+	 * @return the postCodes
+	 */
+	public Set<PostCode> getPostCodes() {
+		return postCodes;
+	}
+
+	/**
+	 * @param postCodes the postCodes to set
+	 */
+	public void setPostCodes(Set<PostCode> postCodes) {
+		this.postCodes = postCodes;
+	}
 
 }

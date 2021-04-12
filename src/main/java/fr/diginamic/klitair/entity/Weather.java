@@ -34,11 +34,11 @@ public class Weather {
 	/** temperature */
 	private float temperature;
 
-	/** weatherConditions */
+	/** weatherCondition */
 	@ManyToOne
-	@JoinColumn(name = "id_weather_conditions")
+	@JoinColumn(name = "id_weather_condition")
 	@NotNull
-	private WeatherConditions weatherConditions;
+	private WeatherCondition weatherCondition;
 
 	/** town */
 	@ManyToOne
@@ -67,8 +67,8 @@ public class Weather {
 		builder.append(date);
 		builder.append(", temperature=");
 		builder.append(temperature);
-		builder.append(", weatherConditions=");
-		builder.append(weatherConditions);
+		builder.append(", weatherCondition=");
+		builder.append(weatherCondition);
 		builder.append(", town=");
 		builder.append(town);
 		builder.append("]");
@@ -120,15 +120,15 @@ public class Weather {
 	/**
 	 * @return the weatherConditions
 	 */
-	public WeatherConditions getWeatherConditions() {
-		return weatherConditions;
+	public WeatherCondition getWeatherConditions() {
+		return weatherCondition;
 	}
 
 	/**
 	 * @param weatherConditions the weatherConditions to set
 	 */
-	public void setWeatherConditions(WeatherConditions weatherConditions) {
-		this.weatherConditions = weatherConditions;
+	public void setWeatherConditions(WeatherCondition weatherCondition) {
+		this.weatherCondition = weatherCondition;
 	}
 
 	/**
