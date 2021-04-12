@@ -20,8 +20,8 @@ public class TownService {
 	TownRepository townRepository;
 
 	public List<Town> findByPostCode(String postCode) {
-
-		return townRepository.findByPostCode(postCode);
+		return null;
+		// return townRepository.findByPostCode(postCode);
 	}
 
 }
