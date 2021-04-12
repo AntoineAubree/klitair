@@ -1,89 +1,48 @@
 /**
  * 
  */
-package fr.diginamic.klitair.entity;
+package fr.diginamic.klitair.api.airquality;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
 /**
- * @author StephanieMC
+ * @author anton
  *
  */
-@Entity
-public class AirQuality {
-
-	/** id */
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class AirQualityData {
 
 	/** date */
-	@Column(nullable = false)
-	@NotNull
 	private LocalDate date;
 
 	/** o3 */
-	@Min(1)
-	@Max(6)
 	private int o3;
 
 	/** pm10 */
-	@Min(1)
-	@Max(6)
 	private int pm10;
 
 	/** no2 */
-	@Min(1)
-	@Max(6)
 	private int no2;
 
 	/** so2 */
-	@Min(1)
-	@Max(6)
 	private int so2;
 
 	/** pm25 */
-	@Min(1)
-	@Max(6)
 	private int pm25;
 
-	/** town */
-	@ManyToOne
-	@JoinColumn(name = "id_town")
-	@NotNull
-	private Town town;
+	/** codeInsee */
+	private String codeInsee;
 
-	public AirQuality() {
-	}
-
-	public AirQuality(@NotNull LocalDate date, @Min(1) @Max(6) int o3, @Min(1) @Max(6) int pm10,
-			@Min(1) @Max(6) int no2, @Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25) {
+	/**
+	 * 
+	 */
+	public AirQualityData() {
 		super();
-		this.date = date;
-		this.o3 = o3;
-		this.pm10 = pm10;
-		this.no2 = no2;
-		this.so2 = so2;
-		this.pm25 = pm25;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AirQuality [id=");
-		builder.append(id);
-		builder.append(", date=");
+		builder.append("AirQualityData [date=");
 		builder.append(date);
 		builder.append(", o3=");
 		builder.append(o3);
@@ -95,24 +54,10 @@ public class AirQuality {
 		builder.append(so2);
 		builder.append(", pm25=");
 		builder.append(pm25);
-		builder.append(", town=");
-		builder.append(town);
+		builder.append(", codeInsee=");
+		builder.append(codeInsee);
 		builder.append("]");
 		return builder.toString();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**
@@ -200,17 +145,17 @@ public class AirQuality {
 	}
 
 	/**
-	 * @return the town
+	 * @return the codeInsee
 	 */
-	public Town getTown() {
-		return town;
+	public String getCodeInsee() {
+		return codeInsee;
 	}
 
 	/**
-	 * @param town the town to set
+	 * @param codeInsee the codeInsee to set
 	 */
-	public void setTown(Town town) {
-		this.town = town;
+	public void setCodeInsee(String codeInsee) {
+		this.codeInsee = codeInsee;
 	}
 
 }

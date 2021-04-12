@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import fr.diginamic.klitair.api.meteo.WeatherData;
+
 /**
  * @author StephanieMC
  *
@@ -35,7 +37,7 @@ public class WeatherConditions {
 
 	/** weathers */
 	@OneToMany(mappedBy = "weatherConditions")
-	private Set<Weather> weathers = new HashSet<Weather>();
+	private Set<WeatherData> weathers = new HashSet<WeatherData>();
 
 	/*
 	 * Constructor WITHOUT params
@@ -95,14 +97,14 @@ public class WeatherConditions {
 	/**
 	 * @return the weathers
 	 */
-	public Set<Weather> getWeathers() {
+	public Set<WeatherData> getWeathers() {
 		return weathers;
 	}
 
 	/**
 	 * @param weathers the weathers to set
 	 */
-	public void setWeathers(Set<Weather> weathers) {
+	public void setWeathers(Set<WeatherData> weathers) {
 		this.weathers = weathers;
 	}
 

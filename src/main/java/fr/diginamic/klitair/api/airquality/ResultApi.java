@@ -22,6 +22,9 @@ public class ResultApi {
 	@JsonProperty("commune_nom")
 	private String nomCommune;
 
+	@JsonProperty("commune")
+	private String codeInsee;
+
 	@JsonProperty("sous_indice")
 	private List<Polluant> polluants = new ArrayList<>();
 
@@ -39,6 +42,8 @@ public class ResultApi {
 		builder.append(date);
 		builder.append(", nomCommune=");
 		builder.append(nomCommune);
+		builder.append(", codeInsee=");
+		builder.append(codeInsee);
 		builder.append(", polluants=");
 		builder.append(polluants);
 		builder.append("]");
@@ -71,6 +76,20 @@ public class ResultApi {
 	 */
 	public void setNomCommune(String nomCommune) {
 		this.nomCommune = nomCommune;
+	}
+
+	/**
+	 * @return the codeInsee
+	 */
+	public String getCodeInsee() {
+		return codeInsee;
+	}
+
+	/**
+	 * @param codeInsee the codeInsee to set
+	 */
+	public void setCodeInsee(String codeInsee) {
+		this.codeInsee = codeInsee;
 	}
 
 	/**

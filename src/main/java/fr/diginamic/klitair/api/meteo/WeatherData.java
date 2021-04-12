@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.diginamic.klitair.entity;
+package fr.diginamic.klitair.api.meteo;
 
 import java.time.LocalDateTime;
 
@@ -21,12 +21,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import fr.diginamic.klitair.entity.Town;
+import fr.diginamic.klitair.entity.WeatherConditions;
+
 /**
  * @author StephanieMC
  *
  */
 @Entity
-public class Weather {
+public class WeatherData {
 
 	/** id */
 	@Id
@@ -58,10 +61,10 @@ public class Weather {
 	@NotNull
 	private Town town;
 
-	public Weather() {
+	public WeatherData() {
 	}
 
-	public Weather(@NotNull LocalDateTime date, float temperature) {
+	public WeatherData(@NotNull LocalDateTime date, float temperature) {
 		super();
 		this.date = date;
 		this.temperature = temperature;

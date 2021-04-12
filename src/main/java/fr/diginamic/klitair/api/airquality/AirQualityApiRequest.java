@@ -11,15 +11,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import fr.diginamic.klitair.entity.AirQuality;
-
-public class TestAirPlApi {
+public class AirQualityApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
-	public List<AirQuality> getTestAirPlApi() throws Exception {
+	public List<AirQualityData> getAirQualityDataDay() throws Exception {
 
-		String baseUrl = "https://data.airpl.org/api/v1/indice/commune/?commune=44026&export=json&date__range=2021-4-8,2021-4-10";
+		String baseUrl = "https://data.airpl.org/api/v1/indice/commune/?commune=44026&export=json&date__range=2021-4-8,2021-4-8";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
@@ -34,32 +32,33 @@ public class TestAirPlApi {
 
 		DataApiAir bean = mapper.readValue(jsonString, DataApiAir.class);
 
-		List<AirQuality> airJson = new ArrayList<>();
+		List<AirQualityData> airQualityDataList = new ArrayList<>();
 
 		bean.getResultApi().forEach(el -> {
-			AirQuality airtest = new AirQuality();
-			airtest.setDate(el.getDate());
+			AirQualityData airData = new AirQualityData();
+			airData.setDate(el.getDate());
+			airData.setCodeInsee(el.getCodeInsee());
 
 			el.getPolluants().forEach(el2 -> {
 				switch (el2.getNom()) {
 				case "O3": {
-					airtest.setO3(el2.getValeur());
+					airData.setO3(el2.getValeur());
 				}
 					break;
 				case "PM10": {
-					airtest.setPm10(el2.getValeur());
+					airData.setPm10(el2.getValeur());
 				}
 					break;
 				case "NO2": {
-					airtest.setNo2(el2.getValeur());
+					airData.setNo2(el2.getValeur());
 				}
 					break;
 				case "SO2": {
-					airtest.setSo2(el2.getValeur());
+					airData.setSo2(el2.getValeur());
 				}
 					break;
 				case "PM25": {
-					airtest.setPm25(el2.getValeur());
+					airData.setPm25(el2.getValeur());
 				}
 					break;
 				default:
@@ -67,11 +66,11 @@ public class TestAirPlApi {
 				}
 
 			});
-			airJson.add(airtest);
+			airQualityDataList.add(airData);
 
 		});
 
-		return airJson;
+		return airQualityDataList;
 
 	}
 }

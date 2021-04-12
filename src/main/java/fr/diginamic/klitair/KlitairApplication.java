@@ -6,12 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import fr.diginamic.klitair.api.airquality.TestAirPlApi;
+import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
+import fr.diginamic.klitair.api.airquality.AirQualityData;
 import fr.diginamic.klitair.api.geo.DepartmentApi;
 import fr.diginamic.klitair.api.geo.RegionApi;
 import fr.diginamic.klitair.api.geo.TownApi;
 import fr.diginamic.klitair.api.meteo.TestMeteoApi;
-import fr.diginamic.klitair.entity.AirQuality;
 
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {
@@ -36,8 +36,8 @@ public class KlitairApplication implements CommandLineRunner {
 		regionApi.getRegionApi();
 
 		System.out.println("\nData API Air\n");
-		TestAirPlApi testApiAir = new TestAirPlApi();
-		List<AirQuality> airTest = testApiAir.getTestAirPlApi();
+		AirQualityApiRequest testApiAir = new AirQualityApiRequest();
+		List<AirQualityData> airTest = testApiAir.getAirQualityDataDay();
 		airTest.forEach(el -> System.out.println(el));
 
 		System.out.println("\nMeteo API\n");

@@ -67,14 +67,6 @@ public class Town {
 	@JoinColumn(name = "id_departement")
 	private Department department;
 
-	/** weathers */
-	@OneToMany(mappedBy = "town")
-	private Set<Weather> weathers = new HashSet<Weather>();
-
-	/** air quality */
-	@OneToMany(mappedBy = "town")
-	private Set<Weather> airQuality = new HashSet<Weather>();
-
 	/** favourites */
 	@OneToMany(mappedBy = "town")
 	private Set<Favourite> favourites = new HashSet<Favourite>();
@@ -213,34 +205,6 @@ public class Town {
 	 */
 	public void setDepartment(Department department) {
 		this.department = department;
-	}
-
-	/**
-	 * @return the weathers
-	 */
-	public Set<Weather> getWeathers() {
-		return weathers;
-	}
-
-	/**
-	 * @param weathers the weathers to set
-	 */
-	public void setWeathers(Set<Weather> weathers) {
-		this.weathers = weathers;
-	}
-
-	/**
-	 * @return the airQuality
-	 */
-	public Set<Weather> getAirQuality() {
-		return airQuality;
-	}
-
-	/**
-	 * @param airQuality the airQuality to set
-	 */
-	public void setAirQuality(Set<Weather> airQuality) {
-		this.airQuality = airQuality;
 	}
 
 	/**
