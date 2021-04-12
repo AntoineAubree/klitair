@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author anton
  *
  */
+@Component
 public class RegionApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();

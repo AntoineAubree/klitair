@@ -30,8 +30,8 @@ public class Region {
 	private Long id;
 
 	/** code */
-	@Column(length = 5, nullable = false)
-	@Size(min = 5, max = 5)
+	@Column(length = 3, nullable = false)
+	@Size(min = 2, max = 3)
 	@NotNull
 	@JsonProperty("code")
 	private String code;
