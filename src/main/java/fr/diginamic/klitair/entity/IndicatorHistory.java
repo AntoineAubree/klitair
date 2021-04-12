@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-public class AirQuality {
+public class IndicatorHistory {
 
 	/** id */
 	@Id
@@ -58,17 +58,30 @@ public class AirQuality {
 	@Max(6)
 	private int pm25;
 
+	/** temperature min */
+	private float temperatureMin;
+
+	/** temperature max */
+	private float temperatureMax;
+
+	/** weatherCondition */
+	@ManyToOne
+	@JoinColumn(name = "id_weather_condition")
+	@NotNull
+	private WeatherCondition weatherCondition;
+
 	/** town */
 	@ManyToOne
 	@JoinColumn(name = "id_town")
 	@NotNull
 	private Town town;
 
-	public AirQuality() {
+	public IndicatorHistory() {
 	}
 
-	public AirQuality(@NotNull LocalDate date, @Min(1) @Max(6) int o3, @Min(1) @Max(6) int pm10,
-			@Min(1) @Max(6) int no2, @Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25) {
+	public IndicatorHistory(@NotNull LocalDate date, @Min(1) @Max(6) int o3, @Min(1) @Max(6) int pm10,
+			@Min(1) @Max(6) int no2, @Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25, float temperatureMin,
+			float temperatureMax, @NotNull WeatherCondition weatherCondition) {
 		super();
 		this.date = date;
 		this.o3 = o3;
@@ -76,12 +89,15 @@ public class AirQuality {
 		this.no2 = no2;
 		this.so2 = so2;
 		this.pm25 = pm25;
+		this.temperatureMin = temperatureMin;
+		this.temperatureMax = temperatureMax;
+		this.weatherCondition = weatherCondition;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("AirQuality [id=");
+		builder.append("IndicatorHistory [id=");
 		builder.append(id);
 		builder.append(", date=");
 		builder.append(date);
@@ -95,8 +111,12 @@ public class AirQuality {
 		builder.append(so2);
 		builder.append(", pm25=");
 		builder.append(pm25);
-		builder.append(", town=");
-		builder.append(town);
+		builder.append(", temperatureMin=");
+		builder.append(temperatureMin);
+		builder.append(", temperatureMax=");
+		builder.append(temperatureMax);
+		builder.append(", weatherCondition=");
+		builder.append(weatherCondition);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -211,6 +231,48 @@ public class AirQuality {
 	 */
 	public void setTown(Town town) {
 		this.town = town;
+	}
+
+	/**
+	 * @return the temperatureMin
+	 */
+	public float getTemperatureMin() {
+		return temperatureMin;
+	}
+
+	/**
+	 * @param temperatureMin the temperatureMin to set
+	 */
+	public void setTemperatureMin(float temperatureMin) {
+		this.temperatureMin = temperatureMin;
+	}
+
+	/**
+	 * @return the temperatureMax
+	 */
+	public float getTemperatureMax() {
+		return temperatureMax;
+	}
+
+	/**
+	 * @param temperatureMax the temperatureMax to set
+	 */
+	public void setTemperatureMax(float temperatureMax) {
+		this.temperatureMax = temperatureMax;
+	}
+
+	/**
+	 * @return the weatherConditions
+	 */
+	public WeatherCondition getWeatherCondition() {
+		return weatherCondition;
+	}
+
+	/**
+	 * @param weatherConditions the weatherConditions to set
+	 */
+	public void setWeatherCondition(WeatherCondition weatherCondition) {
+		this.weatherCondition = weatherCondition;
 	}
 
 }

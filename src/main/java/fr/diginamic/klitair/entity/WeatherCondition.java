@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
  *
  */
 @Entity
-public class WeatherConditions {
+public class WeatherCondition {
 
 	/** id */
 	@Id
@@ -34,19 +34,19 @@ public class WeatherConditions {
 	private String state;
 
 	/** weathers */
-	@OneToMany(mappedBy = "weatherConditions")
-	private Set<Weather> weathers = new HashSet<Weather>();
+	@OneToMany(mappedBy = "weatherCondition")
+	private Set<IndicatorHistory> indicatorHistory = new HashSet<IndicatorHistory>();
 
 	/*
 	 * Constructor WITHOUT params
 	 */
-	public WeatherConditions() {
+	public WeatherCondition() {
 	}
 
 	/*
 	 * Constructor WITH params
 	 */
-	public WeatherConditions(@Size(min = 1, max = 150) @NotNull String state) {
+	public WeatherCondition(@Size(min = 1, max = 150) @NotNull String state) {
 		super();
 		this.state = state;
 	}
@@ -54,12 +54,10 @@ public class WeatherConditions {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("WeatherConditions [id=");
+		builder.append("WeatherCondition [id=");
 		builder.append(id);
 		builder.append(", state=");
 		builder.append(state);
-		builder.append(", weathers=");
-		builder.append(weathers);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -93,17 +91,17 @@ public class WeatherConditions {
 	}
 
 	/**
-	 * @return the weathers
+	 * @return the indicatorHistory
 	 */
-	public Set<Weather> getWeathers() {
-		return weathers;
+	public Set<IndicatorHistory> getIndicatorHistory() {
+		return indicatorHistory;
 	}
 
 	/**
-	 * @param weathers the weathers to set
+	 * @param indicatorHistory the indicatorHistory to set
 	 */
-	public void setWeathers(Set<Weather> weathers) {
-		this.weathers = weathers;
+	public void setIndicatorHistory(Set<IndicatorHistory> indicatorHistory) {
+		this.indicatorHistory = indicatorHistory;
 	}
 
 }
