@@ -76,6 +76,9 @@ public class IndicatorHistory {
 	@NotNull
 	private Town town;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public IndicatorHistory() {
 	}
 

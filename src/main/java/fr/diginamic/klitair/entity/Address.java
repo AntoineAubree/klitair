@@ -27,6 +27,9 @@ public class Address {
 	@NotNull
 	private String street;
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public Address() {
 	}
 

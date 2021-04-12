@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author StephanieMC
  *
@@ -38,19 +40,24 @@ public class DiscussionThread {
 	/** user */
 	@ManyToOne
 	@JoinColumn(name = "id_user")
-	@NotNull
+//	@NotNull
+	//TODO add not null
 	private User user;
 
 	/** section */
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "id_section")
 	@NotNull
 	private Section section;
 
 	/** messages */
+	@JsonIgnore
 	@OneToMany(mappedBy = "discussionThread")
 	private Set<Message> messages = new HashSet<Message>();
 
+	/**
+	 * Constructor WITHOUT params
+	 */
 	public DiscussionThread() {
 	}
 

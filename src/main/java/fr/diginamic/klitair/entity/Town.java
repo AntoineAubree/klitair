@@ -78,7 +78,6 @@ public class Town {
 	 * Constructor WITHOUT params
 	 */
 	public Town() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Town(@Size(min = 5, max = 5) @NotNull String code, @Size(min = 1, max = 200) @NotNull String name,
