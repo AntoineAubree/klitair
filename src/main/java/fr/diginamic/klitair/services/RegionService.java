@@ -20,7 +20,7 @@ public class RegionService {
 	public void insertRegion() {
 		try {
 			for (RegionDataApi regionData : regionApiRequest.getRegionData()) {
-				if (regionRepository.findByCode(regionData.getCode()).isEmpty()) {
+				if (regionRepository.findByCode(regionData.getCode()) == null) {
 					Region region = new Region();
 					region.setCode(regionData.getCode());
 					region.setName(regionData.getName());
