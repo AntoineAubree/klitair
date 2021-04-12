@@ -10,13 +10,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.diginamic.klitair.entity.Town;
-
 /**
  * @author anton
  *
  */
-public class TownApi {
+public class TownApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
@@ -25,7 +23,7 @@ public class TownApi {
 	 * 
 	 * @throws Exception
 	 */
-	public void getTownApi() throws Exception {
+	public void getTownData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/communes?limit=10";
 		URI uri = new URI(baseUrl);
@@ -39,7 +37,7 @@ public class TownApi {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		List<Town> bean = mapper.readValue(jsonString, new TypeReference<List<Town>>() {
+		List<TownDataApi> bean = mapper.readValue(jsonString, new TypeReference<List<TownDataApi>>() {
 		});
 
 		bean.forEach(el -> System.out.println(el));

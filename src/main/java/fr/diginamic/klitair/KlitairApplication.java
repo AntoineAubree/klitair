@@ -10,7 +10,7 @@ import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
 import fr.diginamic.klitair.api.airquality.AirQualityData;
 import fr.diginamic.klitair.api.geo.departement.DepartmentApiRequest;
 import fr.diginamic.klitair.api.geo.region.RegionApiRequest;
-import fr.diginamic.klitair.api.geo.town.TownApi;
+import fr.diginamic.klitair.api.geo.town.TownApiRequest;
 
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {
@@ -23,8 +23,8 @@ public class KlitairApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		System.out.println("\nTown API\n");
-		TownApi townApi = new TownApi();
-		townApi.getTownApi();
+		TownApiRequest townApi = new TownApiRequest();
+		townApi.getTownData();
 
 		System.out.println("\nDepartement API\n");
 		DepartmentApiRequest departmentApi = new DepartmentApiRequest();

@@ -18,13 +18,6 @@ public class RegionDataApi {
 	@JsonProperty("nom")
 	private String name;
 
-	/**
-	 * 
-	 */
-	public RegionDataApi() {
-		super();
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
