@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.diginamic.klitair.api.geo;
+package fr.diginamic.klitair.api.geo.departement;
 
 import java.net.URI;
 import java.util.List;

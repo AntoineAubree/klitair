@@ -11,10 +11,18 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+/**
+ * @author anton
+ *
+ */
 public class AirQualityApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
+	/**
+	 * @return a list of AirQualityData from the request for 1 Day
+	 * @throws Exception
+	 */
 	public List<AirQualityData> getAirQualityDataDay() throws Exception {
 
 		String baseUrl = "https://data.airpl.org/api/v1/indice/commune/?commune=44026&export=json&date__range=2021-4-8,2021-4-8";
@@ -39,26 +47,26 @@ public class AirQualityApiRequest {
 			airData.setDate(el.getDate());
 			airData.setCodeInsee(el.getCodeInsee());
 
-			el.getPolluants().forEach(el2 -> {
-				switch (el2.getNom()) {
+			el.getPollutans().forEach(el2 -> {
+				switch (el2.getName()) {
 				case "O3": {
-					airData.setO3(el2.getValeur());
+					airData.setO3(el2.getValue());
 				}
 					break;
 				case "PM10": {
-					airData.setPm10(el2.getValeur());
+					airData.setPm10(el2.getValue());
 				}
 					break;
 				case "NO2": {
-					airData.setNo2(el2.getValeur());
+					airData.setNo2(el2.getValue());
 				}
 					break;
 				case "SO2": {
-					airData.setSo2(el2.getValeur());
+					airData.setSo2(el2.getValue());
 				}
 					break;
 				case "PM25": {
-					airData.setPm25(el2.getValeur());
+					airData.setPm25(el2.getValue());
 				}
 					break;
 				default:

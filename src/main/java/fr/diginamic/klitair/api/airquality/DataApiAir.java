@@ -5,6 +5,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Representation of the JSON response
+ * 
+ * @author anton
+ *
+ */
 public class DataApiAir {
 
 	@JsonProperty("results")

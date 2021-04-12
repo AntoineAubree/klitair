@@ -6,6 +6,8 @@ package fr.diginamic.klitair.api.airquality;
 import java.time.LocalDate;
 
 /**
+ * Representation of resume pollutant from the JSON reponse
+ * 
  * @author anton
  *
  */

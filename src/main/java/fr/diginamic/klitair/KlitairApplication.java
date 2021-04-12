@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
 import fr.diginamic.klitair.api.airquality.AirQualityData;
-import fr.diginamic.klitair.api.geo.DepartmentApi;
-import fr.diginamic.klitair.api.geo.RegionApi;
-import fr.diginamic.klitair.api.geo.TownApi;
+import fr.diginamic.klitair.api.geo.departement.DepartmentApi;
+import fr.diginamic.klitair.api.geo.region.RegionApi;
+import fr.diginamic.klitair.api.geo.town.TownApi;
 import fr.diginamic.klitair.api.meteo.TestMeteoApi;
 
 @SpringBootApplication
