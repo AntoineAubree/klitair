@@ -1,4 +1,4 @@
-package fr.diginamic.klitair.airplapi;
+package fr.diginamic.klitair.api.airquality;
 
 import java.util.ArrayList;
 import java.util.List;

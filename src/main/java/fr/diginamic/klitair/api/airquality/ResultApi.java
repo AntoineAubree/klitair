@@ -1,4 +1,4 @@
-package fr.diginamic.klitair.airplapi;
+package fr.diginamic.klitair.api.airquality;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

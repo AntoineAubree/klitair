@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.diginamic.klitair.meteoapi;
+package fr.diginamic.klitair.api.meteo;
 
 import java.util.ArrayList;
 import java.util.List;

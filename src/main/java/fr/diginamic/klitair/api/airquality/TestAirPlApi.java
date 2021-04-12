@@ -1,4 +1,4 @@
-package fr.diginamic.klitair.airplapi;
+package fr.diginamic.klitair.api.airquality;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class TestAirPlApi {
 
 	public List<AirQuality> getTestAirPlApi() throws Exception {
 
-		String baseUrl = "https://data.airpl.org/api/v1/indice/commune/?commune=44026&export=json&date__range=2021-4-8,2021-4-8";
+		String baseUrl = "https://data.airpl.org/api/v1/indice/commune/?commune=44026&export=json&date__range=2021-4-8,2021-4-10";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);

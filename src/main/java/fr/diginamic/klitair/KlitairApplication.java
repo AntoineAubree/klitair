@@ -6,12 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import fr.diginamic.klitair.airplapi.TestAirPlApi;
+import fr.diginamic.klitair.api.airquality.TestAirPlApi;
+import fr.diginamic.klitair.api.geo.DepartmentApi;
+import fr.diginamic.klitair.api.geo.RegionApi;
+import fr.diginamic.klitair.api.geo.TownApi;
+import fr.diginamic.klitair.api.meteo.TestMeteoApi;
 import fr.diginamic.klitair.entity.AirQuality;
-import fr.diginamic.klitair.geoapi.DepartmentApi;
-import fr.diginamic.klitair.geoapi.RegionApi;
-import fr.diginamic.klitair.geoapi.TownApi;
-import fr.diginamic.klitair.meteoapi.TestMeteoApi;
 
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {

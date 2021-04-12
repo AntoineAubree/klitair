@@ -1,4 +1,4 @@
-package fr.diginamic.klitair.geoapi;
+package fr.diginamic.klitair.api.geo;
 
 import java.net.URI;
 import java.util.List;

@@ -1,4 +1,4 @@
-package fr.diginamic.klitair.airplapi;
+package fr.diginamic.klitair.api.airquality;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
