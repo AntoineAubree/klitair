@@ -18,6 +18,10 @@ public class WeatherApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
+	/**
+	 * @return a List of List of Weather Data
+	 * @throws Exception
+	 */
 	public List<List<WeatherData>> getWeatherData() throws Exception {
 
 		String baseUrl = "https://api.meteo-concept.com/api/forecast/daily/periods?token=a3be79b283cd16d3fae3e33aa914a55fda79b070a3a7fb6ad2a81d60e316ce7b&insee=35238";

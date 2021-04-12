@@ -22,7 +22,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 public class WeatherData {
 
 	/** codeInsee */
-	@JsonProperty("code")
+	@JsonProperty("insee")
 	private String codeInsee;
 
 	/** date */
