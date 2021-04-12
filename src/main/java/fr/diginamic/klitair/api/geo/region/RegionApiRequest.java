@@ -10,13 +10,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import fr.diginamic.klitair.entity.Region;
-
 /**
  * @author anton
  *
  */
-public class RegionApi {
+public class RegionApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
 
@@ -25,7 +23,7 @@ public class RegionApi {
 	 * 
 	 * @throws Exception
 	 */
-	public void getRegionApi() throws Exception {
+	public void getRegionData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/regions?limit=10";
 		URI uri = new URI(baseUrl);
@@ -39,7 +37,7 @@ public class RegionApi {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		List<Region> bean = mapper.readValue(jsonString, new TypeReference<List<Region>>() {
+		List<RegionDataApi> bean = mapper.readValue(jsonString, new TypeReference<List<RegionDataApi>>() {
 		});
 
 		bean.forEach(el -> System.out.println(el));

@@ -9,9 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
 import fr.diginamic.klitair.api.airquality.AirQualityData;
 import fr.diginamic.klitair.api.geo.departement.DepartmentApi;
-import fr.diginamic.klitair.api.geo.region.RegionApi;
+import fr.diginamic.klitair.api.geo.region.RegionApiRequest;
 import fr.diginamic.klitair.api.geo.town.TownApi;
-import fr.diginamic.klitair.api.meteo.TestMeteoApi;
 
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {
@@ -32,17 +31,18 @@ public class KlitairApplication implements CommandLineRunner {
 		departmentApi.getDepartmentApi();
 
 		System.out.println("\nRegion API\n");
-		RegionApi regionApi = new RegionApi();
-		regionApi.getRegionApi();
+		RegionApiRequest regionApi = new RegionApiRequest();
+		regionApi.getRegionData();
 
 		System.out.println("\nData API Air\n");
 		AirQualityApiRequest testApiAir = new AirQualityApiRequest();
 		List<AirQualityData> airTest = testApiAir.getAirQualityDataDay();
 		airTest.forEach(el -> System.out.println(el));
 
-		System.out.println("\nMeteo API\n");
-		TestMeteoApi testMeteoApi = new TestMeteoApi();
-		testMeteoApi.getTestMeteoApi();
+		/*
+		 * System.out.println("\nMeteo API\n"); TestMeteoApi testMeteoApi = new
+		 * TestMeteoApi(); testMeteoApi.getTestMeteoApi();
+		 */
 
 		System.out.println("Terminé");
 
