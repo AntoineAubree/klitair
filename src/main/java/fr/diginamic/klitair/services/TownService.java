@@ -18,9 +18,22 @@ public class TownService {
 
 	@Autowired
 	TownRepository townRepository;
+	
+	@Autowired 
+	RegionService regionService;
+	
+	@Autowired
+	DepartmentService departmentService;
 
 	public List<Town> findByPostCode(String postCode) {
 		return townRepository.findByPostCodes_Code(postCode);
+	}
+
+	public void update() {
+		
+		regionService.insertRegion();
+		departmentService.insertDepartment();
+		
 	}
 
 }

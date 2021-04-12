@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import fr.diginamic.klitair.entity.Town;
@@ -25,5 +26,12 @@ public class TownController {
 	@GetMapping("{postCode}")
 	public List<Town> findByPostcode(@PathVariable String postCode) {
 		return townService.findByPostCode(postCode);
+	}
+	
+	@PutMapping
+	public void update() {
+		
+		townService.update();
+		
 	}
 }
