@@ -1,6 +1,7 @@
 package fr.diginamic.klitair.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,7 @@ public class DailyPolluantIndicator {
 
 	/** date */
 	@NotNull
-	private LocalDateTime date;
+	private LocalDate date;
 	
 	/** Constructor WITHOUT params */
 	
@@ -59,7 +60,7 @@ public class DailyPolluantIndicator {
 	 * @param date
 	 */
 	public DailyPolluantIndicator(@Min(1) @Max(6) int o3, @Min(1) @Max(6) int pm10, @Min(1) @Max(6) int no2,
-			@Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25, @NotNull LocalDateTime date) {
+			@Min(1) @Max(6) int so2, @Min(1) @Max(6) int pm25, @NotNull LocalDate date) {
 		super();
 		this.o3 = o3;
 		this.pm10 = pm10;
@@ -161,14 +162,14 @@ public class DailyPolluantIndicator {
 	/**
 	 * @return the date
 	 */
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	

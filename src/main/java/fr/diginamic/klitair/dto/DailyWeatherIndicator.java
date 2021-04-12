@@ -22,17 +22,16 @@ public class DailyWeatherIndicator {
 	/** weatherConditions */
 	@NotNull
 	private String weatherConditions;
-	
-	
-	/** constructor WITHOUT params*/
-	
-	public DailyWeatherIndicator() {
-		
-	}
 
+	/** constructor WITHOUT params */
+
+	public DailyWeatherIndicator() {
+
+	}
 
 	/**
 	 * constructor WITH params
+	 * 
 	 * @param temperature
 	 * @param date
 	 * @param weatherConditions
@@ -43,7 +42,6 @@ public class DailyWeatherIndicator {
 		this.date = date;
 		this.weatherConditions = weatherConditions;
 	}
-
 
 	@Override
 	public String toString() {
@@ -58,14 +56,12 @@ public class DailyWeatherIndicator {
 		return builder.toString();
 	}
 
-
 	/**
 	 * @return the temperature
 	 */
 	public float getTemperature() {
 		return temperature;
 	}
-
 
 	/**
 	 * @param temperature the temperature to set
@@ -74,14 +70,12 @@ public class DailyWeatherIndicator {
 		this.temperature = temperature;
 	}
 
-
 	/**
 	 * @return the date
 	 */
 	public LocalDateTime getDate() {
 		return date;
 	}
-
 
 	/**
 	 * @param date the date to set
@@ -90,7 +84,6 @@ public class DailyWeatherIndicator {
 		this.date = date;
 	}
 
-
 	/**
 	 * @return the weatherConditions
 	 */
@@ -98,14 +91,11 @@ public class DailyWeatherIndicator {
 		return weatherConditions;
 	}
 
-
 	/**
 	 * @param weatherConditions the weatherConditions to set
 	 */
 	public void setWeatherConditions(String weatherConditions) {
 		this.weatherConditions = weatherConditions;
 	}
-	
-	
 
 }

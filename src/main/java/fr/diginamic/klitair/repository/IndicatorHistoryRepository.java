@@ -5,12 +5,12 @@ package fr.diginamic.klitair.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import fr.diginamic.klitair.entity.Weather;
+import fr.diginamic.klitair.entity.IndicatorHistory;
 
 /**
  * @author Antoine
  *
  */
-public interface WeatherRepository extends JpaRepository<Weather, Long> {
+public interface IndicatorHistoryRepository extends JpaRepository<IndicatorHistory, Long> {
 
 }
