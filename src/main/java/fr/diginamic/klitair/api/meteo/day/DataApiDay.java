@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.diginamic.klitair.api.meteo;
+package fr.diginamic.klitair.api.meteo.day;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +9,16 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Reprensentation of key "forecast" from JSON reponse
+ * Reprensentation of key "forecast" from JSON reponse for 1 day
  * 
  * @author anton
  *
  */
-public class DataApiResponse {
+public class DataApiDay {
 
 	/** weathers */
 	@JsonProperty("forecast")
-	private List<List<WeatherData>> weathers = new ArrayList<>();
+	private List<WeatherDataDay> weathers = new ArrayList<>();
 
 	@Override
 	public String toString() {
@@ -32,14 +32,14 @@ public class DataApiResponse {
 	/**
 	 * @return the weathers
 	 */
-	public List<List<WeatherData>> getWeathers() {
+	public List<WeatherDataDay> getWeathers() {
 		return weathers;
 	}
 
 	/**
 	 * @param weathers the weathers to set
 	 */
-	public void setWeathers(List<List<WeatherData>> weathers) {
+	public void setWeathers(List<WeatherDataDay> weathers) {
 		this.weathers = weathers;
 	}
 

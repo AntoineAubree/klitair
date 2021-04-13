@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.diginamic.klitair.api.meteo;
+package fr.diginamic.klitair.api.meteo.periods;
 
 import java.time.LocalDateTime;
 
@@ -13,17 +13,14 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 /**
- * Representation of Weather Data from JSON response
+ * Representation of Weather Data for several day every 6hours from JSON
+ * response
  * 
  * @author anton
  *
  */
 
-public class WeatherData {
-
-	/** codeInsee */
-	@JsonProperty("insee")
-	private String codeInsee;
+public class WeatherDataPeriods {
 
 	/** date */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
@@ -43,9 +40,7 @@ public class WeatherData {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("WeatherData [codeInsee=");
-		builder.append(codeInsee);
-		builder.append(", date=");
+		builder.append("WeatherDataPeriods [date=");
 		builder.append(date);
 		builder.append(", temperature=");
 		builder.append(temperature);
@@ -53,20 +48,6 @@ public class WeatherData {
 		builder.append(weatherConditions);
 		builder.append("]");
 		return builder.toString();
-	}
-
-	/**
-	 * @return the codeInsee
-	 */
-	public String getCodeInsee() {
-		return codeInsee;
-	}
-
-	/**
-	 * @param codeInsee the codeInsee to set
-	 */
-	public void setCodeInsee(String codeInsee) {
-		this.codeInsee = codeInsee;
 	}
 
 	/**
