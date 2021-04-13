@@ -52,10 +52,10 @@ public class WeatherApiRequest {
 	}
 
 	/**
-	 * Map a JSON response to a DataReturn for the Weather
-	 * 
+	 * @param <T>
 	 * @param uri
-	 * @return
+	 * @param T
+	 * @return a DataApiPeriods or a DataApiDay response
 	 * @throws JsonProcessingException
 	 * @throws JsonMappingException
 	 */

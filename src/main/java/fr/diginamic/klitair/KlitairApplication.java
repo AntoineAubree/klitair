@@ -4,6 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import fr.diginamic.klitair.api.geo.adress.AddressApiRequest;
+import fr.diginamic.klitair.api.geo.adress.PropertiesAddress;
+
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {
 
@@ -61,6 +64,11 @@ public class KlitairApplication implements CommandLineRunner {
 //		List<List<WeatherData>> weatherData = weathersApi.getWeatherData();
 //
 //		weatherData.get(0).forEach(el -> System.out.println(el));
+
+		System.out.println("\nAdresse API\n");
+		AddressApiRequest addressApi = new AddressApiRequest();
+		PropertiesAddress propertiesAddress = addressApi.getCodeInseeFromCoordinate("-1.619405", "47.274344");
+		System.out.println(propertiesAddress);
 
 		System.out.println("Terminé");
 
