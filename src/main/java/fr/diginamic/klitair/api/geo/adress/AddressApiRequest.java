@@ -6,6 +6,7 @@ package fr.diginamic.klitair.api.geo.adress;
 import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,6 +21,8 @@ import fr.diginamic.klitair.utils.RestTemplateSingleton;
  * @author anton
  *
  */
+
+@Component
 public class AddressApiRequest {
 
 	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();

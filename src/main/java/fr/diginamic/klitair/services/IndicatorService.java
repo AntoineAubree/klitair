@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
+import fr.diginamic.klitair.api.geo.adress.AddressApiRequest;
 import fr.diginamic.klitair.api.meteo.WeatherApiRequest;
 import fr.diginamic.klitair.api.meteo.periods.WeatherDataPeriods;
 import fr.diginamic.klitair.dto.CoordinatesDto;
@@ -31,19 +32,24 @@ public class IndicatorService {
 	private WeatherApiRequest weatherApiRequest;
 
 	@Autowired
+	private AddressApiRequest addressApiRequest;
+
+	@Autowired
 	private WeatherConditionService weatherConditionService;
 
-	public IndicatorDto findByCoordinates(CoordinatesDto coordinatesDto) {
+	public IndicatorDto findByCoordinates(CoordinatesDto coordinatesDto) throws Exception {
 		IndicatorDto iDto = new IndicatorDto();
+		String cityCode = addressApiRequest.getCodeInseeFromCoordinate(Float.toString(coordinatesDto.getLongitude()),
+				Float.toString(coordinatesDto.getLatitude())).getCityCode();
 
 		// TODO
 		// get postCode with coordinates in API
 		// send exception if coordinates and postcode doesn't map
-		String code = "44109";
+		// String code = "44109";
 
-		Town town = townRepository.findByCode(code).orElseThrow();
+		Town town = townRepository.findByCode(cityCode).orElseThrow();
 		iDto.setDate(LocalDateTime.now());
-		iDto.setTownPostCode(town.getPostCodes().get(0).getCode());
+		iDto.setTownPostCode(cityCode);
 		iDto.setPopulation(town.getPopulation());
 		iDto.setTownName(town.getName());
 		addAirQualityData(iDto, town);
@@ -58,7 +64,8 @@ public class IndicatorService {
 	private void addWeatherData(IndicatorDto iDto, Town town) {
 		try {
 			List<DailyWeatherIndicator> dailyWeatherIndicators = new ArrayList<>();
-			List<List<WeatherDataPeriods>> weatherDataPeriodsLists = weatherApiRequest.getWeatherDataPeriods(town.getCode());
+			List<List<WeatherDataPeriods>> weatherDataPeriodsLists = weatherApiRequest
+					.getWeatherDataPeriods(town.getCode());
 			for (int i = 0; i < NUMBER_OF_DAYS; i++) {
 				List<WeatherDataPeriods> weatherDataPeriodsList = weatherDataPeriodsLists.get(i);
 				for (WeatherDataPeriods weatherDataPeriods : weatherDataPeriodsList) {

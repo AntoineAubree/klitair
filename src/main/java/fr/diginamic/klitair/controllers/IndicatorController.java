@@ -26,7 +26,14 @@ public class IndicatorController {
 
 	@GetMapping()
 	public IndicatorDto findByCoordinates(@RequestBody CoordinatesDto coordinatesDto) {
-		return indicatorService.findByCoordinates(coordinatesDto);
+		try {
+			return indicatorService.findByCoordinates(coordinatesDto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 }

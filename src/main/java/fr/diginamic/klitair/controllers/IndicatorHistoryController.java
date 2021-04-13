@@ -20,11 +20,18 @@ import fr.diginamic.klitair.services.IndicatorHistoryService;
 public class IndicatorHistoryController {
 
 	@Autowired
-	IndicatorHistoryService indicatorHistoryService;
+	private IndicatorHistoryService indicatorHistoryService;
 
 	@GetMapping()
 	public IndicatorHistoryDto findByDateAndTown(@RequestBody CoordinatesAndTimeDto coordinatesAndTimeDto) {
-		return indicatorHistoryService.findByDateAndTown(coordinatesAndTimeDto);
+		try {
+			return indicatorHistoryService.findByDateAndTown(coordinatesAndTimeDto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+
+		}
 
 	}
 
