@@ -15,6 +15,7 @@ import fr.diginamic.klitair.dto.CoordinatesDto;
 import fr.diginamic.klitair.dto.DailyWeatherIndicator;
 import fr.diginamic.klitair.dto.IndicatorDto;
 import fr.diginamic.klitair.entity.Town;
+import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.repository.TownRepository;
 
 @Service
@@ -47,7 +48,7 @@ public class IndicatorService {
 		// send exception if coordinates and postcode doesn't map
 		// String code = "44109";
 
-		Town town = townRepository.findByCode(cityCode).orElseThrow();
+		Town town = townRepository.findByCode(cityCode).orElseThrow(() -> new BadRequestException("ville non présente en base"));
 		iDto.setDate(LocalDateTime.now());
 		iDto.setTownPostCode(cityCode);
 		iDto.setPopulation(town.getPopulation());
@@ -72,10 +73,8 @@ public class IndicatorService {
 					DailyWeatherIndicator dailyWeatherIndicator = new DailyWeatherIndicator();
 					dailyWeatherIndicator.setDate(weatherDataPeriods.getDate());
 					dailyWeatherIndicator.setTemperature(weatherDataPeriods.getTemperature());
-					dailyWeatherIndicator.setWeatherConditions("beau");
-					// TODO put weather condition in database
-//					dailyWeatherIndicator.setWeatherConditions(
-//							weatherConditionService.findByNumber(weatherDataPeriods.getWeatherConditions()).getState());
+					dailyWeatherIndicator.setWeatherConditions(
+							weatherConditionService.findByNumber(weatherDataPeriods.getWeatherConditions()).getState());
 					dailyWeatherIndicators.add(dailyWeatherIndicator);
 				}
 			}

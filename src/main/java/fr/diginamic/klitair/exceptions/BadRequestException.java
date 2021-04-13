@@ -10,5 +10,14 @@ public class BadRequestException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = -3877093744744168903L;
+	
+	public BadRequestException() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public BadRequestException(String msg) {
+		super(msg);
+		
+	}
 
 }
