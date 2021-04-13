@@ -11,13 +11,15 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import fr.diginamic.klitair.utils.RestTemplateSingleton;
+
 /**
  * @author anton
  *
  */
 public class AirQualityApiRequest {
 
-	public static RestTemplate restTemplate = new RestTemplate();
+	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();
 
 	/**
 	 * @return a list of AirQualityData from the request for 1 Day

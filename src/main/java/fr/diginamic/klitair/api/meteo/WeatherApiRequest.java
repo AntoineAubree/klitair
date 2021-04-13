@@ -10,13 +10,15 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import fr.diginamic.klitair.utils.RestTemplateSingleton;
+
 /**
  * @author anton
  *
  */
 public class WeatherApiRequest {
 
-	public static RestTemplate restTemplate = new RestTemplate();
+	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();
 
 	/**
 	 * @return a List of List of Weather Data

@@ -11,6 +11,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.diginamic.klitair.utils.RestTemplateSingleton;
+
 /**
  * @author anton
  *
@@ -18,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class RegionApiRequest {
 
-	public static RestTemplate restTemplate = new RestTemplate();
+	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();
 
 	/**
 	 * Print 10 first region returned by the api response

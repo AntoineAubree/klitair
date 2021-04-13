@@ -10,13 +10,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.diginamic.klitair.utils.RestTemplateSingleton;
+
 /**
  * @author anton
  *
  */
 public class TownApiRequest {
 
-	public static RestTemplate restTemplate = new RestTemplate();
+	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();
 
 	/**
 	 * Print 10 first town returned by the api response
