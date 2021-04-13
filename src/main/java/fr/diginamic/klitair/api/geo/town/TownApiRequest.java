@@ -25,7 +25,7 @@ public class TownApiRequest {
 	 * 
 	 * @throws Exception
 	 */
-	public List<TownDataApi> getTownData() throws Exception {
+	public static List<TownDataApi> getTownData() throws Exception {
 
 		String baseUrl = "https://geo.api.gouv.fr/communes?limit=10";
 		URI uri = new URI(baseUrl);

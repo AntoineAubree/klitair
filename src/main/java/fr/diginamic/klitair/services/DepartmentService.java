@@ -32,7 +32,7 @@ public class DepartmentService {
 	public void insertDepartment() {
 		try {
 			for ( DepartmentDataApi departmentData: departmentApiRequest.getDepartmentData()) {
-				if (departmentRepository.findByCode(departmentData.getCode()).isEmpty()) {
+				if (departmentRepository.findByCode(departmentData.getCode()) == null) {
 					Department department = new Department();
 					department.setCode(departmentData.getCode());
 					department.setName(departmentData.getName());

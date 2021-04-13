@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import fr.diginamic.klitair.api.geo.town.TownApiRequest;
 import fr.diginamic.klitair.entity.Town;
 import fr.diginamic.klitair.repository.TownRepository;
 
@@ -24,6 +26,10 @@ public class TownService {
 	
 	@Autowired
 	DepartmentService departmentService;
+	
+	@Autowired
+	TownApiRequest townApiRequest;
+	
 
 	public List<Town> findByPostCode(String postCode) {
 		return townRepository.findByPostCodes_Code(postCode);
@@ -35,5 +41,7 @@ public class TownService {
 		departmentService.insertDepartment();
 		
 	}
+	
+	
 
 }
