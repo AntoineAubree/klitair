@@ -34,7 +34,7 @@ public class DepartmentApiRequest {
 	 */
 	public List<DepartmentDataApi> getDepartmentData() throws Exception {
 
-		String baseUrl = "https://geo.api.gouv.fr/departements?limit=10";
+		String baseUrl = "https://geo.api.gouv.fr/departements";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);

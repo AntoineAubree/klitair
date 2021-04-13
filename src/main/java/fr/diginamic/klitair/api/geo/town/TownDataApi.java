@@ -31,6 +31,10 @@ public class TownDataApi {
 	@JsonProperty("codesPostaux")
 	private List<String> postCodes;
 
+	/** population */
+	@JsonProperty("population")
+	private int population;
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -42,6 +46,8 @@ public class TownDataApi {
 		builder.append(codeDepartement);
 		builder.append(", postCodes=");
 		builder.append(postCodes);
+		builder.append(", population=");
+		builder.append(population);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -100,6 +106,20 @@ public class TownDataApi {
 	 */
 	public void setPostCodes(List<String> postCodes) {
 		this.postCodes = postCodes;
+	}
+
+	/**
+	 * @return the population
+	 */
+	public int getPopulation() {
+		return population;
+	}
+
+	/**
+	 * @param population the population to set
+	 */
+	public void setPopulation(int population) {
+		this.population = population;
 	}
 
 }
