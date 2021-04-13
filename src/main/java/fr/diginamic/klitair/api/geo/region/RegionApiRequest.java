@@ -29,7 +29,7 @@ public class RegionApiRequest {
 	 */
 	public List<RegionDataApi> getRegionData() throws Exception {
 
-		String baseUrl = "https://geo.api.gouv.fr/regions?limit=10";
+		String baseUrl = "https://geo.api.gouv.fr/regions";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);

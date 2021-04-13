@@ -6,6 +6,7 @@ package fr.diginamic.klitair.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import fr.diginamic.klitair.entity.Department;
 
 /**
@@ -14,7 +15,6 @@ import fr.diginamic.klitair.entity.Department;
  */
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
-	Department findByCode(String code);
+	Optional<Department> findByCode(String code);
 
-	
 }

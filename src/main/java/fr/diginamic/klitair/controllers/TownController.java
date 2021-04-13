@@ -41,9 +41,7 @@ public class TownController {
 
 	@PutMapping
 	public void update() {
-
 		townService.update();
-
 	}
 
 	

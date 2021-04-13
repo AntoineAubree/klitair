@@ -4,6 +4,7 @@
 package fr.diginamic.klitair.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,4 +18,5 @@ public interface TownRepository extends JpaRepository<Town, Long> {
 
 	List<Town> findByPostCodes_Code(String postCode);
 
+	Optional<Town> findByCode(String code);
 }

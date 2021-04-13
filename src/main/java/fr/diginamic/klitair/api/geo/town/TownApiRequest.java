@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author anton
  *
  */
+@Component
 public class TownApiRequest {
 
 	public static RestTemplate restTemplate = new RestTemplate();
@@ -25,9 +27,9 @@ public class TownApiRequest {
 	 * 
 	 * @throws Exception
 	 */
-	public static List<TownDataApi> getTownData() throws Exception {
+	public List<TownDataApi> getTownData() throws Exception {
 
-		String baseUrl = "https://geo.api.gouv.fr/communes?limit=10";
+		String baseUrl = "https://geo.api.gouv.fr/communes";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
