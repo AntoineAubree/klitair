@@ -1,13 +1,18 @@
 package fr.diginamic.klitair.api.airquality;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -17,19 +22,74 @@ import fr.diginamic.klitair.utils.RestTemplateSingleton;
  * @author anton
  *
  */
+@Component
 public class AirQualityApiRequest {
 
 	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();
+	private static final int DAY_TO_CHECK_ALERT = 2;
+	private static final int LAST_DAY_TO_DISPLAY = 3;
 
+	/**
+	 * @return a list of AirQualityData from the request for 4 Days
+	 * @throws Exception
+	 */
+	public List<AirQualityData> getAirQualityDataIndicator(String codeInsee) throws Exception {
+		StringBuilder baseUrlBuilder = new StringBuilder();
+		baseUrlBuilder.append("https://data.airpl.org/api/v1/indice/commune/?commune=");
+		baseUrlBuilder.append(codeInsee);
+		baseUrlBuilder.append("&export=json&date__range=");
+		baseUrlBuilder.append(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		baseUrlBuilder.append(",");
+		baseUrlBuilder.append(LocalDate.now().plusDays(LAST_DAY_TO_DISPLAY).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		URI uri = new URI(baseUrlBuilder.toString());
+		DataApiAir bean = mapResponseToDataAirApi(uri);
+		List<AirQualityData> airQualityDataList = getAirQualityDataList(bean);
+		return airQualityDataList;
+	}
+	
 	/**
 	 * @return a list of AirQualityData from the request for 1 Day
 	 * @throws Exception
 	 */
-	public List<AirQualityData> getAirQualityDataDay() throws Exception {
+	public List<AirQualityData> getAirQualityDataHistory(String codeInsee) throws Exception {
+		StringBuilder baseUrlBuilder = new StringBuilder();
+		baseUrlBuilder.append("https://data.airpl.org/api/v1/indice/commune/?commune=");
+		baseUrlBuilder.append(codeInsee);
+		baseUrlBuilder.append("&export=json&date__range=");
+		baseUrlBuilder.append(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		baseUrlBuilder.append(",");
+		baseUrlBuilder.append(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		URI uri = new URI(baseUrlBuilder.toString());
+		DataApiAir bean = mapResponseToDataAirApi(uri);
+		List<AirQualityData> airQualityDataList = getAirQualityDataList(bean);
+		return airQualityDataList;
+	}
+	
+	/**
+	 * @return a list of AirQualityData from the request for 1 Day in 2 days
+	 * @throws Exception
+	 */
+	public List<AirQualityData> getAirQualityDataAlert(String codeInsee) throws Exception {
+		StringBuilder baseUrlBuilder = new StringBuilder();
+		baseUrlBuilder.append("https://data.airpl.org/api/v1/indice/commune/?commune=");
+		baseUrlBuilder.append(codeInsee);
+		baseUrlBuilder.append("&export=json&date__range=");
+		baseUrlBuilder.append(LocalDate.now().plusDays(DAY_TO_CHECK_ALERT).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		baseUrlBuilder.append(",");
+		baseUrlBuilder.append(LocalDate.now().plusDays(DAY_TO_CHECK_ALERT).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		URI uri = new URI(baseUrlBuilder.toString());
+		DataApiAir bean = mapResponseToDataAirApi(uri);
+		List<AirQualityData> airQualityDataList = getAirQualityDataList(bean);
+		return airQualityDataList;
+	}
 
-		String baseUrl = "https://data.airpl.org/api/v1/indice/commune/?commune=44026&export=json&date__range=2021-4-8,2021-4-8";
-		URI uri = new URI(baseUrl);
-
+	/**
+	 * @param uri
+	 * @return
+	 * @throws JsonProcessingException
+	 * @throws JsonMappingException
+	 */
+	private DataApiAir mapResponseToDataAirApi(URI uri) throws JsonProcessingException, JsonMappingException {
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
 
 		String jsonString = response.getBody();
@@ -41,13 +101,19 @@ public class AirQualityApiRequest {
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
 		DataApiAir bean = mapper.readValue(jsonString, DataApiAir.class);
+		return bean;
+	}
 
+	/**
+	 * @param bean
+	 * @return
+	 */
+	private List<AirQualityData> getAirQualityDataList(DataApiAir bean) {
 		List<AirQualityData> airQualityDataList = new ArrayList<>();
 
 		bean.getResultApi().forEach(el -> {
 			AirQualityData airData = new AirQualityData();
 			airData.setDate(el.getDate());
-			airData.setCodeInsee(el.getCodeInsee());
 
 			el.getPollutans().forEach(el2 -> {
 				switch (el2.getName()) {
@@ -79,8 +145,6 @@ public class AirQualityApiRequest {
 			airQualityDataList.add(airData);
 
 		});
-
 		return airQualityDataList;
-
 	}
 }

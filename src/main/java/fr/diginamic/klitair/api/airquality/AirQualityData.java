@@ -13,9 +13,6 @@ public class AirQualityData {
 	/** date */
 	private LocalDate date;
 
-	/** codeInsee */
-	private String codeInsee;
-	
 	/** o3 */
 	private int o3;
 
@@ -38,6 +35,25 @@ public class AirQualityData {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AirQualityData [date=");
+		builder.append(date);
+		builder.append(", o3=");
+		builder.append(o3);
+		builder.append(", pm10=");
+		builder.append(pm10);
+		builder.append(", no2=");
+		builder.append(no2);
+		builder.append(", so2=");
+		builder.append(so2);
+		builder.append(", pm25=");
+		builder.append(pm25);
+		builder.append("]");
+		return builder.toString();
+	}
+
 	/**
 	 * @return the date
 	 */
@@ -50,20 +66,6 @@ public class AirQualityData {
 	 */
 	public void setDate(LocalDate date) {
 		this.date = date;
-	}
-
-	/**
-	 * @return the codeInsee
-	 */
-	public String getCodeInsee() {
-		return codeInsee;
-	}
-
-	/**
-	 * @param codeInsee the codeInsee to set
-	 */
-	public void setCodeInsee(String codeInsee) {
-		this.codeInsee = codeInsee;
 	}
 
 	/**
@@ -135,7 +137,5 @@ public class AirQualityData {
 	public void setPm25(int pm25) {
 		this.pm25 = pm25;
 	}
-	
-	
-	
+
 }
