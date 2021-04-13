@@ -32,7 +32,7 @@ import fr.diginamic.klitair.services.UserService;
 public class UserController {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
 	@PostMapping
 	public User create(@Valid @RequestBody User user, BindingResult br) {
@@ -42,7 +42,7 @@ public class UserController {
 		return userService.create(user);
 		// TODO ask Richard or Salim for the transactionnals
 	}
-	
+
 	@PostMapping(path = "pseudo")
 	public boolean checkPseudo(@RequestParam(name = "pseudo") String pseudo) {
 		return userService.checkPseudo(pseudo);
@@ -60,7 +60,7 @@ public class UserController {
 		}
 		return userService.findByPseudo(userDto);
 	}
-	
+
 	@PutMapping
 	public User update(@Valid @RequestBody User user, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
@@ -68,7 +68,7 @@ public class UserController {
 		}
 		return userService.update(user);
 	}
-	
+
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		userService.deleteById(id);

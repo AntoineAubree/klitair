@@ -33,7 +33,7 @@ import fr.diginamic.klitair.services.SectionService;
 public class SectionController {
 
 	@Autowired
-	SectionService sectionService;
+	private SectionService sectionService;
 
 	@PostMapping
 	public Section create(@Valid @RequestBody Section section, BindingResult br) {
@@ -42,7 +42,7 @@ public class SectionController {
 		}
 		return sectionService.create(section);
 	}
-	
+
 	@PostMapping(path = "title")
 	public boolean checkTitle(@RequestParam(name = "title") String title) {
 		return sectionService.checkTitle(title);
@@ -52,7 +52,7 @@ public class SectionController {
 	public List<Section> findAll() {
 		return sectionService.findAll();
 	}
-	
+
 	@PutMapping
 	public Section update(@Valid @RequestBody Section section, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
@@ -60,7 +60,7 @@ public class SectionController {
 		}
 		return sectionService.update(section);
 	}
-	
+
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		sectionService.deleteById(id);

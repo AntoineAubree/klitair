@@ -23,7 +23,7 @@ import fr.diginamic.klitair.repository.SectionRepository;
 public class SectionService {
 
 	@Autowired
-	SectionRepository sectionRepository;
+	private SectionRepository sectionRepository;
 
 	public Section create(Section section) {
 		checkIfSectionAvailable(section);
@@ -48,7 +48,7 @@ public class SectionService {
 		}
 		sectionRepository.deleteById(id);
 	}
-	
+
 	public boolean checkTitle(String title) {
 		boolean titleAvailable = false;
 		if (sectionRepository.findByTitle(title).isEmpty()) {
@@ -56,7 +56,7 @@ public class SectionService {
 		}
 		return titleAvailable;
 	}
-	
+
 	/**
 	 * @param section
 	 */
@@ -65,6 +65,5 @@ public class SectionService {
 			throw new AlreadyExistException("Title not available");
 		}
 	}
-
 
 }

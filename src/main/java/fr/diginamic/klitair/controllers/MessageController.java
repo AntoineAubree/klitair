@@ -31,7 +31,7 @@ import fr.diginamic.klitair.services.MessageService;
 public class MessageController {
 
 	@Autowired
-	MessageService messageService;
+	private MessageService messageService;
 
 	@PostMapping
 	public Message create(@Valid @RequestBody Message message, BindingResult br) {

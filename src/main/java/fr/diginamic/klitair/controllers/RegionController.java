@@ -17,7 +17,7 @@ import fr.diginamic.klitair.services.RegionService;
 public class RegionController {
 
 	@Autowired
-	RegionService regionService;
+	private RegionService regionService;
 
 	@GetMapping()
 	public void insert() {

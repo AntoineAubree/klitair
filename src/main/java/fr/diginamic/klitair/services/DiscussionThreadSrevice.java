@@ -23,7 +23,7 @@ import fr.diginamic.klitair.repository.DiscussionThreadRepository;
 public class DiscussionThreadSrevice {
 
 	@Autowired
-	DiscussionThreadRepository discussionThreadRepository;
+	private DiscussionThreadRepository discussionThreadRepository;
 
 	public DiscussionThread create(DiscussionThread discussionThread) {
 		checkIfDiscussionThreadIsAvailable(discussionThread);
@@ -35,7 +35,8 @@ public class DiscussionThreadSrevice {
 	}
 
 	public DiscussionThread update(@Valid DiscussionThread discussionThread) {
-		if (discussionThread.getId() == null || discussionThreadRepository.findById(discussionThread.getId()).isEmpty()) {
+		if (discussionThread.getId() == null
+				|| discussionThreadRepository.findById(discussionThread.getId()).isEmpty()) {
 			throw new BadRequestException();
 		}
 		checkIfDiscussionThreadIsAvailable(discussionThread);
@@ -48,7 +49,7 @@ public class DiscussionThreadSrevice {
 		}
 		discussionThreadRepository.deleteById(id);
 	}
-	
+
 	public boolean checkTitle(String title) {
 		boolean titleAvailable = false;
 		if (discussionThreadRepository.findByTitle(title).isEmpty()) {
@@ -56,7 +57,7 @@ public class DiscussionThreadSrevice {
 		}
 		return titleAvailable;
 	}
-	
+
 	/**
 	 * @param discussionThread
 	 */
@@ -65,6 +66,5 @@ public class DiscussionThreadSrevice {
 			throw new AlreadyExistException("Title not available");
 		}
 	}
-
 
 }

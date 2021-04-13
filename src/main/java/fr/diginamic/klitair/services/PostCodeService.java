@@ -10,11 +10,11 @@ import fr.diginamic.klitair.repository.PostCodeRepository;
 
 @Service
 public class PostCodeService {
-	
+
 	@Autowired
-	PostCodeRepository postCodeRepository;
-	
-	public PostCode insert (String postCode) {
+	private PostCodeRepository postCodeRepository;
+
+	public PostCode insert(String postCode) {
 		Optional<PostCode> postCodeOptional = postCodeRepository.findByCode(postCode);
 		if (postCodeOptional.isEmpty()) {
 			return postCodeRepository.save(new PostCode(postCode));

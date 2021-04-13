@@ -33,7 +33,7 @@ import fr.diginamic.klitair.services.DiscussionThreadSrevice;
 public class DiscussionThreadController {
 
 	@Autowired
-	DiscussionThreadSrevice discussionThreadService;
+	private DiscussionThreadSrevice discussionThreadService;
 
 	@PostMapping
 	public DiscussionThread create(@Valid @RequestBody DiscussionThread discussionThread, BindingResult br) {
@@ -42,7 +42,7 @@ public class DiscussionThreadController {
 		}
 		return discussionThreadService.create(discussionThread);
 	}
-	
+
 	@PostMapping(path = "title")
 	public boolean checkTitle(@RequestParam(name = "title") String title) {
 		return discussionThreadService.checkTitle(title);
@@ -52,7 +52,7 @@ public class DiscussionThreadController {
 	public List<DiscussionThread> findBySection(@PathVariable Long id) {
 		return discussionThreadService.findByIdSection(id);
 	}
-	
+
 	@PutMapping
 	public DiscussionThread update(@Valid @RequestBody DiscussionThread discussionThread, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
@@ -60,7 +60,7 @@ public class DiscussionThreadController {
 		}
 		return discussionThreadService.update(discussionThread);
 	}
-	
+
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		discussionThreadService.deleteById(id);

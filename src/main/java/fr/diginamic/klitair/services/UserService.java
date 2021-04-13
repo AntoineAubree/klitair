@@ -20,7 +20,7 @@ import fr.diginamic.klitair.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	public User create(User user) {
 		checkIfUserAvailable(user);

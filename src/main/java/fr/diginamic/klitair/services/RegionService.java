@@ -12,13 +12,13 @@ import fr.diginamic.klitair.repository.RegionRepository;
 
 @Service
 public class RegionService {
-	
+
 	@Autowired
-	RegionApiRequest regionApiRequest;
-	
+	private RegionApiRequest regionApiRequest;
+
 	@Autowired
-	RegionRepository regionRepository;
-	
+	private RegionRepository regionRepository;
+
 	public void insertRegion() {
 		try {
 			for (RegionDataApi regionData : regionApiRequest.getRegionData()) {

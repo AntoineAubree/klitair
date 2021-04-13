@@ -20,7 +20,7 @@ import fr.diginamic.klitair.repository.MessageRepository;
 public class MessageService {
 
 	@Autowired
-	MessageRepository messageRepository;
+	private MessageRepository messageRepository;
 
 	public Message create(Message message) {
 		return messageRepository.save(message);
@@ -29,11 +29,10 @@ public class MessageService {
 	public List<Message> findByDiscussionThread(Long id) {
 		return messageRepository.findByDiscussionThread_Id(id);
 	}
-	
+
 	public List<Message> findByUser(Long id) {
 		return messageRepository.findByUser_Id(id);
 	}
-
 
 	public Message update(Message message) {
 		if (message.getId() == null || messageRepository.findById(message.getId()).isEmpty()) {
@@ -48,7 +47,5 @@ public class MessageService {
 		}
 		messageRepository.deleteById(id);
 	}
-
-
 
 }
