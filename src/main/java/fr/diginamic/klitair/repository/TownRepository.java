@@ -17,4 +17,6 @@ public interface TownRepository extends JpaRepository<Town, Long> {
 
 	List<Town> findByPostCodes_Code(String postCode);
 
+	List<Town> findDistinctByUserIsNotNull();
+
 }
