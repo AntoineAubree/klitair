@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import fr.diginamic.klitair.api.airquality.AirQualityData;
+
 /**
  * 
  * @author StephanieMC
@@ -33,7 +35,7 @@ public class IndicatorDto {
 
 	///////////////////////////// INDICATORS //////////////////////////////////////
 
-	private List<DailyPolluantIndicator> dailyPolluantIndicators;
+	private List<AirQualityData> airQualityDatas;
 
 	private List<DailyWeatherIndicator> dailyWeatherIndicators;
 
@@ -47,23 +49,22 @@ public class IndicatorDto {
 	}
 
 	/**
-	 * Contructor WITH params
 	 * @param townName
 	 * @param townPostCode
 	 * @param population
-	 * @param dailyPolluantIndicators
+	 * @param airQualityDatas
 	 * @param dailyWeatherIndicators
 	 * @param date
 	 */
 	public IndicatorDto(@Size(min = 1, max = 200) @NotNull String townName,
 			@Size(min = 5, max = 5) @NotNull String townPostCode, @Min(0) int population,
-			List<DailyPolluantIndicator> dailyPolluantIndicators, List<DailyWeatherIndicator> dailyWeatherIndicators,
+			List<AirQualityData> airQualityDatas, List<DailyWeatherIndicator> dailyWeatherIndicators,
 			LocalDateTime date) {
 		super();
 		this.townName = townName;
 		TownPostCode = townPostCode;
 		this.population = population;
-		this.dailyPolluantIndicators = dailyPolluantIndicators;
+		this.airQualityDatas = airQualityDatas;
 		this.dailyWeatherIndicators = dailyWeatherIndicators;
 		this.date = date;
 	}
@@ -77,8 +78,8 @@ public class IndicatorDto {
 		builder.append(TownPostCode);
 		builder.append(", population=");
 		builder.append(population);
-		builder.append(", dailyPolluantIndicators=");
-		builder.append(dailyPolluantIndicators);
+		builder.append(", airQualityDatas=");
+		builder.append(airQualityDatas);
 		builder.append(", dailyWeatherIndicators=");
 		builder.append(dailyWeatherIndicators);
 		builder.append(", date=");
@@ -130,17 +131,17 @@ public class IndicatorDto {
 	}
 
 	/**
-	 * @return the dailyPolluantIndicators
+	 * @return the airQualityDatas
 	 */
-	public List<DailyPolluantIndicator> getDailyPolluantIndicators() {
-		return dailyPolluantIndicators;
+	public List<AirQualityData> getAirQualityDatas() {
+		return airQualityDatas;
 	}
 
 	/**
-	 * @param dailyPolluantIndicators the dailyPolluantIndicators to set
+	 * @param airQualityDatas the airQualityDatas to set
 	 */
-	public void setDailyPolluantIndicators(List<DailyPolluantIndicator> dailyPolluantIndicators) {
-		this.dailyPolluantIndicators = dailyPolluantIndicators;
+	public void setAirQualityDatas(List<AirQualityData> airQualityDatas) {
+		this.airQualityDatas = airQualityDatas;
 	}
 
 	/**
