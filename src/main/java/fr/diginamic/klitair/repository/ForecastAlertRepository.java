@@ -12,5 +12,6 @@ import fr.diginamic.klitair.entity.ForecastAlert;
  *
  */
 public interface ForecastAlertRepository extends JpaRepository<ForecastAlert, Long> {
+	
 
 }
