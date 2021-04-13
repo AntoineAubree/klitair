@@ -3,7 +3,6 @@
  */
 package fr.diginamic.klitair.services;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +16,15 @@ import fr.diginamic.klitair.repository.ForecastAlertRepository;
  *
  */
 public class ForecastAlertService {
-	
+
 	@Autowired
-	ForecastAlertRepository forecastAlertRepository;
-	
-	@Autowired 
-	ForecastAlertDto forecastAlertDto;
+	private ForecastAlertRepository forecastAlertRepository;
+
+	@Autowired
+	private ForecastAlertDto forecastAlertDto;
 
 	public List<ForecastAlert> findAll() {
 		return forecastAlertRepository.findAll();
-		
-		
 	}
 
 }
