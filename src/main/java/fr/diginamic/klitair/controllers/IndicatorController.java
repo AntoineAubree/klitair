@@ -20,10 +20,10 @@ import fr.diginamic.klitair.services.IndicatorService;
 @RestController
 @RequestMapping("/indicator")
 public class IndicatorController {
-	
+
 	@Autowired
 	IndicatorService indicatorService;
-	
+
 	@GetMapping()
 	public IndicatorDto findByCoordinates(@RequestBody CoordinatesDto coordinatesDto) {
 		return indicatorService.findByCoordinates(coordinatesDto);

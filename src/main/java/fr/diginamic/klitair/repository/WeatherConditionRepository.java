@@ -13,4 +13,6 @@ import fr.diginamic.klitair.entity.WeatherCondition;
  */
 public interface WeatherConditionRepository extends JpaRepository<WeatherCondition, Long> {
 
+	WeatherCondition findByNumber(int number);
+
 }

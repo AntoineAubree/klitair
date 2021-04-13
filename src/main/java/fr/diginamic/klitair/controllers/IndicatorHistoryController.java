@@ -18,14 +18,14 @@ import fr.diginamic.klitair.services.IndicatorHistoryService;
 @RestController
 @RequestMapping("/history")
 public class IndicatorHistoryController {
-	
+
 	@Autowired
-	 IndicatorHistoryService indicatorHistoryService;
-	
+	IndicatorHistoryService indicatorHistoryService;
+
 	@GetMapping()
-	 public IndicatorHistoryDto findByDateAndTown(@RequestBody CoordinatesAndTimeDto coordinatesAndTimeDto ) {
+	public IndicatorHistoryDto findByDateAndTown(@RequestBody CoordinatesAndTimeDto coordinatesAndTimeDto) {
 		return indicatorHistoryService.findByDateAndTown(coordinatesAndTimeDto);
-		
+
 	}
 
 }

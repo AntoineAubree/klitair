@@ -3,7 +3,9 @@
  */
 package fr.diginamic.klitair.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -44,7 +46,7 @@ public class Town {
 	/** post codes */
 	@ManyToMany
 	@JoinTable(name = "town_post_code", joinColumns = @JoinColumn(name = "id_town", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_post_code", referencedColumnName = "id"))
-	private Set<PostCode> postCodes = new HashSet<>();
+	private List<PostCode> postCodes = new ArrayList<>();
 
 	/** name */
 	@Column(length = 200, nullable = false)
@@ -85,7 +87,7 @@ public class Town {
 	public Town() {
 	}
 
-	public Town(@Size(min = 5, max = 5) @NotNull String code, Set<PostCode> postCodes,
+	public Town(@Size(min = 5, max = 5) @NotNull String code, List<PostCode> postCodes,
 			@Size(min = 1, max = 200) @NotNull String name, @Min(0) int population) {
 		super();
 		this.code = code;
@@ -247,14 +249,14 @@ public class Town {
 	/**
 	 * @return the postCodes
 	 */
-	public Set<PostCode> getPostCodes() {
+	public List<PostCode> getPostCodes() {
 		return postCodes;
 	}
 
 	/**
-	 * @param postCodes the postCodes to set
+	 * @param postCodes the postCodes to list
 	 */
-	public void setPostCodes(Set<PostCode> postCodes) {
+	public void setPostCodes(List<PostCode> postCodes) {
 		this.postCodes = postCodes;
 	}
 

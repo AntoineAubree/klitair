@@ -27,6 +27,9 @@ public class WeatherCondition {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	/** number */
+	private int number;
+
 	/** state */
 	@Column(length = 150, nullable = false)
 	@Size(min = 1, max = 150)
@@ -43,11 +46,13 @@ public class WeatherCondition {
 	public WeatherCondition() {
 	}
 
-	/*
-	 * Constructor WITH params
+	/**
+	 * @param number
+	 * @param state
 	 */
-	public WeatherCondition(@Size(min = 1, max = 150) @NotNull String state) {
+	public WeatherCondition(int number, @Size(min = 1, max = 150) @NotNull String state) {
 		super();
+		this.number = number;
 		this.state = state;
 	}
 
@@ -56,6 +61,8 @@ public class WeatherCondition {
 		StringBuilder builder = new StringBuilder();
 		builder.append("WeatherCondition [id=");
 		builder.append(id);
+		builder.append(", number=");
+		builder.append(number);
 		builder.append(", state=");
 		builder.append(state);
 		builder.append("]");
@@ -102,6 +109,20 @@ public class WeatherCondition {
 	 */
 	public void setIndicatorHistory(Set<IndicatorHistory> indicatorHistory) {
 		this.indicatorHistory = indicatorHistory;
+	}
+
+	/**
+	 * @return the number
+	 */
+	public int getNumber() {
+		return number;
+	}
+
+	/**
+	 * @param number the number to set
+	 */
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 }
