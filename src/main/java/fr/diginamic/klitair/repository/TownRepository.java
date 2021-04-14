@@ -19,4 +19,6 @@ public interface TownRepository extends JpaRepository<Town, Long> {
 	List<Town> findByPostCodes_Code(String postCode);
 
 	Optional<Town> findByCode(String code);
+
+	Optional<Town> findByCodeAndPostCodes_Id(String code, Long id);
 }

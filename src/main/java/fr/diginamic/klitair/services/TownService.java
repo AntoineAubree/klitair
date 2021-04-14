@@ -2,6 +2,7 @@ package fr.diginamic.klitair.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +71,10 @@ public class TownService {
 						
 						for (String postCodeString : townData.getPostCodes()) {
 							PostCode postCode = postCodeService.insert(postCodeString);
-							town.getPostCodes().add(postCode);
+							System.out.println(postCode);
+							if (townRepository.findByCodeAndPostCodes_Id(town.getCode(), postCode.getId()).isEmpty()) {
+								town.getPostCodes().add(postCode);
+							}
 						}
 						townRepository.save(town);
 						break;

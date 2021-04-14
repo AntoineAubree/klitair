@@ -31,7 +31,7 @@ public class TownApiRequest {
 	 */
 	public List<TownDataApi> getTownData() throws Exception {
 
-		String baseUrl = "https://geo.api.gouv.fr/communes?code=44109";
+		String baseUrl = "https://geo.api.gouv.fr/communes";
 		URI uri = new URI(baseUrl);
 
 		ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);

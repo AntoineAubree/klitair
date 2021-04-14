@@ -18,8 +18,9 @@ public class PostCodeService {
 		Optional<PostCode> postCodeOptional = postCodeRepository.findByCode(postCode);
 		if (postCodeOptional.isEmpty()) {
 			return postCodeRepository.save(new PostCode(postCode));
+		} else {
+			return postCodeOptional.orElseThrow();
 		}
-		return postCodeOptional.orElseThrow();
 	}
 
 	public Optional<PostCode> findByCode(String postCode) {

@@ -65,10 +65,10 @@ public class KlitairApplication implements CommandLineRunner {
 //
 //		weatherData.get(0).forEach(el -> System.out.println(el));
 
-		System.out.println("\nAdresse API\n");
-		AddressApiRequest addressApi = new AddressApiRequest();
-		PropertiesAddress propertiesAddress = addressApi.getCodeInseeFromCoordinate("-1.619405", "47.274344");
-		System.out.println(propertiesAddress);
+//		System.out.println("\nAdresse API\n");
+//		AddressApiRequest addressApi = new AddressApiRequest();
+//		PropertiesAddress propertiesAddress = addressApi.getCodeInseeFromCoordinate("-1.619405", "47.274344");
+//		System.out.println(propertiesAddress);
 
 		System.out.println("Terminé");
 
