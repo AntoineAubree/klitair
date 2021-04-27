@@ -6,8 +6,11 @@ package fr.diginamic.klitair.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.klitair.dto.ReceivedAlertDto;
 import fr.diginamic.klitair.dto.UserDto;
 import fr.diginamic.klitair.entity.Address;
+import fr.diginamic.klitair.entity.Favourite;
+import fr.diginamic.klitair.entity.ReceivedAlert;
 import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.exceptions.AlreadyExistException;
 import fr.diginamic.klitair.exceptions.BadRequestException;
@@ -115,7 +118,17 @@ public class UserService {
 		userDto.setStreet(user.getAddress().getStreet());
 		userDto.setTown(user.getTown().getName());
 		userDto.setPostCode(user.getTown().getPostCodes().get(0).getCode());
-		// TODO set TownFav + ReceiedAlertsDTO + token
+		
+		for (Favourite favourite : user.getFavourites()) {
+			userDto.getFavouritesTowns().add(favourite.getTown().getName());
+		}
+		
+		for (ReceivedAlert receivedAlert : user.getReceivedAlerts()) {
+			userDto.getReceivedAlerts().add(new ReceivedAlertDto(receivedAlert.getId(), receivedAlert.getForecastAlert().toString()));
+		}
+		
+		// TODO set token
+		userDto.setToken("tokentoken");
 		return userDto;
 	}
 

@@ -17,6 +17,16 @@ public class ReceivedAlertDto {
 	}
 
 	/**
+	 * @param id
+	 * @param content
+	 */
+	public ReceivedAlertDto(Long id, String content) {
+		super();
+		this.id = id;
+		this.content = content;
+	}
+
+	/**
 	 * @return the id
 	 */
 	public Long getId() {
