@@ -6,6 +6,7 @@ package fr.diginamic.klitair.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.diginamic.klitair.dto.UserDto;
-import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.services.UserService;
 
@@ -34,44 +34,80 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * @param userDto
+	 * @param br
+	 * @return userDto
+	 */
 	@PostMapping
-	public User create(@Valid @RequestBody UserDto userDto, BindingResult br) {
+	public UserDto create(@Valid @RequestBody UserDto userDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
 		return userService.create(userDto);
-		// TODO ask Richard or Salim for the transactionnals
+		// TODO check for the transaction
 	}
 
-	@PostMapping(path = "pseudo")
-	public boolean checkPseudo(@RequestParam(name = "pseudo") String pseudo) {
-		return userService.checkPseudo(pseudo);
+	/**
+	 * @param userDto
+	 * @param br
+	 * @return userDto
+	 */
+	@PutMapping
+	public UserDto update(@Valid @RequestBody UserDto userDto, BindingResult br) {
+		if (!br.getAllErrors().isEmpty()) {
+			throw new BadRequestException();
+		}
+		return userService.update(userDto);
 	}
-
-	@PostMapping(path = "email")
-	public boolean checkEmail(@RequestParam(name = "email") String email) {
-		return userService.checkEmail(email);
+	
+	@GetMapping("{index}/{limit}")
+	public Page<UserDto> findAll(@PathVariable int index, @PathVariable int limit) {
+		return userService.findAll(index, limit);
 	}
-
-	@GetMapping
-	public UserDto findByPseudo(@Valid @RequestBody UserDto userDto, BindingResult br) {
+	
+	/**
+	 * @param userDto
+	 * @param br
+	 * @return userDto
+	 */
+	@PostMapping(path = "login")
+	public UserDto login(@Valid @RequestBody UserDto userDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
 		return userService.findByPseudo(userDto);
 	}
 
-	@PutMapping
-	public User update(@Valid @RequestBody UserDto userDto, BindingResult br) {
-		if (!br.getAllErrors().isEmpty()) {
-			throw new BadRequestException();
-		}
-		return userService.update(userDto);
-	}
-
+	/**
+	 * @param id
+	 */
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		userService.deleteById(id);
 	}
+	
+	/**
+	 * @param pseudo
+	 * @return true if pseudo is available and false if pseudo is already used
+	 */
+	@PostMapping(path = "pseudo")
+	public boolean checkPseudo(@RequestParam(name = "pseudo") String pseudo) {
+		return userService.checkPseudo(pseudo);
+	}
+
+	/**
+	 * @param email
+	 * @return true if email is available and false if email is already used
+	 */
+	@PostMapping(path = "email")
+	public boolean checkEmail(@RequestParam(name = "email") String email) {
+		return userService.checkEmail(email);
+	}
+
+
+
+
+	
 
 }

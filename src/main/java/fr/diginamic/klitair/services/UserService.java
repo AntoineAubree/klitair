@@ -4,16 +4,16 @@
 package fr.diginamic.klitair.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import fr.diginamic.klitair.dto.ReceivedAlertDto;
 import fr.diginamic.klitair.dto.UserDto;
-import fr.diginamic.klitair.entity.Address;
-import fr.diginamic.klitair.entity.Favourite;
-import fr.diginamic.klitair.entity.ReceivedAlert;
 import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.exceptions.AlreadyExistException;
 import fr.diginamic.klitair.exceptions.BadRequestException;
+import fr.diginamic.klitair.factory.UserDtoFactory;
+import fr.diginamic.klitair.factory.UserFactory;
 import fr.diginamic.klitair.repository.UserRepository;
 
 /**
@@ -27,56 +27,72 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private TownService townService;
+	private UserFactory userFactory;
 
-	public User create(UserDto userDto) {
+	@Autowired
+	private UserDtoFactory userDtoFactory;
+
+	/**
+	 * @author Antoine create user from userDto, and save User in database
+	 * 
+	 * @param userDto
+	 * @return userDto saved with id
+	 */
+	public UserDto create(UserDto userDto) {
 		checkIfUserAvailable(userDto);
-		User user = new User();
-		userFactory(userDto, user);
-		return userRepository.save(user);
-	}
-
-	public UserDto findByPseudo(UserDto userDto) {
-		User user =  userRepository.findByPseudoAndPassword(userDto.getPseudo(), userDto.getPassword())
-				.orElseThrow(() -> new BadRequestException());
-		return userDtoFactory(userDto, user);
-	}
-
-	public User update(UserDto userDto) {
-		if (userDto.getId() == null || userRepository.findById(userDto.getId()).isEmpty()) {
-			throw new BadRequestException();
-		}
-		checkIfUserAvailable(userDto);
-		User user = userRepository.findById(userDto.getId()).orElseThrow();
-		userFactory(userDto, user);
-		return userRepository.save(user);
-	}
-
-	public void deleteById(Long id) {
-		if (id == null || userRepository.findById(id).isEmpty()) {
-			throw new BadRequestException();
-		}
-		userRepository.deleteById(id);
-	}
-
-	public boolean checkPseudo(String pseudo) {
-		boolean pseudoAvailable = false;
-		if (userRepository.findByPseudo(pseudo).isEmpty()) {
-			pseudoAvailable = true;
-		}
-		return pseudoAvailable;
-	}
-
-	public boolean checkEmail(String email) {
-		boolean emailAvailable = false;
-		if (userRepository.findByEmail(email).isEmpty()) {
-			emailAvailable = true;
-		}
-		return emailAvailable;
+		User user = userFactory.createUser(userDto);
+		user = userRepository.save(user);
+		return userDtoFactory.createUserDto(user);
 	}
 
 	/**
-	 * @param user
+	 * @author Antoine get user from userDto in database and update it
+	 * 
+	 * @param userDto
+	 * @return userDto updated
+	 */
+	public UserDto update(UserDto userDto) {
+		checkIfUserExist(userDto.getId());
+		checkIfUserAvailable(userDto);
+		User user = userFactory.createUser(userDto);
+		user = userRepository.save(user);
+		return userDtoFactory.createUserDto(user);
+	}
+
+	public Page<UserDto> findAll(int index, int limit) {
+		Page<User> users = userRepository.findAll(PageRequest.of(index, limit));
+		// TODO convert page<User> to page<UserDto>
+		return null;
+	}
+
+	/**
+	 * @author Antoine find user and return userDto with pseudo and password if user
+	 *         is present in database, if not, throw BadRequestException
+	 * @param userDto
+	 * @return userDto
+	 */
+	public UserDto findByPseudo(UserDto userDto) {
+		User user = userRepository.findByPseudoAndPassword(userDto.getPseudo(), userDto.getPassword())
+				.orElseThrow(() -> new BadRequestException());
+		return userDtoFactory.createUserDto(user);
+	}
+
+	/**
+	 * @author Antoine delete user with his id
+	 * @param id
+	 */
+	public void deleteById(Long id) {
+		checkIfUserExist(id);
+		userRepository.deleteById(id);
+	}
+
+	///////////// check ////////////////////
+
+	/**
+	 * @author Antoine check if pseudo or email are not already used in database,
+	 *         throw AlreadyExistException if yes
+	 * 
+	 * @param userDto
 	 */
 	private void checkIfUserAvailable(UserDto userDto) {
 		if (!checkPseudo(userDto.getPseudo())) {
@@ -87,49 +103,43 @@ public class UserService {
 	}
 
 	/**
-	 * @param userDto
-	 * @param user
+	 * @author Antoine check if pseudo is not already used in database
+	 * 
+	 * @param pseudo
+	 * @return true if pseudo is available and false if pseudo is already used
 	 */
-	private void userFactory(UserDto userDto, User user) {
-		user.setPseudo(userDto.getPseudo());
-		user.setPassword(userDto.getPassword());
-		user.setFirstName(userDto.getFirstName());
-		user.setLastName(userDto.getLastName());
-		user.setEmail(userDto.getEmail());
-		user.setRole(userDto.getRole());
-		user.setBanned(userDto.isBanned());
-		user.setAddress(new Address(userDto.getNbStreet(), userDto.getStreet()));
-		user.setTown(townService.findByName(userDto.getTown()));
+	public boolean checkPseudo(String pseudo) {
+		boolean pseudoAvailable = false;
+		if (userRepository.findByPseudo(pseudo).isEmpty()) {
+			pseudoAvailable = true;
+		}
+		return pseudoAvailable;
 	}
 
 	/**
-	 * @param userDto
-	 * @param user
+	 * @author Antoine check if email is not already used in database
+	 * 
+	 * @param email
+	 * @return true if email is available and false if email is already used
 	 */
-	private UserDto userDtoFactory(UserDto userDto, User user) {
-		userDto.setPseudo(user.getPseudo());
-		userDto.setPassword(user.getPassword());
-		userDto.setFirstName(user.getFirstName());
-		userDto.setLastName(user.getLastName());
-		userDto.setEmail(user.getEmail());
-		userDto.setRole(user.getRole());
-		userDto.setBanned(user.isBanned());
-		userDto.setNbStreet(user.getAddress().getNbStreet());
-		userDto.setStreet(user.getAddress().getStreet());
-		userDto.setTown(user.getTown().getName());
-		userDto.setPostCode(user.getTown().getPostCodes().get(0).getCode());
-		
-		for (Favourite favourite : user.getFavourites()) {
-			userDto.getFavouritesTowns().add(favourite.getTown().getName());
+	public boolean checkEmail(String email) {
+		boolean emailAvailable = false;
+		if (userRepository.findByEmail(email).isEmpty()) {
+			emailAvailable = true;
 		}
-		
-		for (ReceivedAlert receivedAlert : user.getReceivedAlerts()) {
-			userDto.getReceivedAlerts().add(new ReceivedAlertDto(receivedAlert.getId(), receivedAlert.getForecastAlert().toString()));
+		return emailAvailable;
+	}
+
+	/**
+	 * @author Antoine check if id of user is present in database, throw
+	 *         BadRequestException if not
+	 * 
+	 * @param userDto
+	 */
+	private void checkIfUserExist(Long id) {
+		if (id == null || userRepository.findById(id).isEmpty()) {
+			throw new BadRequestException();
 		}
-		
-		// TODO set token
-		userDto.setToken("tokentoken");
-		return userDto;
 	}
 
 }
