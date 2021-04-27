@@ -51,7 +51,7 @@ public class User {
 	@NotNull
 	private String lastName;
 
-	/** pseudo */
+	/** email */
 	@Column(length = 50, nullable = false, unique = true)
 	@Size(min = 1, max = 50)
 	@Email
@@ -76,7 +76,7 @@ public class User {
 	/** town */
 	@ManyToOne
 	@JoinColumn(name = "id_town")
-//	@NotNull
+	@NotNull
 	private Town town;
 
 	@Embedded
@@ -92,7 +92,7 @@ public class User {
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
 	/** town forecast alerts */
-	@OneToMany(targetEntity=ForecastAlert.class,  mappedBy = "user")
+	@OneToMany(targetEntity = ForecastAlert.class, mappedBy = "user")
 	private Set<ForecastAlert> forecastAlerts = new HashSet<ForecastAlert>();
 
 	/** sections */
@@ -116,7 +116,7 @@ public class User {
 
 	public User(@Size(min = 2, max = 50) @NotNull String pseudo, @Size(min = 2, max = 50) @NotNull String firstName,
 			@Size(min = 2, max = 50) @NotNull String lastName, @Size(min = 1, max = 50) @Email @NotNull String email,
-			@NotNull Role role, boolean banned, @NotNull Address address) {
+			@NotNull Role role, boolean banned, @NotNull Address address, @NotNull Town town) {
 		super();
 		this.pseudo = pseudo;
 		this.firstName = firstName;
@@ -125,6 +125,7 @@ public class User {
 		this.role = role;
 		this.banned = banned;
 		this.address = address;
+		this.town = town;
 	}
 
 	@Override

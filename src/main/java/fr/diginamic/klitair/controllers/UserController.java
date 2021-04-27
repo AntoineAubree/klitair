@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.klitair.dto.UserFindOneDto;
+import fr.diginamic.klitair.dto.UserDto;
 import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.services.UserService;
@@ -35,11 +35,11 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping
-	public User create(@Valid @RequestBody User user, BindingResult br) {
+	public User create(@Valid @RequestBody UserDto userDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return userService.create(user);
+		return userService.create(userDto);
 		// TODO ask Richard or Salim for the transactionnals
 	}
 
@@ -54,7 +54,7 @@ public class UserController {
 	}
 
 	@GetMapping
-	public User findByPseudo(@Valid @RequestBody UserFindOneDto userDto, BindingResult br) {
+	public UserDto findByPseudo(@Valid @RequestBody UserDto userDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
@@ -62,11 +62,11 @@ public class UserController {
 	}
 
 	@PutMapping
-	public User update(@Valid @RequestBody User user, BindingResult br) {
+	public User update(@Valid @RequestBody UserDto userDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return userService.update(user);
+		return userService.update(userDto);
 	}
 
 	@DeleteMapping("{id}")

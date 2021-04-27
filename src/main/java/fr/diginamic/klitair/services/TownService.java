@@ -2,7 +2,6 @@ package fr.diginamic.klitair.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +67,7 @@ public class TownService {
 						town.setName(townData.getName());
 						town.setPopulation(townData.getPopulation());
 						town.setDepartment(department);
-						
+
 						for (String postCodeString : townData.getPostCodes()) {
 							PostCode postCode = postCodeService.insert(postCodeString);
 							System.out.println(postCode);
@@ -84,6 +83,10 @@ public class TownService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Town findByName(String town) {
+		return townRepository.findByName(town).orElseThrow();
 	}
 
 }
