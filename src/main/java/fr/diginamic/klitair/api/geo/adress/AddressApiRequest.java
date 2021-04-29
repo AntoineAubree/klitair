@@ -27,7 +27,7 @@ public class AddressApiRequest {
 
 	private static RestTemplate restTemplate = RestTemplateSingleton.getRestTemplate();
 
-	public PropertiesAddress getCodeInseeFromCoordinate(String longitude, String latitude) throws Exception {
+	public String getCodeInseeFromCoordinate(String longitude, String latitude) throws Exception {
 
 		StringBuilder baseUrlBuilder = new StringBuilder();
 		baseUrlBuilder.append("https://api-adresse.data.gouv.fr/reverse/?lon=");
@@ -38,7 +38,7 @@ public class AddressApiRequest {
 		URI uri = new URI(baseUrlBuilder.toString());
 		DataApiAddress bean = mapResponseToDataWeatherApi(uri);
 
-		return bean.getFeatures().get(0).getProperties();
+		return bean.getFeatures().get(0).getProperties().getCityCode();
 	}
 
 	private DataApiAddress mapResponseToDataWeatherApi(URI uri) throws JsonProcessingException, JsonMappingException {

@@ -7,15 +7,15 @@ package fr.diginamic.klitair.dto;
  * @author Antoine
  *
  */
-public class CoordinatesDto {
+public class Coordinate {
 
 	private float longitude;
 	private float latitude;
 
-	public CoordinatesDto() {
+	public Coordinate() {
 	}
 
-	public CoordinatesDto(float longitude, float latitude) {
+	public Coordinate(float longitude, float latitude) {
 		super();
 		this.longitude = longitude;
 		this.latitude = latitude;

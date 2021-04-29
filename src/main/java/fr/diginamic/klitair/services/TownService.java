@@ -63,6 +63,10 @@ public class TownService {
 		return towns.stream().map(town -> modelMapper.map(town, TownDto.class)).collect(Collectors.toList());
 	}
 
+	public Town findByCode(String cityCode) {
+		return townRepository.findByCode(cityCode).orElseThrow(() -> new BadRequestException());
+	}
+	
 	/**
 	 * insert or update in database regions, then, departments, and towns
 	 */
@@ -107,5 +111,6 @@ public class TownService {
 			e.printStackTrace();
 		}
 	}
+
 
 }

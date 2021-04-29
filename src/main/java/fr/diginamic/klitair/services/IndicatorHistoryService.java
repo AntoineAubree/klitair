@@ -40,8 +40,7 @@ public class IndicatorHistoryService {
 		IndicatorHistoryDto histDto = new IndicatorHistoryDto();
 		String cityCode = addressApiRequest
 				.getCodeInseeFromCoordinate(Float.toString(coordinatesAndTimeDto.getLongitude()),
-						Float.toString(coordinatesAndTimeDto.getLatitude()))
-				.getCityCode();
+						Float.toString(coordinatesAndTimeDto.getLatitude()));
 
 		// Get postCode with coordinates
 		// String postCode = "44700";
