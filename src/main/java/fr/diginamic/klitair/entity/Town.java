@@ -22,8 +22,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * @author StephanieMC
  *
@@ -40,7 +38,6 @@ public class Town {
 	@Column(length = 5, nullable = false)
 	@Size(min = 5, max = 5)
 	@NotNull
-	@JsonProperty("code")
 	private String code;
 
 	/** post codes */
@@ -52,12 +49,10 @@ public class Town {
 	@Column(length = 200, nullable = false)
 	@Size(min = 1, max = 200)
 	@NotNull
-	@JsonProperty("nom")
 	private String name;
 
 	/** population */
 	@Min(0)
-	@JsonProperty("population")
 	private int population;
 
 	/** department */
@@ -65,7 +60,7 @@ public class Town {
 	@JoinColumn(name = "id_departement")
 	private Department department;
 
-	/** weathers */
+	/** indicator history */
 	@OneToMany(mappedBy = "town")
 	private Set<IndicatorHistory> indicatorHistory = new HashSet<IndicatorHistory>();
 
@@ -77,16 +72,19 @@ public class Town {
 	@OneToMany(mappedBy = "town")
 	private Set<User> users = new HashSet<User>();
 
-	/** town forecast alert */
+	/** forecast alert */
 	@OneToMany(mappedBy = "town")
 	private Set<ForecastAlert> forecastAlerts = new HashSet<ForecastAlert>();
 
-	/**
-	 * Constructor WITHOUT params
-	 */
 	public Town() {
 	}
 
+	/**
+	 * @param code
+	 * @param postCodes
+	 * @param name
+	 * @param population
+	 */
 	public Town(@Size(min = 5, max = 5) @NotNull String code, List<PostCode> postCodes,
 			@Size(min = 1, max = 200) @NotNull String name, @Min(0) int population) {
 		super();
@@ -109,8 +107,6 @@ public class Town {
 		builder.append(name);
 		builder.append(", population=");
 		builder.append(population);
-		builder.append(", department=");
-		builder.append(department);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -187,8 +183,6 @@ public class Town {
 	}
 
 	/**
-	 * <<<<<<< HEAD
-	 * 
 	 * @return the indicatorHistory
 	 */
 	public Set<IndicatorHistory> getIndicatorHistory() {
@@ -203,8 +197,6 @@ public class Town {
 	}
 
 	/**
-	 * ======= >>>>>>> feature/add_API_fetch
-	 * 
 	 * @return the favourites
 	 */
 	public Set<Favourite> getFavourites() {

@@ -3,8 +3,12 @@
  */
 package fr.diginamic.klitair.services;
 
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +16,6 @@ import fr.diginamic.klitair.dto.UserDto;
 import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.exceptions.AlreadyExistException;
 import fr.diginamic.klitair.exceptions.BadRequestException;
-import fr.diginamic.klitair.factory.UserDtoFactory;
-import fr.diginamic.klitair.factory.UserFactory;
 import fr.diginamic.klitair.repository.UserRepository;
 
 /**
@@ -27,26 +29,27 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private UserFactory userFactory;
+	private TownService townService;
 
 	@Autowired
-	private UserDtoFactory userDtoFactory;
+	private PostCodeService postCodeService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	/**
-	 * @author Antoine create user from userDto, and save User in database
+	 * create user from userDto, and save User in database
 	 * 
 	 * @param userDto
 	 * @return userDto saved with id
 	 */
 	public UserDto create(UserDto userDto) {
 		checkIfUserAvailable(userDto);
-		User user = userFactory.createUser(userDto);
-		user = userRepository.save(user);
-		return userDtoFactory.createUserDto(user);
+		return saveUser(userDto);
 	}
 
 	/**
-	 * @author Antoine get user from userDto in database and update it
+	 * get user from userDto in database and update it
 	 * 
 	 * @param userDto
 	 * @return userDto updated
@@ -54,31 +57,53 @@ public class UserService {
 	public UserDto update(UserDto userDto) {
 		checkIfUserExist(userDto.getId());
 		checkIfUserAvailable(userDto);
-		User user = userFactory.createUser(userDto);
-		user = userRepository.save(user);
-		return userDtoFactory.createUserDto(user);
-	}
-
-	public Page<UserDto> findAll(int index, int limit) {
-		Page<User> users = userRepository.findAll(PageRequest.of(index, limit));
-		// TODO convert page<User> to page<UserDto>
-		return null;
+		return saveUser(userDto);
 	}
 
 	/**
-	 * @author Antoine find user and return userDto with pseudo and password if user
-	 *         is present in database, if not, throw BadRequestException
+	 * @param userDto
+	 * @return
+	 */
+	private UserDto saveUser(UserDto userDto) {
+		User user = modelMapper.map(userDto, User.class);
+		user.setTown(townService.findByName(userDto.getTownName()));
+		user.setPostCode(postCodeService.findByCode(userDto.getPostCodeCode()));
+		user = userRepository.save(user);
+		return modelMapper.map(user, UserDto.class);
+	}
+
+	/**
+	 * @param index
+	 * @param limit
+	 * @return
+	 */
+	public Page<UserDto> findAll(int index, int limit) {
+		Page<User> users = userRepository.findAll(PageRequest.of(index, limit));
+		return new PageImpl<UserDto>(
+				users.stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList()),
+				users.getPageable(), users.getTotalElements());
+	}
+
+	/**
+	 * find user and return userDto with pseudo and password if user is present in
+	 * database, if not, throw BadRequestException
+	 * 
 	 * @param userDto
 	 * @return userDto
 	 */
 	public UserDto findByPseudo(UserDto userDto) {
 		User user = userRepository.findByPseudoAndPassword(userDto.getPseudo(), userDto.getPassword())
 				.orElseThrow(() -> new BadRequestException());
-		return userDtoFactory.createUserDto(user);
+		return modelMapper.map(user, UserDto.class);
+	}
+
+	public User findById(Long id) {
+		return userRepository.findById(id).orElseThrow(() -> new BadRequestException());
 	}
 
 	/**
-	 * @author Antoine delete user with his id
+	 * delete user with his id
+	 * 
 	 * @param id
 	 */
 	public void deleteById(Long id) {
@@ -86,11 +111,9 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
-	///////////// check ////////////////////
-
 	/**
-	 * @author Antoine check if pseudo or email are not already used in database,
-	 *         throw AlreadyExistException if yes
+	 * check if pseudo or email are not already used in database, throw
+	 * AlreadyExistException if yes
 	 * 
 	 * @param userDto
 	 */
@@ -103,7 +126,7 @@ public class UserService {
 	}
 
 	/**
-	 * @author Antoine check if pseudo is not already used in database
+	 * check if pseudo is not already used in database
 	 * 
 	 * @param pseudo
 	 * @return true if pseudo is available and false if pseudo is already used
@@ -117,7 +140,7 @@ public class UserService {
 	}
 
 	/**
-	 * @author Antoine check if email is not already used in database
+	 * check if email is not already used in database
 	 * 
 	 * @param email
 	 * @return true if email is available and false if email is already used
@@ -131,8 +154,7 @@ public class UserService {
 	}
 
 	/**
-	 * @author Antoine check if id of user is present in database, throw
-	 *         BadRequestException if not
+	 * check if id of user is present in database, throw BadRequestException if not
 	 * 
 	 * @param userDto
 	 */

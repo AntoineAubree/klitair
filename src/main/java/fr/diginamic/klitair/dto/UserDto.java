@@ -54,43 +54,39 @@ public class UserDto {
 
 	/** role */
 	@Enumerated(EnumType.STRING)
-	@NotNull
-	private Role role;
+	private Role role = Role.USER;
 
 	/** banned */
 	private boolean banned;
 
-	/** town */
+	/** townDto */
 	@Size(min = 1, max = 200)
 	@NotNull
-	private String town;
+	private String townName;
 
 	/** postCode */
-	private String postCode;
+	private String postCodeCode;
 
 	/** nbStreet */
 	@Size(min = 1, max = 10)
 	@NotNull
-	private String nbStreet;
+	private String addressNbStreet;
 
 	/** street */
 	@Size(min = 1, max = 80)
 	@NotNull
-	private String street;
+	private String addressStreet;
 
-	/** favourites towns */
-	private List<String> favouritesTowns = new ArrayList<>();
-
-	/** received alerts Dto */
+	/** received alerts */
+	// TODO
 	private List<ReceivedAlertDto> receivedAlerts = new ArrayList<>();
-
-	public UserDto() {
-	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserDto [id=");
+		builder.append("UserDto [token=");
+		builder.append(token);
+		builder.append(", id=");
 		builder.append(id);
 		builder.append(", pseudo=");
 		builder.append(pseudo);
@@ -102,6 +98,20 @@ public class UserDto {
 		builder.append(lastName);
 		builder.append(", email=");
 		builder.append(email);
+		builder.append(", role=");
+		builder.append(role);
+		builder.append(", banned=");
+		builder.append(banned);
+		builder.append(", townName=");
+		builder.append(townName);
+		builder.append(", postCodeCode=");
+		builder.append(postCodeCode);
+		builder.append(", addressNbStreet=");
+		builder.append(addressNbStreet);
+		builder.append(", addressStreet=");
+		builder.append(addressStreet);
+		builder.append(", receivedAlerts=");
+		builder.append(receivedAlerts);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -233,73 +243,59 @@ public class UserDto {
 	}
 
 	/**
-	 * @return the town
+	 * @return the townName
 	 */
-	public String getTown() {
-		return town;
+	public String getTownName() {
+		return townName;
 	}
 
 	/**
-	 * @param town the town to set
+	 * @param townName the townName to set
 	 */
-	public void setTown(String town) {
-		this.town = town;
+	public void setTownName(String townName) {
+		this.townName = townName;
 	}
 
 	/**
-	 * @return the postCode
+	 * @return the postCodeCode
 	 */
-	public String getPostCode() {
-		return postCode;
+	public String getPostCodeCode() {
+		return postCodeCode;
 	}
 
 	/**
-	 * @param postCode the postCode to set
+	 * @param postCodeCode the postCodeCode to set
 	 */
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
+	public void setPostCodeCode(String postCodeCode) {
+		this.postCodeCode = postCodeCode;
 	}
 
 	/**
-	 * @return the nbStreet
+	 * @return the addressNbStreet
 	 */
-	public String getNbStreet() {
-		return nbStreet;
+	public String getAddressNbStreet() {
+		return addressNbStreet;
 	}
 
 	/**
-	 * @param nbStreet the nbStreet to set
+	 * @param addressNbStreet the addressNbStreet to set
 	 */
-	public void setNbStreet(String nbStreet) {
-		this.nbStreet = nbStreet;
+	public void setAddressNbStreet(String addressNbStreet) {
+		this.addressNbStreet = addressNbStreet;
 	}
 
 	/**
-	 * @return the street
+	 * @return the addressStreet
 	 */
-	public String getStreet() {
-		return street;
+	public String getAddressStreet() {
+		return addressStreet;
 	}
 
 	/**
-	 * @param street the street to set
+	 * @param addressStreet the addressStreet to set
 	 */
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	/**
-	 * @return the favouritesTowns
-	 */
-	public List<String> getFavouritesTowns() {
-		return favouritesTowns;
-	}
-
-	/**
-	 * @param favouritesTowns the favouritesTowns to set
-	 */
-	public void setFavouritesTowns(List<String> favouritesTowns) {
-		this.favouritesTowns = favouritesTowns;
+	public void setAddressStreet(String addressStreet) {
+		this.addressStreet = addressStreet;
 	}
 
 	/**
@@ -315,7 +311,5 @@ public class UserDto {
 	public void setReceivedAlerts(List<ReceivedAlertDto> receivedAlerts) {
 		this.receivedAlerts = receivedAlerts;
 	}
-
-
 
 }

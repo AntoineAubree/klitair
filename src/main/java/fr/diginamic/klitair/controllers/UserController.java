@@ -26,7 +26,6 @@ import fr.diginamic.klitair.services.UserService;
  * @author StephanieMC
  *
  */
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -45,7 +44,6 @@ public class UserController {
 			throw new BadRequestException();
 		}
 		return userService.create(userDto);
-		// TODO check for the transaction
 	}
 
 	/**
@@ -60,18 +58,18 @@ public class UserController {
 		}
 		return userService.update(userDto);
 	}
-	
+
 	@GetMapping("{index}/{limit}")
 	public Page<UserDto> findAll(@PathVariable int index, @PathVariable int limit) {
 		return userService.findAll(index, limit);
 	}
-	
+
 	/**
 	 * @param userDto
 	 * @param br
 	 * @return userDto
 	 */
-	@PostMapping(path = "login")
+	@PostMapping(path = "/login")
 	public UserDto login(@Valid @RequestBody UserDto userDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
@@ -86,12 +84,12 @@ public class UserController {
 	public void delete(@PathVariable Long id) {
 		userService.deleteById(id);
 	}
-	
+
 	/**
 	 * @param pseudo
 	 * @return true if pseudo is available and false if pseudo is already used
 	 */
-	@PostMapping(path = "pseudo")
+	@PostMapping(path = "/pseudo")
 	public boolean checkPseudo(@RequestParam(name = "pseudo") String pseudo) {
 		return userService.checkPseudo(pseudo);
 	}
@@ -100,14 +98,9 @@ public class UserController {
 	 * @param email
 	 * @return true if email is available and false if email is already used
 	 */
-	@PostMapping(path = "email")
+	@PostMapping(path = "/email")
 	public boolean checkEmail(@RequestParam(name = "email") String email) {
 		return userService.checkEmail(email);
 	}
-
-
-
-
-	
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.diginamic.klitair.entity.PostCode;
+import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.repository.PostCodeRepository;
 
 @Service
@@ -23,8 +24,8 @@ public class PostCodeService {
 		}
 	}
 
-	public Optional<PostCode> findByCode(String postCode) {
-		return postCodeRepository.findByCode(postCode);
+	public PostCode findByCode(String postCode) {
+		return postCodeRepository.findByCode(postCode).orElseThrow(() -> new BadRequestException());
 	}
 
 }
