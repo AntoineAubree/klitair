@@ -3,21 +3,26 @@
  */
 package fr.diginamic.klitair.services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.klitair.api.airquality.AirQualityApiRequest;
+import fr.diginamic.klitair.api.airquality.AirQualityData;
 import fr.diginamic.klitair.api.geo.adress.AddressApiRequest;
-import fr.diginamic.klitair.dto.CoordinatesAndTimeDto;
+import fr.diginamic.klitair.api.meteo.WeatherApiRequest;
+import fr.diginamic.klitair.api.meteo.day.WeatherDataDay;
+import fr.diginamic.klitair.dto.Coordinate;
 import fr.diginamic.klitair.dto.DailyIndicatorHistory;
 import fr.diginamic.klitair.dto.IndicatorHistoryDto;
 import fr.diginamic.klitair.entity.IndicatorHistory;
 import fr.diginamic.klitair.entity.Town;
 import fr.diginamic.klitair.repository.IndicatorHistoryRepository;
-import fr.diginamic.klitair.repository.TownRepository;
 
 /**
  * @author StephanieMC
@@ -27,48 +32,60 @@ import fr.diginamic.klitair.repository.TownRepository;
 public class IndicatorHistoryService {
 
 	@Autowired
-	private TownRepository townRepository;
+	private IndicatorHistoryRepository indicatorHistoryRepository;
 
 	@Autowired
-	private IndicatorHistoryRepository indicatorHistoryRepository;
+	private TownService townService;
+
+	@Autowired
+	private WeatherConditionService weatherConditionService;
 
 	@Autowired
 	private AddressApiRequest addressApiRequest;
 
-	public IndicatorHistoryDto findByDateAndTown(CoordinatesAndTimeDto coordinatesAndTimeDto) throws Exception {
+	@Autowired
+	private AirQualityApiRequest airQualityRequest;
 
-		IndicatorHistoryDto histDto = new IndicatorHistoryDto();
-		String cityCode = addressApiRequest
-				.getCodeInseeFromCoordinate(Float.toString(coordinatesAndTimeDto.getLongitude()),
-						Float.toString(coordinatesAndTimeDto.getLatitude()))
-				.getCityCode();
+	@Autowired
+	private WeatherApiRequest weatherApiRequest;
 
-		// Get postCode with coordinates
-		// String postCode = "44700";
-		Town town = townRepository.findByCode(cityCode).orElseThrow();
+	@Autowired
+	private ModelMapper modelMapper;
 
-		histDto.setResearchDate(LocalDateTime.now());
-		histDto.setPopulation(town.getPopulation());
-		histDto.setTownName(town.getName());
-		histDto.setTownPostCode(cityCode);
+	public IndicatorHistoryDto findIndicatorHistory(IndicatorHistoryDto indicatorHistoryDto) throws Exception {
+		String cityCode = getCityCodeWithCoordinates(indicatorHistoryDto.getCoordinate());
+		Town town = townService.findByCode(cityCode);
+		modelMapper.map(town, indicatorHistoryDto);
+		indicatorHistoryDto.setDate(LocalDateTime.now());
 		List<IndicatorHistory> indicatorHistorys = indicatorHistoryRepository.findByDateAfterAndDateBeforeAndTown_Code(
-				coordinatesAndTimeDto.getStartingDate(), coordinatesAndTimeDto.getEndingDate(), town.getCode());
-		List<DailyIndicatorHistory> dailyIndicatorHistorys = new ArrayList<>();
-		for (IndicatorHistory indicatorHistory : indicatorHistorys) {
-			DailyIndicatorHistory dIH = new DailyIndicatorHistory();
-			dIH.setDate(indicatorHistory.getDate());
-			dIH.setNo2(indicatorHistory.getNo2());
-			dIH.setO3(indicatorHistory.getO3());
-			dIH.setPm10(indicatorHistory.getPm10());
-			dIH.setPm25(indicatorHistory.getPm25());
-			dIH.setSo2(indicatorHistory.getSo2());
-			dIH.setTemperatureMax(indicatorHistory.getTemperatureMax());
-			dIH.setTemperatureMin(indicatorHistory.getTemperatureMin());
-			dailyIndicatorHistorys.add(dIH);
-		}
-		histDto.setDailyIndicatorHistory(dailyIndicatorHistorys);
+				indicatorHistoryDto.getStartingDate(), indicatorHistoryDto.getEndingDate(), town.getCode());
+		indicatorHistoryDto.setDailyIndicatorHistory(indicatorHistorys.stream()
+				.map(indicatorHistory -> modelMapper.map(indicatorHistory, DailyIndicatorHistory.class))
+				.collect(Collectors.toList()));
+		return indicatorHistoryDto;
+	}
 
-		return histDto;
+	public void saveHistoryInDatabase() throws Exception {
+		List<Town> towns = townService.findTownsOfUsersRegistered();
+		for (Town town : towns) {
+			IndicatorHistory indicatorHistory = new IndicatorHistory();
+			WeatherDataDay weatherDataDay = weatherApiRequest.getWeatherDataDay(town.getCode());
+			modelMapper.map(weatherDataDay, indicatorHistory);
+			List<AirQualityData> airQualityDatas = airQualityRequest.getAirQualityDataHistory(town.getCode());
+			if (!airQualityDatas.isEmpty()) {
+				modelMapper.map(airQualityDatas.get(0), indicatorHistory);
+			}
+			indicatorHistory.setDate(LocalDate.now());
+			indicatorHistory.setTown(town);
+			indicatorHistory
+					.setWeatherCondition(weatherConditionService.findByNumber(weatherDataDay.getWeatherConditions()));
+			indicatorHistoryRepository.save(indicatorHistory);
+		}
+	}
+
+	private String getCityCodeWithCoordinates(Coordinate coordinate) throws Exception {
+		return addressApiRequest.getCodeInseeFromCoordinate(Float.toString(coordinate.getLongitude()),
+				Float.toString(coordinate.getLatitude()));
 	}
 
 }

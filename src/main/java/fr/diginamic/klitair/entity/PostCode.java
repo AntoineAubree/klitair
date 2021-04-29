@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,6 +39,10 @@ public class PostCode {
 	@ManyToMany
 	@JoinTable(name = "town_post_code", joinColumns = @JoinColumn(name = "id_post_code", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_town", referencedColumnName = "id"))
 	private Set<Town> towns = new HashSet<>();
+
+	/** users */
+	@OneToMany(mappedBy = "town")
+	private Set<User> users = new HashSet<User>();
 
 	public PostCode() {
 	}
@@ -98,6 +103,20 @@ public class PostCode {
 	 */
 	public void setTowns(Set<Town> towns) {
 		this.towns = towns;
+	}
+
+	/**
+	 * @return the users
+	 */
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	/**
+	 * @param users the users to set
+	 */
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 }

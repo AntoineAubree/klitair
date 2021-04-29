@@ -34,27 +34,27 @@ public class IndicatorHistory {
 	private LocalDate date;
 
 	/** o3 */
-	@Min(1)
+	@Min(0)
 	@Max(6)
 	private int o3;
 
 	/** pm10 */
-	@Min(1)
+	@Min(0)
 	@Max(6)
 	private int pm10;
 
 	/** no2 */
-	@Min(1)
+	@Min(0)
 	@Max(6)
 	private int no2;
 
 	/** so2 */
-	@Min(1)
+	@Min(0)
 	@Max(6)
 	private int so2;
 
 	/** pm25 */
-	@Min(1)
+	@Min(0)
 	@Max(6)
 	private int pm25;
 

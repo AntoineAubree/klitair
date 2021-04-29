@@ -40,13 +40,14 @@ public class AirQualityApiRequest {
 		baseUrlBuilder.append("&export=json&date__range=");
 		baseUrlBuilder.append(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-M-d")));
 		baseUrlBuilder.append(",");
-		baseUrlBuilder.append(LocalDate.now().plusDays(LAST_DAY_TO_DISPLAY).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		baseUrlBuilder
+				.append(LocalDate.now().plusDays(LAST_DAY_TO_DISPLAY).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
 		URI uri = new URI(baseUrlBuilder.toString());
 		DataApiAir bean = mapResponseToDataAirApi(uri);
 		List<AirQualityData> airQualityDataList = getAirQualityDataList(bean);
 		return airQualityDataList;
 	}
-	
+
 	/**
 	 * @return a list of AirQualityData from the request for 1 Day
 	 * @throws Exception
@@ -64,7 +65,7 @@ public class AirQualityApiRequest {
 		List<AirQualityData> airQualityDataList = getAirQualityDataList(bean);
 		return airQualityDataList;
 	}
-	
+
 	/**
 	 * @return a list of AirQualityData from the request for 1 Day in 2 days
 	 * @throws Exception
@@ -74,9 +75,11 @@ public class AirQualityApiRequest {
 		baseUrlBuilder.append("https://data.airpl.org/api/v1/indice/commune/?commune=");
 		baseUrlBuilder.append(codeInsee);
 		baseUrlBuilder.append("&export=json&date__range=");
-		baseUrlBuilder.append(LocalDate.now().plusDays(DAY_TO_CHECK_ALERT).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		baseUrlBuilder
+				.append(LocalDate.now().plusDays(DAY_TO_CHECK_ALERT).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
 		baseUrlBuilder.append(",");
-		baseUrlBuilder.append(LocalDate.now().plusDays(DAY_TO_CHECK_ALERT).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
+		baseUrlBuilder
+				.append(LocalDate.now().plusDays(DAY_TO_CHECK_ALERT).format(DateTimeFormatter.ofPattern("yyyy-M-d")));
 		URI uri = new URI(baseUrlBuilder.toString());
 		DataApiAir bean = mapResponseToDataAirApi(uri);
 		List<AirQualityData> airQualityDataList = getAirQualityDataList(bean);
@@ -99,7 +102,6 @@ public class AirQualityApiRequest {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
 		DataApiAir bean = mapper.readValue(jsonString, DataApiAir.class);
 		return bean;
 	}

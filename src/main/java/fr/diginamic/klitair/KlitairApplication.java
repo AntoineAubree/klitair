@@ -1,11 +1,11 @@
 package fr.diginamic.klitair;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import fr.diginamic.klitair.api.geo.adress.AddressApiRequest;
-import fr.diginamic.klitair.api.geo.adress.PropertiesAddress;
+import fr.diginamic.klitair.services.TownService;
 
 @SpringBootApplication
 public class KlitairApplication implements CommandLineRunner {
@@ -13,6 +13,9 @@ public class KlitairApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(KlitairApplication.class, args);
 	}
+
+	@Autowired
+	TownService townService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -70,6 +73,15 @@ public class KlitairApplication implements CommandLineRunner {
 //		PropertiesAddress propertiesAddress = addressApi.getCodeInseeFromCoordinate("-1.619405", "47.274344");
 //		System.out.println(propertiesAddress);
 
+//		Address address = new Address("56", "rue");
+//		Town town = townService.findByPostCode("01400").get(0);
+//		User user = new User("pseudo", "prenom", "nom", "email", Role.USER, false, address, town);
+//		System.out.println(town);
+//
+//		ModelMapper modelMapper = new ModelMapper();
+//		UserDto userDto = modelMapper.map(user, UserDto.class);
+//
+//		System.out.println(userDto);
 		System.out.println("Terminé");
 
 	}

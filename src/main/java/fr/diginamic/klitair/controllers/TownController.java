@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.klitair.entity.Town;
+import fr.diginamic.klitair.dto.TownDto;
 import fr.diginamic.klitair.services.TownService;
 
 /**
@@ -25,7 +25,7 @@ public class TownController {
 	private TownService townService;
 
 	@GetMapping("{postCode}")
-	public List<Town> findByPostcode(@PathVariable String postCode) {
+	public List<TownDto> findByPostcode(@PathVariable String postCode) {
 		return townService.findByPostCode(postCode);
 	}
 

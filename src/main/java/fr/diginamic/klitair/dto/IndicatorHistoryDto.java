@@ -3,6 +3,7 @@
  */
 package fr.diginamic.klitair.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,17 +17,14 @@ import javax.validation.constraints.Size;
  */
 public class IndicatorHistoryDto {
 
-////////////////////////////////TOWN ///////////////////////////////////////
+	@NotNull
+	private Coordinate coordinate;
+
+//////////////////////////////// TOWN ///////////////////////////////////////
 
 	/** Town's name */
 	@Size(min = 1, max = 200)
-	@NotNull
 	private String townName;
-
-	/** Town's postCode */
-	@Size(min = 5, max = 5)
-	@NotNull
-	private String TownPostCode;
 
 	/** Town's population */
 	@Min(0)
@@ -38,43 +36,25 @@ public class IndicatorHistoryDto {
 
 /////////////////////////// DATE ////////////////////////////////////////////
 
-	private LocalDateTime researchDate;
+	private LocalDateTime date;
 
-	public IndicatorHistoryDto() {
+	@NotNull
+	private LocalDate startingDate;
 
-	}
-
-	/**
-	 * @param townName
-	 * @param townPostCode
-	 * @param population
-	 * @param indicatorHistory
-	 * @param researchDate
-	 */
-	public IndicatorHistoryDto(@Size(min = 1, max = 200) @NotNull String townName,
-			@Size(min = 5, max = 5) @NotNull String townPostCode, @Min(0) int population,
-			List<DailyIndicatorHistory> dailyIndicatorHistory, LocalDateTime researchDate) {
-		super();
-		this.townName = townName;
-		TownPostCode = townPostCode;
-		this.population = population;
-		this.dailyIndicatorHistory = dailyIndicatorHistory;
-		this.researchDate = researchDate;
-	}
+	@NotNull
+	private LocalDate endingDate;
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("IndicatorHistoryDto [townName=");
 		builder.append(townName);
-		builder.append(", TownPostCode=");
-		builder.append(TownPostCode);
 		builder.append(", population=");
 		builder.append(population);
 		builder.append(", dailyIndicatorHistory=");
 		builder.append(dailyIndicatorHistory);
-		builder.append(", researchDate=");
-		builder.append(researchDate);
+		builder.append(", date=");
+		builder.append(date);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -91,20 +71,6 @@ public class IndicatorHistoryDto {
 	 */
 	public void setTownName(String townName) {
 		this.townName = townName;
-	}
-
-	/**
-	 * @return the townPostCode
-	 */
-	public String getTownPostCode() {
-		return TownPostCode;
-	}
-
-	/**
-	 * @param townPostCode the townPostCode to set
-	 */
-	public void setTownPostCode(String townPostCode) {
-		TownPostCode = townPostCode;
 	}
 
 	/**
@@ -136,17 +102,59 @@ public class IndicatorHistoryDto {
 	}
 
 	/**
-	 * @return the researchDate
+	 * @return the date
 	 */
-	public LocalDateTime getResearchDate() {
-		return researchDate;
+	public LocalDateTime getDate() {
+		return date;
 	}
 
 	/**
-	 * @param researchDate the researchDate to set
+	 * @param date the date to set
 	 */
-	public void setResearchDate(LocalDateTime researchDate) {
-		this.researchDate = researchDate;
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+
+	/**
+	 * @return the coordinate
+	 */
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
+
+	/**
+	 * @param coordinate the coordinate to set
+	 */
+	public void setCoordinate(Coordinate coordinate) {
+		this.coordinate = coordinate;
+	}
+
+	/**
+	 * @return the startingDate
+	 */
+	public LocalDate getStartingDate() {
+		return startingDate;
+	}
+
+	/**
+	 * @param startingDate the startingDate to set
+	 */
+	public void setStartingDate(LocalDate startingDate) {
+		this.startingDate = startingDate;
+	}
+
+	/**
+	 * @return the endingDate
+	 */
+	public LocalDate getEndingDate() {
+		return endingDate;
+	}
+
+	/**
+	 * @param endingDate the endingDate to set
+	 */
+	public void setEndingDate(LocalDate endingDate) {
+		this.endingDate = endingDate;
 	}
 
 }

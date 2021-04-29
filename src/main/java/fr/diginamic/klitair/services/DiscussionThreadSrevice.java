@@ -3,13 +3,18 @@
  */
 package fr.diginamic.klitair.services;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.klitair.dto.DiscussionThreadDto;
 import fr.diginamic.klitair.entity.DiscussionThread;
 import fr.diginamic.klitair.exceptions.AlreadyExistException;
 import fr.diginamic.klitair.exceptions.BadRequestException;
@@ -25,28 +30,43 @@ public class DiscussionThreadSrevice {
 	@Autowired
 	private DiscussionThreadRepository discussionThreadRepository;
 
-	public DiscussionThread create(DiscussionThread discussionThread) {
-		checkIfDiscussionThreadIsAvailable(discussionThread);
-		return discussionThreadRepository.save(discussionThread);
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	public DiscussionThreadDto create(@Valid DiscussionThreadDto discussionThreadDto) {
+		checkIfDiscussionThreadIsAvailable(discussionThreadDto);
+		checkIfUserValide(discussionThreadDto);
+		return saveDiscussionThread(discussionThreadDto);
 	}
 
-	public List<DiscussionThread> findByIdSection(Long id) {
-		return discussionThreadRepository.findBySection_Id(id);
+	public DiscussionThreadDto update(@Valid DiscussionThreadDto discussionThreadDto) {
+		checkIfDiscussionThreadExist(discussionThreadDto.getId());
+		checkIfDiscussionThreadIsAvailable(discussionThreadDto);
+		checkIfUserValide(discussionThreadDto);
+		return saveDiscussionThread(discussionThreadDto);
 	}
 
-	public DiscussionThread update(@Valid DiscussionThread discussionThread) {
-		if (discussionThread.getId() == null
-				|| discussionThreadRepository.findById(discussionThread.getId()).isEmpty()) {
-			throw new BadRequestException();
-		}
-		checkIfDiscussionThreadIsAvailable(discussionThread);
-		return discussionThreadRepository.save(discussionThread);
+	private DiscussionThreadDto saveDiscussionThread(DiscussionThreadDto discussionThreadDto) {
+		DiscussionThread discussionThread = modelMapper.map(discussionThreadDto, DiscussionThread.class);
+		discussionThread = discussionThreadRepository.save(discussionThread);
+		return modelMapper.map(discussionThread, DiscussionThreadDto.class);
+	}
+
+	public Page<DiscussionThreadDto> findByIdSection(Long id, int index, int limit) {
+		Page<DiscussionThread> discussionThreads = discussionThreadRepository.findBySection_Id(id,
+				PageRequest.of(index, limit));
+		return new PageImpl<DiscussionThreadDto>(
+				discussionThreads.stream()
+						.map(discussionThread -> modelMapper.map(discussionThread, DiscussionThreadDto.class))
+						.collect(Collectors.toList()),
+				discussionThreads.getPageable(), discussionThreads.getTotalElements());
 	}
 
 	public void deleteById(Long id) {
-		if (id == null || discussionThreadRepository.findById(id).isEmpty()) {
-			throw new BadRequestException();
-		}
+		checkIfDiscussionThreadExist(id);
 		discussionThreadRepository.deleteById(id);
 	}
 
@@ -58,12 +78,22 @@ public class DiscussionThreadSrevice {
 		return titleAvailable;
 	}
 
-	/**
-	 * @param discussionThread
-	 */
-	private void checkIfDiscussionThreadIsAvailable(DiscussionThread discussionThread) {
-		if (!checkTitle(discussionThread.getTitle())) {
+	private void checkIfDiscussionThreadIsAvailable(DiscussionThreadDto discussionThreadDto) {
+		if (!checkTitle(discussionThreadDto.getTitle())) {
 			throw new AlreadyExistException("Title not available");
+		}
+	}
+
+	private void checkIfUserValide(DiscussionThreadDto discussionThreadDto) {
+		if (discussionThreadDto.getUserId() == null) {
+			throw new BadRequestException();
+		}
+		userService.findById(discussionThreadDto.getUserId());
+	}
+
+	private void checkIfDiscussionThreadExist(Long id) {
+		if (id == null || discussionThreadRepository.findById(id).isEmpty()) {
+			throw new BadRequestException();
 		}
 	}
 

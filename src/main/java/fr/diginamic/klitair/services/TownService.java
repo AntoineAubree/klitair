@@ -2,18 +2,21 @@ package fr.diginamic.klitair.services;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.diginamic.klitair.api.geo.town.TownApiRequest;
 import fr.diginamic.klitair.api.geo.town.TownDataApi;
+import fr.diginamic.klitair.dto.TownDto;
 import fr.diginamic.klitair.entity.Department;
 import fr.diginamic.klitair.entity.PostCode;
 import fr.diginamic.klitair.entity.Town;
+import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.repository.TownRepository;
 
 /**
@@ -40,15 +43,42 @@ public class TownService {
 	@Autowired
 	private PostCodeService postCodeService;
 
-	public List<Town> findByPostCode(String postCode) {
-		return townRepository.findByPostCodes_Code(postCode);
+	@Autowired
+	private ModelMapper modelMapper;
+
+	/**
+	 * @param town
+	 * @return
+	 */
+	public Town findByName(String town) {
+		return townRepository.findByName(town).orElseThrow(() -> new BadRequestException());
 	}
 
+	/**
+	 * @param postCode
+	 * @return
+	 */
+	public List<TownDto> findByPostCode(String postCode) {
+		List<Town> towns = townRepository.findByPostCodes_Code(postCode);
+		return towns.stream().map(town -> modelMapper.map(town, TownDto.class)).collect(Collectors.toList());
+	}
+
+	public Town findByCode(String cityCode) {
+		return townRepository.findByCode(cityCode).orElseThrow(() -> new BadRequestException());
+	}
+
+	public List<Town> findTownsOfUsersRegistered() {
+		return townRepository.findDistinctByUsersNotNull();
+	}
+
+	/**
+	 * insert or update in database regions, then, departments, and towns
+	 */
 	public void update() {
 		LocalDateTime ldt = LocalDateTime.now();
 		regionService.insertRegion();
 		departmentService.insertDepartment();
-		this.insertTown();
+		insertTown();
 		LocalDateTime ldt2 = LocalDateTime.now();
 		System.out.println(Duration.between(ldt, ldt2).toMinutes());
 	}
@@ -68,7 +98,7 @@ public class TownService {
 						town.setName(townData.getName());
 						town.setPopulation(townData.getPopulation());
 						town.setDepartment(department);
-						
+
 						for (String postCodeString : townData.getPostCodes()) {
 							PostCode postCode = postCodeService.insert(postCodeString);
 							System.out.println(postCode);

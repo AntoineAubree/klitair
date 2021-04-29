@@ -3,11 +3,10 @@
  */
 package fr.diginamic.klitair.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.klitair.entity.DiscussionThread;
+import fr.diginamic.klitair.dto.DiscussionThreadDto;
 import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.services.DiscussionThreadSrevice;
 
@@ -36,34 +35,34 @@ public class DiscussionThreadController {
 	private DiscussionThreadSrevice discussionThreadService;
 
 	@PostMapping
-	public DiscussionThread create(@Valid @RequestBody DiscussionThread discussionThread, BindingResult br) {
+	public DiscussionThreadDto create(@Valid @RequestBody DiscussionThreadDto discussionThreadDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return discussionThreadService.create(discussionThread);
-	}
-
-	@PostMapping(path = "title")
-	public boolean checkTitle(@RequestParam(name = "title") String title) {
-		return discussionThreadService.checkTitle(title);
-	}
-
-	@GetMapping("{id}")
-	public List<DiscussionThread> findBySection(@PathVariable Long id) {
-		return discussionThreadService.findByIdSection(id);
+		return discussionThreadService.create(discussionThreadDto);
 	}
 
 	@PutMapping
-	public DiscussionThread update(@Valid @RequestBody DiscussionThread discussionThread, BindingResult br) {
+	public DiscussionThreadDto update(@Valid @RequestBody DiscussionThreadDto discussionThreadDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return discussionThreadService.update(discussionThread);
+		return discussionThreadService.update(discussionThreadDto);
+	}
+
+	@GetMapping("{id}/{index}/{limit}")
+	public Page<DiscussionThreadDto> findBySection(@PathVariable Long id, @PathVariable int index, @PathVariable int limit) {
+		return discussionThreadService.findByIdSection(id, index, limit);
 	}
 
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		discussionThreadService.deleteById(id);
+	}
+
+	@PostMapping(path = "title")
+	public boolean checkTitle(@RequestParam(name = "title") String title) {
+		return discussionThreadService.checkTitle(title);
 	}
 
 }

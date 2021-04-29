@@ -7,8 +7,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import fr.diginamic.klitair.api.airquality.AirQualityData;
-
 /**
  * 
  * @author StephanieMC
@@ -17,17 +15,14 @@ import fr.diginamic.klitair.api.airquality.AirQualityData;
 
 public class IndicatorDto {
 
+	@NotNull
+	private Coordinate coordinate;
+
 	//////////////////////////////// TOWN ///////////////////////////////////////
 
 	/** Town's name */
 	@Size(min = 1, max = 200)
-	@NotNull
 	private String townName;
-
-	/** Town's postCode */
-	@Size(min = 5, max = 5)
-	@NotNull
-	private String TownPostCode;
 
 	/** Town's population */
 	@Min(0)
@@ -35,7 +30,7 @@ public class IndicatorDto {
 
 	///////////////////////////// INDICATORS //////////////////////////////////////
 
-	private List<AirQualityData> airQualityDatas;
+	private List<DailyQualityIndicator> dailyQualityIndicator;
 
 	private List<DailyWeatherIndicator> dailyWeatherIndicators;
 
@@ -43,49 +38,37 @@ public class IndicatorDto {
 
 	private LocalDateTime date;
 
-	/** constructor WITHOUT params */
-	public IndicatorDto() {
-
-	}
-
-	/**
-	 * @param townName
-	 * @param townPostCode
-	 * @param population
-	 * @param airQualityDatas
-	 * @param dailyWeatherIndicators
-	 * @param date
-	 */
-	public IndicatorDto(@Size(min = 1, max = 200) @NotNull String townName,
-			@Size(min = 5, max = 5) @NotNull String townPostCode, @Min(0) int population,
-			List<AirQualityData> airQualityDatas, List<DailyWeatherIndicator> dailyWeatherIndicators,
-			LocalDateTime date) {
-		super();
-		this.townName = townName;
-		TownPostCode = townPostCode;
-		this.population = population;
-		this.airQualityDatas = airQualityDatas;
-		this.dailyWeatherIndicators = dailyWeatherIndicators;
-		this.date = date;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("IndicatorDto [townName=");
+		builder.append("IndicatorDto [coordinate=");
+		builder.append(coordinate);
+		builder.append(", townName=");
 		builder.append(townName);
-		builder.append(", TownPostCode=");
-		builder.append(TownPostCode);
 		builder.append(", population=");
 		builder.append(population);
-		builder.append(", airQualityDatas=");
-		builder.append(airQualityDatas);
+		builder.append(", dailyQualityIndicator=");
+		builder.append(dailyQualityIndicator);
 		builder.append(", dailyWeatherIndicators=");
 		builder.append(dailyWeatherIndicators);
 		builder.append(", date=");
 		builder.append(date);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	/**
+	 * @return the coordinate
+	 */
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
+
+	/**
+	 * @param coordinate the coordinate to set
+	 */
+	public void setCoordinate(Coordinate coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	/**
@@ -103,20 +86,6 @@ public class IndicatorDto {
 	}
 
 	/**
-	 * @return the townPostCode
-	 */
-	public String getTownPostCode() {
-		return TownPostCode;
-	}
-
-	/**
-	 * @param townPostCode the townPostCode to set
-	 */
-	public void setTownPostCode(String townPostCode) {
-		TownPostCode = townPostCode;
-	}
-
-	/**
 	 * @return the population
 	 */
 	public int getPopulation() {
@@ -131,17 +100,17 @@ public class IndicatorDto {
 	}
 
 	/**
-	 * @return the airQualityDatas
+	 * @return the dailyQualityIndicator
 	 */
-	public List<AirQualityData> getAirQualityDatas() {
-		return airQualityDatas;
+	public List<DailyQualityIndicator> getDailyQualityIndicator() {
+		return dailyQualityIndicator;
 	}
 
 	/**
-	 * @param airQualityDatas the airQualityDatas to set
+	 * @param dailyQualityIndicator the dailyQualityIndicator to set
 	 */
-	public void setAirQualityDatas(List<AirQualityData> airQualityDatas) {
-		this.airQualityDatas = airQualityDatas;
+	public void setDailyQualityIndicator(List<DailyQualityIndicator> dailyQualityIndicator) {
+		this.dailyQualityIndicator = dailyQualityIndicator;
 	}
 
 	/**

@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package fr.diginamic.klitair.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,22 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.klitair.services.RegionService;
+import fr.diginamic.klitair.dto.ForecastAlertDto;
+import fr.diginamic.klitair.services.ForecastAlertService;
 
 /**
- * 
- * @author StephanieMC
+ * @author Antoine
  *
  */
 @RestController
-@RequestMapping("/region")
-public class RegionController {
+@RequestMapping("/forecast")
+public class ForecastAlertController {
 
 	@Autowired
-	private RegionService regionService;
+	ForecastAlertService forecastAlertService;
 
 	@GetMapping()
-	public void insert() {
-		regionService.insertRegion();
+	public ForecastAlertDto findAll() throws Exception {
+		return forecastAlertService.findAll();
 	}
+
 }

@@ -21,4 +21,8 @@ public interface TownRepository extends JpaRepository<Town, Long> {
 	Optional<Town> findByCode(String code);
 
 	Optional<Town> findByCodeAndPostCodes_Id(String code, Long id);
+
+	Optional<Town> findByName(String town);
+
+	List<Town> findDistinctByUsersNotNull();
 }

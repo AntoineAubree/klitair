@@ -51,7 +51,7 @@ public class User {
 	@NotNull
 	private String lastName;
 
-	/** pseudo */
+	/** email */
 	@Column(length = 50, nullable = false, unique = true)
 	@Size(min = 1, max = 50)
 	@Email
@@ -62,7 +62,6 @@ public class User {
 	@Column(length = 36, nullable = false)
 	@Size(min = 8, max = 36)
 	@NotNull
-	// TODO check if password is ok
 	private String password;
 
 	/** role */
@@ -76,9 +75,16 @@ public class User {
 	/** town */
 	@ManyToOne
 	@JoinColumn(name = "id_town")
-//	@NotNull
+	@NotNull
 	private Town town;
 
+	/** post code */
+	@ManyToOne
+	@JoinColumn(name = "id_post_code")
+	@NotNull
+	private PostCode postCode;
+
+	/** address */
 	@Embedded
 	@NotNull
 	private Address address;
@@ -92,7 +98,7 @@ public class User {
 	private Set<ReceivedAlert> receivedAlerts = new HashSet<ReceivedAlert>();
 
 	/** town forecast alerts */
-	@OneToMany(targetEntity=ForecastAlert.class,  mappedBy = "user")
+	@OneToMany(targetEntity = ForecastAlert.class, mappedBy = "user")
 	private Set<ForecastAlert> forecastAlerts = new HashSet<ForecastAlert>();
 
 	/** sections */
@@ -108,23 +114,10 @@ public class User {
 	private Set<Message> messages = new HashSet<Message>();
 
 	/**
-	 * Constructor WITHOUT params
+	 * constructor without arguments
 	 */
 	public User() {
 
-	}
-
-	public User(@Size(min = 2, max = 50) @NotNull String pseudo, @Size(min = 2, max = 50) @NotNull String firstName,
-			@Size(min = 2, max = 50) @NotNull String lastName, @Size(min = 1, max = 50) @Email @NotNull String email,
-			@NotNull Role role, boolean banned, @NotNull Address address) {
-		super();
-		this.pseudo = pseudo;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.role = role;
-		this.banned = banned;
-		this.address = address;
 	}
 
 	@Override
@@ -140,10 +133,16 @@ public class User {
 		builder.append(lastName);
 		builder.append(", email=");
 		builder.append(email);
+		builder.append(", password=");
+		builder.append(password);
 		builder.append(", role=");
 		builder.append(role);
 		builder.append(", banned=");
 		builder.append(banned);
+		builder.append(", town=");
+		builder.append(town);
+		builder.append(", postCode=");
+		builder.append(postCode);
 		builder.append(", address=");
 		builder.append(address);
 		builder.append("]");
@@ -221,6 +220,20 @@ public class User {
 	}
 
 	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
 	 * @return the role
 	 */
 	public Role getRole() {
@@ -249,20 +262,6 @@ public class User {
 	}
 
 	/**
-	 * @return the favourites
-	 */
-	public Set<Favourite> getFavourites() {
-		return favourites;
-	}
-
-	/**
-	 * @param favourites the favourites to set
-	 */
-	public void setFavourites(Set<Favourite> favourites) {
-		this.favourites = favourites;
-	}
-
-	/**
 	 * @return the town
 	 */
 	public Town getTown() {
@@ -274,6 +273,20 @@ public class User {
 	 */
 	public void setTown(Town town) {
 		this.town = town;
+	}
+
+	/**
+	 * @return the postCode
+	 */
+	public PostCode getPostCode() {
+		return postCode;
+	}
+
+	/**
+	 * @param postCode the postCode to set
+	 */
+	public void setPostCode(PostCode postCode) {
+		this.postCode = postCode;
 	}
 
 	/**
@@ -291,6 +304,20 @@ public class User {
 	}
 
 	/**
+	 * @return the favourites
+	 */
+	public Set<Favourite> getFavourites() {
+		return favourites;
+	}
+
+	/**
+	 * @param favourites the favourites to set
+	 */
+	public void setFavourites(Set<Favourite> favourites) {
+		this.favourites = favourites;
+	}
+
+	/**
 	 * @return the receivedAlerts
 	 */
 	public Set<ReceivedAlert> getReceivedAlerts() {
@@ -305,14 +332,14 @@ public class User {
 	}
 
 	/**
-	 * @return the townForecastAlerts
+	 * @return the forecastAlerts
 	 */
 	public Set<ForecastAlert> getForecastAlerts() {
 		return forecastAlerts;
 	}
 
 	/**
-	 * @param townForecastAlerts the townForecastAlerts to set
+	 * @param forecastAlerts the forecastAlerts to set
 	 */
 	public void setForecastAlerts(Set<ForecastAlert> forecastAlerts) {
 		this.forecastAlerts = forecastAlerts;
@@ -358,20 +385,6 @@ public class User {
 	 */
 	public void setMessages(Set<Message> messages) {
 		this.messages = messages;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 }
