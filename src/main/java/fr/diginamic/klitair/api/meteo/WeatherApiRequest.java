@@ -33,7 +33,6 @@ public class WeatherApiRequest {
 	 * @throws Exception
 	 */
 	public List<List<WeatherDataPeriods>> getWeatherDataPeriods(String codeInsee) throws Exception {
-
 		StringBuilder baseUrlBuilder = new StringBuilder();
 		baseUrlBuilder.append(
 				"https://api.meteo-concept.com/api/forecast/daily/periods?token=a3be79b283cd16d3fae3e33aa914a55fda79b070a3a7fb6ad2a81d60e316ce7b&insee=");
@@ -43,14 +42,14 @@ public class WeatherApiRequest {
 		return bean.getWeathers();
 	}
 
-	public List<WeatherDataDay> getWeatherDataDay(String codeInsee) throws Exception {
+	public WeatherDataDay getWeatherDataDay(String codeInsee) throws Exception {
 		StringBuilder baseUrlBuilder = new StringBuilder();
 		baseUrlBuilder.append(
 				"https://api.meteo-concept.com/api/forecast/daily?token=a3be79b283cd16d3fae3e33aa914a55fda79b070a3a7fb6ad2a81d60e316ce7b&insee=");
 		baseUrlBuilder.append(codeInsee);
 		URI uri = new URI(baseUrlBuilder.toString());
 		DataApiDay bean = mapResponseToDataWeatherApi(uri, DataApiDay.class);
-		return bean.getWeathers();
+		return bean.getWeathers().get(0);
 	}
 
 	/**

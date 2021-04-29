@@ -4,9 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import fr.diginamic.klitair.api.airquality.AirQualityData;
 
 /**
  * 
@@ -16,6 +15,7 @@ import fr.diginamic.klitair.api.airquality.AirQualityData;
 
 public class IndicatorDto {
 
+	@NotNull
 	private Coordinate coordinate;
 
 	//////////////////////////////// TOWN ///////////////////////////////////////
@@ -30,7 +30,7 @@ public class IndicatorDto {
 
 	///////////////////////////// INDICATORS //////////////////////////////////////
 
-	private List<AirQualityData> airQualityDatas;
+	private List<DailyQualityIndicator> dailyQualityIndicator;
 
 	private List<DailyWeatherIndicator> dailyWeatherIndicators;
 
@@ -41,18 +41,34 @@ public class IndicatorDto {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("IndicatorDto [townName=");
+		builder.append("IndicatorDto [coordinate=");
+		builder.append(coordinate);
+		builder.append(", townName=");
 		builder.append(townName);
 		builder.append(", population=");
 		builder.append(population);
-		builder.append(", airQualityDatas=");
-		builder.append(airQualityDatas);
+		builder.append(", dailyQualityIndicator=");
+		builder.append(dailyQualityIndicator);
 		builder.append(", dailyWeatherIndicators=");
 		builder.append(dailyWeatherIndicators);
 		builder.append(", date=");
 		builder.append(date);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	/**
+	 * @return the coordinate
+	 */
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
+
+	/**
+	 * @param coordinate the coordinate to set
+	 */
+	public void setCoordinate(Coordinate coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	/**
@@ -84,17 +100,17 @@ public class IndicatorDto {
 	}
 
 	/**
-	 * @return the airQualityDatas
+	 * @return the dailyQualityIndicator
 	 */
-	public List<AirQualityData> getAirQualityDatas() {
-		return airQualityDatas;
+	public List<DailyQualityIndicator> getDailyQualityIndicator() {
+		return dailyQualityIndicator;
 	}
 
 	/**
-	 * @param airQualityDatas the airQualityDatas to set
+	 * @param dailyQualityIndicator the dailyQualityIndicator to set
 	 */
-	public void setAirQualityDatas(List<AirQualityData> airQualityDatas) {
-		this.airQualityDatas = airQualityDatas;
+	public void setDailyQualityIndicator(List<DailyQualityIndicator> dailyQualityIndicator) {
+		this.dailyQualityIndicator = dailyQualityIndicator;
 	}
 
 	/**
@@ -123,20 +139,6 @@ public class IndicatorDto {
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
-	}
-
-	/**
-	 * @return the coordinatesDto
-	 */
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
-
-	/**
-	 * @param coordinatesDto the coordinatesDto to set
-	 */
-	public void setCoordinate(Coordinate coordinate) {
-		this.coordinate = coordinate;
 	}
 
 }

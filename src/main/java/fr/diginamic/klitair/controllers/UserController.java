@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.diginamic.klitair.dto.UserDto;
@@ -89,8 +88,8 @@ public class UserController {
 	 * @param pseudo
 	 * @return true if pseudo is available and false if pseudo is already used
 	 */
-	@PostMapping(path = "/pseudo")
-	public boolean checkPseudo(@RequestParam(name = "pseudo") String pseudo) {
+	@GetMapping(path = "/pseudo/{pseudo}")
+	public boolean checkPseudo(@PathVariable String pseudo) {
 		return userService.checkPseudo(pseudo);
 	}
 
@@ -98,8 +97,8 @@ public class UserController {
 	 * @param email
 	 * @return true if email is available and false if email is already used
 	 */
-	@PostMapping(path = "/email")
-	public boolean checkEmail(@RequestParam(name = "email") String email) {
+	@GetMapping(path = "/email/{email}")
+	public boolean checkEmail(@PathVariable String email) {
 		return userService.checkEmail(email);
 	}
 

@@ -3,6 +3,8 @@
  */
 package fr.diginamic.klitair.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +26,7 @@ public class IndicatorController {
 	IndicatorService indicatorService;
 
 	@GetMapping()
-	public IndicatorDto findByCoordinates(@RequestBody IndicatorDto indicatorDto) throws Exception {
+	public IndicatorDto findByCoordinates(@Valid @RequestBody IndicatorDto indicatorDto) throws Exception {
 		return indicatorService.findByCoordinates(indicatorDto);
 	}
 

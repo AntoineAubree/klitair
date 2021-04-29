@@ -66,7 +66,11 @@ public class TownService {
 	public Town findByCode(String cityCode) {
 		return townRepository.findByCode(cityCode).orElseThrow(() -> new BadRequestException());
 	}
-	
+
+	public List<Town> findTownsOfUsersRegistered() {
+		return townRepository.findDistinctByUsersNotNull();
+	}
+
 	/**
 	 * insert or update in database regions, then, departments, and towns
 	 */
@@ -111,6 +115,5 @@ public class TownService {
 			e.printStackTrace();
 		}
 	}
-
 
 }
