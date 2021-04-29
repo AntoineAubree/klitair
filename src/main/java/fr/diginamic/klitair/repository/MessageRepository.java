@@ -3,8 +3,8 @@
  */
 package fr.diginamic.klitair.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.diginamic.klitair.entity.Message;
@@ -15,8 +15,8 @@ import fr.diginamic.klitair.entity.Message;
  */
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-	List<Message> findByDiscussionThread_Id(Long id);
+	Page<Message> findByDiscussionThread_Id(Long id, Pageable pageable);
 
-	List<Message> findByUser_Id(Long id);
+	Page<Message> findByUser_Id(Long id, Pageable pageable);
 
 }

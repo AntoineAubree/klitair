@@ -3,11 +3,10 @@
  */
 package fr.diginamic.klitair.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.diginamic.klitair.entity.Message;
+import fr.diginamic.klitair.dto.MessageDto;
 import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.services.MessageService;
 
@@ -34,29 +33,29 @@ public class MessageController {
 	private MessageService messageService;
 
 	@PostMapping
-	public Message create(@Valid @RequestBody Message message, BindingResult br) {
+	public MessageDto create(@Valid @RequestBody MessageDto messageDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return messageService.create(message);
+		return messageService.create(messageDto);
 	}
-
-	@GetMapping("{id}")
-	public List<Message> findByDiscussionThread(@PathVariable Long id) {
-		return messageService.findByDiscussionThread(id);
-	}
-
-	@GetMapping("/user/{id}")
-	public List<Message> findByUser(@PathVariable Long id) {
-		return messageService.findByUser(id);
-	}
-
+	
 	@PutMapping
-	public Message update(@Valid @RequestBody Message message, BindingResult br) {
+	public MessageDto update(@Valid @RequestBody MessageDto messageDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return messageService.update(message);
+		return messageService.update(messageDto);
+	}
+
+	@GetMapping("{id}/{index}/{limit}")
+	public Page<MessageDto> findByDiscussionThread(@PathVariable Long idDiscussionThread, @PathVariable int index, @PathVariable int limit) {
+		return messageService.findByDiscussionThread(idDiscussionThread, index, limit);
+	}
+
+	@GetMapping("/user/{id}/{index}/{limit}")
+	public Page<MessageDto> findByUser(@PathVariable Long idUser, @PathVariable int index, @PathVariable int limit) {
+		return messageService.findByUser(idUser, index, limit);
 	}
 
 	@DeleteMapping("{id}")
