@@ -119,9 +119,9 @@ public class UserService {
 	 */
 	private void checkIfUserAvailable(UserDto userDto) {
 		if (!checkPseudo(userDto.getPseudo())) {
-			throw new AlreadyExistException("Pseudo not available");
+			throw new AlreadyExistException("1|Pseudo not available");
 		} else if (!checkEmail(userDto.getEmail())) {
-			throw new AlreadyExistException("Email not available");
+			throw new AlreadyExistException("2|Email not available");
 		}
 	}
 

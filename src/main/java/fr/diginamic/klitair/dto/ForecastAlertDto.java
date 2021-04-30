@@ -9,4 +9,6 @@ package fr.diginamic.klitair.dto;
  */
 public class ForecastAlertDto {
 
+	
+	
 }
