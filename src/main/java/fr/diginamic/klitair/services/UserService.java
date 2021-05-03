@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import fr.diginamic.klitair.dto.LoginDto;
 import fr.diginamic.klitair.dto.UserDto;
 import fr.diginamic.klitair.entity.User;
 import fr.diginamic.klitair.exceptions.AlreadyExistException;
@@ -88,11 +89,11 @@ public class UserService {
 	 * find user and return userDto with pseudo and password if user is present in
 	 * database, if not, throw BadRequestException
 	 * 
-	 * @param userDto
+	 * @param loginDto
 	 * @return userDto
 	 */
-	public UserDto findByPseudo(UserDto userDto) {
-		User user = userRepository.findByPseudoAndPassword(userDto.getPseudo(), userDto.getPassword())
+	public UserDto findByPseudo(LoginDto loginDto) {
+		User user = userRepository.findByPseudoAndPassword(loginDto.getPseudo(), loginDto.getPassword())
 				.orElseThrow(() -> new BadRequestException());
 		return modelMapper.map(user, UserDto.class);
 	}

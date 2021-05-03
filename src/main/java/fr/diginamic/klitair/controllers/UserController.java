@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.diginamic.klitair.dto.LoginDto;
 import fr.diginamic.klitair.dto.UserDto;
 import fr.diginamic.klitair.exceptions.BadRequestException;
 import fr.diginamic.klitair.services.UserService;
@@ -66,16 +67,16 @@ public class UserController {
 	}
 
 	/**
-	 * @param userDto
+	 * @param loginDto
 	 * @param br
 	 * @return userDto
 	 */
 	@PostMapping(path = "/login")
-	public UserDto login(@Valid @RequestBody UserDto userDto, BindingResult br) {
+	public UserDto login(@Valid @RequestBody LoginDto loginDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException();
 		}
-		return userService.findByPseudo(userDto);
+		return userService.findByPseudo(loginDto);
 	}
 
 	/**
