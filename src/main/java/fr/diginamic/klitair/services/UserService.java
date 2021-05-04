@@ -94,7 +94,7 @@ public class UserService {
 	 */
 	public UserDto findByPseudo(LoginDto loginDto) {
 		User user = userRepository.findByPseudoAndPassword(loginDto.getPseudo(), loginDto.getPassword())
-				.orElseThrow(() -> new BadRequestException());
+				.orElseThrow(() -> new BadRequestException("Pseudo or Password doesn't exist"));
 		return modelMapper.map(user, UserDto.class);
 	}
 

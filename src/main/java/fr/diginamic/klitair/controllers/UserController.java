@@ -72,7 +72,7 @@ public class UserController {
 	@PostMapping(path = "/login")
 	public UserDto login(@Valid @RequestBody LoginDto loginDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
-			throw new BadRequestException();
+			throw new BadRequestException("Pseudo and Password required to sign-in");
 		}
 		return userService.findByPseudo(loginDto);
 	}
