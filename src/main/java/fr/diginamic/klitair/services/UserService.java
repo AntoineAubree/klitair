@@ -161,7 +161,7 @@ public class UserService {
 	 */
 	private void checkIfUserExist(Long id) {
 		if (id == null || userRepository.findById(id).isEmpty()) {
-			throw new BadRequestException();
+			throw new BadRequestException("The user you try to delete doesn't exist");
 		}
 	}
 
