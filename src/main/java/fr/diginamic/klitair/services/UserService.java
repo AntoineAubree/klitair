@@ -102,6 +102,11 @@ public class UserService {
 		return userRepository.findById(id).orElseThrow(() -> new BadRequestException());
 	}
 
+	public UserDto findUserDtoById(Long id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new BadRequestException("Usser not found"));
+		return modelMapper.map(user, UserDto.class);
+	}
+
 	/**
 	 * delete user with his id
 	 * 
@@ -119,9 +124,9 @@ public class UserService {
 	 * @param userDto
 	 */
 	private void checkIfUserAvailable(UserDto userDto) {
-		if (!checkPseudo(userDto.getPseudo())) {
+		if (!checkPseudo(userDto)) {
 			throw new AlreadyExistException("1|Pseudo not available");
-		} else if (!checkEmail(userDto.getEmail())) {
+		} else if (!checkEmail(userDto)) {
 			throw new AlreadyExistException("2|Email not available");
 		}
 	}
@@ -132,9 +137,13 @@ public class UserService {
 	 * @param pseudo
 	 * @return true if pseudo is available and false if pseudo is already used
 	 */
-	public boolean checkPseudo(String pseudo) {
+	public boolean checkPseudo(UserDto userDto) {
 		boolean pseudoAvailable = false;
-		if (userRepository.findByPseudo(pseudo).isEmpty()) {
+		if (userRepository.findByPseudo(userDto.getPseudo()).isEmpty()) {
+			pseudoAvailable = true;
+		}
+		if (userDto.getId() != null
+				&& userRepository.findById(userDto.getId()).orElseThrow().getPseudo() == userDto.getPseudo()) {
 			pseudoAvailable = true;
 		}
 		return pseudoAvailable;
@@ -146,9 +155,13 @@ public class UserService {
 	 * @param email
 	 * @return true if email is available and false if email is already used
 	 */
-	public boolean checkEmail(String email) {
+	public boolean checkEmail(UserDto userDto) {
 		boolean emailAvailable = false;
-		if (userRepository.findByEmail(email).isEmpty()) {
+		if (userRepository.findByEmail(userDto.getEmail()).isEmpty()) {
+			emailAvailable = true;
+		}
+		if (userDto.getId() != null
+				&& userRepository.findById(userDto.getId()).orElseThrow().getEmail() == userDto.getEmail()) {
 			emailAvailable = true;
 		}
 		return emailAvailable;

@@ -37,7 +37,7 @@ public class SectionController {
 	@PostMapping
 	public SectionDto create(@Valid @RequestBody SectionDto sectionDto, BindingResult br) {
 		if (!br.getAllErrors().isEmpty()) {
-			throw new BadRequestException();
+			throw new BadRequestException("wrong length of title (1min-80max)");
 		}
 		return sectionService.create(sectionDto);
 	}

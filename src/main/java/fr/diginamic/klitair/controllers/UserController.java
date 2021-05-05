@@ -64,6 +64,11 @@ public class UserController {
 		return userService.findAll(index, limit);
 	}
 
+	@GetMapping("{id}")
+	public UserDto findById(@PathVariable Long id) {
+		return userService.findUserDtoById(id);
+	}
+
 	/**
 	 * @param loginDto
 	 * @param br
@@ -89,18 +94,18 @@ public class UserController {
 	 * @param pseudo
 	 * @return true if pseudo is available and false if pseudo is already used
 	 */
-	@GetMapping(path = "/pseudo/{pseudo}")
-	public boolean checkPseudo(@PathVariable String pseudo) {
-		return userService.checkPseudo(pseudo);
-	}
+//	@GetMapping(path = "/pseudo/{pseudo}")
+//	public boolean checkPseudo(@PathVariable String pseudo) {
+//		return userService.checkPseudo(pseudo);
+//	}
 
 	/**
 	 * @param email
 	 * @return true if email is available and false if email is already used
 	 */
-	@GetMapping(path = "/email/{email}")
-	public boolean checkEmail(@PathVariable String email) {
-		return userService.checkEmail(email);
-	}
+//	@GetMapping(path = "/email/{email}")
+//	public boolean checkEmail(@PathVariable String email) {
+//		return userService.checkEmail(email);
+//	}
 
 }
