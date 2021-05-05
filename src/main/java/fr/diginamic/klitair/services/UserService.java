@@ -86,13 +86,26 @@ public class UserService {
 	}
 
 	/**
+	 * @param index
+	 * @param limit
+	 * @param pseudo
+	 * @return
+	 */
+	public Page<UserDto> findByPseudoLike(int index, int limit, String pseudo) {
+		Page<User> users = userRepository.findByPseudoContaining(pseudo, PageRequest.of(index, limit));
+		return new PageImpl<UserDto>(
+				users.stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList()),
+				users.getPageable(), users.getTotalElements());
+	}
+
+	/**
 	 * find user and return userDto with pseudo and password if user is present in
 	 * database, if not, throw BadRequestException
 	 * 
 	 * @param loginDto
 	 * @return userDto
 	 */
-	public UserDto findByPseudo(LoginDto loginDto) {
+	public UserDto login(LoginDto loginDto) {
 		User user = userRepository.findByPseudoAndPassword(loginDto.getPseudo(), loginDto.getPassword())
 				.orElseThrow(() -> new BadRequestException("Pseudo or Password doesn't exist"));
 		return modelMapper.map(user, UserDto.class);
@@ -143,7 +156,7 @@ public class UserService {
 			pseudoAvailable = true;
 		}
 		if (userDto.getId() != null
-				&& userRepository.findById(userDto.getId()).orElseThrow().getPseudo() == userDto.getPseudo()) {
+				&& userRepository.findById(userDto.getId()).orElseThrow().getPseudo().equals(userDto.getPseudo())) {
 			pseudoAvailable = true;
 		}
 		return pseudoAvailable;
@@ -161,7 +174,7 @@ public class UserService {
 			emailAvailable = true;
 		}
 		if (userDto.getId() != null
-				&& userRepository.findById(userDto.getId()).orElseThrow().getEmail() == userDto.getEmail()) {
+				&& userRepository.findById(userDto.getId()).orElseThrow().getEmail().equals(userDto.getEmail())) {
 			emailAvailable = true;
 		}
 		return emailAvailable;

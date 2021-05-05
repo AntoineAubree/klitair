@@ -70,6 +70,18 @@ public class UserController {
 	}
 
 	/**
+	 * @param index
+	 * @param limit
+	 * @param pseudo
+	 * @return
+	 */
+	@GetMapping("{index}/{limit}/{pseudo}")
+	public Page<UserDto> findByPseudoLike(@PathVariable int index, @PathVariable int limit,
+			@PathVariable String pseudo) {
+		return userService.findByPseudoLike(index, limit, pseudo);
+	}
+
+	/**
 	 * @param loginDto
 	 * @param br
 	 * @return userDto
@@ -79,7 +91,7 @@ public class UserController {
 		if (!br.getAllErrors().isEmpty()) {
 			throw new BadRequestException("Pseudo and Password required to sign-in");
 		}
-		return userService.findByPseudo(loginDto);
+		return userService.login(loginDto);
 	}
 
 	/**
