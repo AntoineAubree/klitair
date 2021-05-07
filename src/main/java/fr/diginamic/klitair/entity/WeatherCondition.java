@@ -35,6 +35,10 @@ public class WeatherCondition {
 	@Size(min = 1, max = 150)
 	@NotNull
 	private String state;
+	
+	/** state */
+	@Column
+	private String baliseIcon;
 
 	/** weathers */
 	@OneToMany(mappedBy = "weatherCondition")
