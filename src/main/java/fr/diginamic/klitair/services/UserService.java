@@ -143,7 +143,7 @@ public class UserService {
 			pseudoAvailable = true;
 		}
 		if (userDto.getId() != null
-				&& userRepository.findById(userDto.getId()).orElseThrow().getPseudo() == userDto.getPseudo()) {
+				&& userRepository.findById(userDto.getId()).orElseThrow().getPseudo().equals(userDto.getPseudo())) {
 			pseudoAvailable = true;
 		}
 		return pseudoAvailable;
@@ -161,7 +161,7 @@ public class UserService {
 			emailAvailable = true;
 		}
 		if (userDto.getId() != null
-				&& userRepository.findById(userDto.getId()).orElseThrow().getEmail() == userDto.getEmail()) {
+				&& userRepository.findById(userDto.getId()).orElseThrow().getEmail().equals(userDto.getEmail())) {
 			emailAvailable = true;
 		}
 		return emailAvailable;

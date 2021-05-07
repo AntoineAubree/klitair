@@ -21,6 +21,9 @@ public class MessageDto {
 	@NotNull
 	private Long userId;
 
+	/** user pseudp */
+	private String userPseudo;
+
 	/** section id */
 	@NotNull
 	private Long discussionThreadId;
@@ -31,7 +34,6 @@ public class MessageDto {
 	private String content;
 
 	/** date */
-	@NotNull
 	private LocalDateTime date;
 
 	/** edit */
@@ -138,6 +140,20 @@ public class MessageDto {
 	 */
 	public void setEdit(boolean edit) {
 		this.edit = edit;
+	}
+
+	/**
+	 * @return the userPseudo
+	 */
+	public String getUserPseudo() {
+		return userPseudo;
+	}
+
+	/**
+	 * @param userPseudo the userPseudo to set
+	 */
+	public void setUserPseudo(String userPseudo) {
+		this.userPseudo = userPseudo;
 	}
 
 }

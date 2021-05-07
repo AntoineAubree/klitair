@@ -49,8 +49,8 @@ public class MessageController {
 	}
 
 	@GetMapping("{id}/{index}/{limit}")
-	public Page<MessageDto> findByDiscussionThread(@PathVariable Long idDiscussionThread, @PathVariable int index, @PathVariable int limit) {
-		return messageService.findByDiscussionThread(idDiscussionThread, index, limit);
+	public Page<MessageDto> findByDiscussionThread(@PathVariable Long id, @PathVariable int index, @PathVariable int limit) {
+		return messageService.findByDiscussionThread(id, index, limit);
 	}
 
 	@GetMapping("/user/{id}/{index}/{limit}")

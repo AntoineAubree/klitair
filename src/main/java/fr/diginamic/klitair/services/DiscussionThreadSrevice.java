@@ -70,16 +70,20 @@ public class DiscussionThreadSrevice {
 		discussionThreadRepository.deleteById(id);
 	}
 
-	public boolean checkTitle(String title) {
+	public boolean checkTitle(DiscussionThreadDto discussionThread) {
 		boolean titleAvailable = false;
-		if (discussionThreadRepository.findByTitle(title).isEmpty()) {
+		if (discussionThreadRepository.findByTitle(discussionThread.getTitle()).isEmpty()) {
+			titleAvailable = true;
+		}
+		if (discussionThread.getId() != null && discussionThreadRepository.findById(discussionThread.getId()).orElseThrow().getTitle()
+				.equals(discussionThread.getTitle())) {
 			titleAvailable = true;
 		}
 		return titleAvailable;
 	}
 
 	private void checkIfDiscussionThreadIsAvailable(DiscussionThreadDto discussionThreadDto) {
-		if (!checkTitle(discussionThreadDto.getTitle())) {
+		if (!checkTitle(discussionThreadDto)) {
 			throw new AlreadyExistException("Title not available");
 		}
 	}

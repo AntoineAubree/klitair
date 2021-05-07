@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.diginamic.klitair.dto.SectionDto;
@@ -60,9 +59,9 @@ public class SectionController {
 		sectionService.deleteById(id);
 	}
 
-	@PostMapping(path = "title")
-	public boolean checkTitle(@RequestParam(name = "title") String title) {
-		return sectionService.checkTitle(title);
-	}
+//	@PostMapping(path = "title")
+//	public boolean checkTitle(@RequestParam(name = "title") String title) {
+//		return sectionService.checkTitle(title);
+//	}
 
 }

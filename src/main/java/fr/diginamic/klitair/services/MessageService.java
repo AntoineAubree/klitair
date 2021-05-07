@@ -3,6 +3,7 @@
  */
 package fr.diginamic.klitair.services;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -43,6 +44,9 @@ public class MessageService {
 
 	private MessageDto saveDiscussionThread(MessageDto messageDto) {
 		Message message = modelMapper.map(messageDto, Message.class);
+		if (message.getDate() == null) {
+			message.setDate(LocalDateTime.now());
+		}
 		message = messageRepository.save(message);
 		return modelMapper.map(message, MessageDto.class);
 	}

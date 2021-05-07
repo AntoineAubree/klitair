@@ -70,16 +70,20 @@ public class SectionService {
 		sectionRepository.deleteById(id);
 	}
 
-	public boolean checkTitle(String title) {
+	public boolean checkTitle(SectionDto sectionDto) {
 		boolean titleAvailable = false;
-		if (sectionRepository.findByTitle(title).isEmpty()) {
+		if (sectionRepository.findByTitle(sectionDto.getTitle()).isEmpty()) {
+			titleAvailable = true;
+		}
+		if (sectionDto.getId() != null
+				&& sectionRepository.findById(sectionDto.getId()).orElseThrow().getTitle().equals(sectionDto.getTitle())) {
 			titleAvailable = true;
 		}
 		return titleAvailable;
 	}
 
 	private void checkIfSectionAvailable(SectionDto sectionDto) {
-		if (!checkTitle(sectionDto.getTitle())) {
+		if (!checkTitle(sectionDto)) {
 			throw new AlreadyExistException("Title not available");
 		}
 	}
