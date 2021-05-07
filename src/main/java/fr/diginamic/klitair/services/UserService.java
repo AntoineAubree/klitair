@@ -86,13 +86,26 @@ public class UserService {
 	}
 
 	/**
+	 * @param index
+	 * @param limit
+	 * @param pseudo
+	 * @return
+	 */
+	public Page<UserDto> findByPseudoLike(int index, int limit, String pseudo) {
+		Page<User> users = userRepository.findByPseudoContaining(pseudo, PageRequest.of(index, limit));
+		return new PageImpl<UserDto>(
+				users.stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList()),
+				users.getPageable(), users.getTotalElements());
+	}
+
+	/**
 	 * find user and return userDto with pseudo and password if user is present in
 	 * database, if not, throw BadRequestException
 	 * 
 	 * @param loginDto
 	 * @return userDto
 	 */
-	public UserDto findByPseudo(LoginDto loginDto) {
+	public UserDto login(LoginDto loginDto) {
 		User user = userRepository.findByPseudoAndPassword(loginDto.getPseudo(), loginDto.getPassword())
 				.orElseThrow(() -> new BadRequestException("Pseudo or Password doesn't exist"));
 		return modelMapper.map(user, UserDto.class);
