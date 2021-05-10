@@ -23,6 +23,10 @@ public class DiscussionThreadDto {
 	@NotNull
 	private Long sectionId;
 
+	/** section title */
+	@NotNull
+	private String sectionTitle;
+
 	/** title */
 	@Size(min = 1, max = 80)
 	@NotNull
@@ -30,6 +34,9 @@ public class DiscussionThreadDto {
 
 	/** edit */
 	private boolean edit;
+
+	/** user pseudp */
+	private String userPseudo;
 
 	@Override
 	public String toString() {
@@ -112,6 +119,34 @@ public class DiscussionThreadDto {
 	 */
 	public void setSectionId(Long sectionId) {
 		this.sectionId = sectionId;
+	}
+
+	/**
+	 * @return the userPseudo
+	 */
+	public String getUserPseudo() {
+		return userPseudo;
+	}
+
+	/**
+	 * @param userPseudo the userPseudo to set
+	 */
+	public void setUserPseudo(String userPseudo) {
+		this.userPseudo = userPseudo;
+	}
+
+	/**
+	 * @return the sectionTitle
+	 */
+	public String getSectionTitle() {
+		return sectionTitle;
+	}
+
+	/**
+	 * @param sectionTitle the sectionTitle to set
+	 */
+	public void setSectionTitle(String sectionTitle) {
+		this.sectionTitle = sectionTitle;
 	}
 
 }

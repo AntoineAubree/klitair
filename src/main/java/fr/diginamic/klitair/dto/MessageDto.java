@@ -24,9 +24,13 @@ public class MessageDto {
 	/** user pseudp */
 	private String userPseudo;
 
-	/** section id */
+	/** discussionThread id */
 	@NotNull
 	private Long discussionThreadId;
+
+	/** discussionThread title */
+	@NotNull
+	private String discussionTitle;
 
 	/** title */
 	@Size(min = 1, max = 800)
@@ -154,6 +158,20 @@ public class MessageDto {
 	 */
 	public void setUserPseudo(String userPseudo) {
 		this.userPseudo = userPseudo;
+	}
+
+	/**
+	 * @return the discussionTitle
+	 */
+	public String getDiscussionTitle() {
+		return discussionTitle;
+	}
+
+	/**
+	 * @param discussionTitle the discussionTitle to set
+	 */
+	public void setDiscussionTitle(String discussionTitle) {
+		this.discussionTitle = discussionTitle;
 	}
 
 }

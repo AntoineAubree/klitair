@@ -27,6 +27,9 @@ public class SectionDto {
 	/** edit */
 	private boolean edit;
 
+	/** user pseudp */
+	private String userPseudo;
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -94,6 +97,20 @@ public class SectionDto {
 	 */
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	/**
+	 * @return the userPseudo
+	 */
+	public String getUserPseudo() {
+		return userPseudo;
+	}
+
+	/**
+	 * @param userPseudo the userPseudo to set
+	 */
+	public void setUserPseudo(String userPseudo) {
+		this.userPseudo = userPseudo;
 	}
 
 }
