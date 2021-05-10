@@ -23,6 +23,9 @@ public class DailyWeatherIndicator {
 	@NotNull
 	private String weatherConditions;
 
+	/** baliseIcon */
+	private String baliseIcon;
+
 	/** constructor WITHOUT params */
 
 	public DailyWeatherIndicator() {
@@ -36,11 +39,13 @@ public class DailyWeatherIndicator {
 	 * @param date
 	 * @param weatherConditions
 	 */
-	public DailyWeatherIndicator(float temperature, @NotNull LocalDateTime date, @NotNull String weatherConditions) {
+	public DailyWeatherIndicator(float temperature, @NotNull LocalDateTime date, @NotNull String weatherConditions,
+			String baliseIcon) {
 		super();
 		this.temperature = temperature;
 		this.date = date;
 		this.weatherConditions = weatherConditions;
+		this.baliseIcon = baliseIcon;
 	}
 
 	@Override
@@ -52,6 +57,8 @@ public class DailyWeatherIndicator {
 		builder.append(date);
 		builder.append(", weatherConditions=");
 		builder.append(weatherConditions);
+		builder.append(", baliseIcon=");
+		builder.append(baliseIcon);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -96,6 +103,20 @@ public class DailyWeatherIndicator {
 	 */
 	public void setWeatherConditions(String weatherConditions) {
 		this.weatherConditions = weatherConditions;
+	}
+
+	/**
+	 * @return the baliseIcon
+	 */
+	public String getBaliseIcon() {
+		return baliseIcon;
+	}
+
+	/**
+	 * @param baliseIcon the baliseIcon to set
+	 */
+	public void setBaliseIcon(String baliseIcon) {
+		this.baliseIcon = baliseIcon;
 	}
 
 }

@@ -36,6 +36,10 @@ public class WeatherCondition {
 	@NotNull
 	private String state;
 
+	/** state */
+	@Column
+	private String baliseIcon;
+
 	/** weathers */
 	@OneToMany(mappedBy = "weatherCondition")
 	private Set<IndicatorHistory> indicatorHistory = new HashSet<IndicatorHistory>();
@@ -65,6 +69,10 @@ public class WeatherCondition {
 		builder.append(number);
 		builder.append(", state=");
 		builder.append(state);
+		builder.append(", baliseIcon=");
+		builder.append(baliseIcon);
+		builder.append(", indicatorHistory=");
+		builder.append(indicatorHistory);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -84,6 +92,20 @@ public class WeatherCondition {
 	}
 
 	/**
+	 * @return the number
+	 */
+	public int getNumber() {
+		return number;
+	}
+
+	/**
+	 * @param number the number to set
+	 */
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	/**
 	 * @return the state
 	 */
 	public String getState() {
@@ -98,6 +120,20 @@ public class WeatherCondition {
 	}
 
 	/**
+	 * @return the baliseIcon
+	 */
+	public String getBaliseIcon() {
+		return baliseIcon;
+	}
+
+	/**
+	 * @param baliseIcon the baliseIcon to set
+	 */
+	public void setBaliseIcon(String baliseIcon) {
+		this.baliseIcon = baliseIcon;
+	}
+
+	/**
 	 * @return the indicatorHistory
 	 */
 	public Set<IndicatorHistory> getIndicatorHistory() {
@@ -109,20 +145,6 @@ public class WeatherCondition {
 	 */
 	public void setIndicatorHistory(Set<IndicatorHistory> indicatorHistory) {
 		this.indicatorHistory = indicatorHistory;
-	}
-
-	/**
-	 * @return the number
-	 */
-	public int getNumber() {
-		return number;
-	}
-
-	/**
-	 * @param number the number to set
-	 */
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 }

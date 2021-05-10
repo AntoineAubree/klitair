@@ -85,6 +85,8 @@ public class IndicatorService {
 						DailyWeatherIndicator.class);
 				dailyWeatherIndicator.setWeatherConditions(
 						weatherConditionService.findByNumber(weatherDataPeriod.getWeatherConditions()).getState());
+				dailyWeatherIndicator.setBaliseIcon(
+						weatherConditionService.findByNumber(weatherDataPeriod.getWeatherConditions()).getBaliseIcon());
 				dailyWeatherIndicators.add(dailyWeatherIndicator);
 			}
 		}
