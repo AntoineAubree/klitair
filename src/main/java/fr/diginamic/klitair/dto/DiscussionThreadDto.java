@@ -24,7 +24,6 @@ public class DiscussionThreadDto {
 	private Long sectionId;
 
 	/** section title */
-	@NotNull
 	private String sectionTitle;
 
 	/** title */

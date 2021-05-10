@@ -29,7 +29,6 @@ public class MessageDto {
 	private Long discussionThreadId;
 
 	/** discussionThread title */
-	@NotNull
 	private String discussionTitle;
 
 	/** title */

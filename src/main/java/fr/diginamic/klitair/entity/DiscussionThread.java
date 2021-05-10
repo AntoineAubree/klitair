@@ -6,6 +6,7 @@ package fr.diginamic.klitair.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,7 +49,7 @@ public class DiscussionThread {
 	private Section section;
 
 	/** messages */
-	@OneToMany(mappedBy = "discussionThread")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "discussionThread")
 	private Set<Message> messages = new HashSet<Message>();
 
 	/**

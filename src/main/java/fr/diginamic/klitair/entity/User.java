@@ -6,6 +6,7 @@ package fr.diginamic.klitair.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -106,11 +107,11 @@ public class User {
 	private Set<Section> sections = new HashSet<Section>();
 
 	/** discussion thread */
-	@OneToMany(targetEntity = DiscussionThread.class, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.REMOVE, targetEntity = DiscussionThread.class, mappedBy = "user")
 	private Set<DiscussionThread> discussionThread = new HashSet<DiscussionThread>();
 
 	/** messages */
-	@OneToMany(targetEntity = Message.class, mappedBy = "user")
+	@OneToMany(cascade = CascadeType.REMOVE, targetEntity = Message.class, mappedBy = "user")
 	private Set<Message> messages = new HashSet<Message>();
 
 	/**
